@@ -1803,13 +1803,174 @@
       letter-spacing: 0.05em;
     }
 
-    /* Admin Modal */
-    .admin-modal-box {
+    /* Order Lifecycle Status Banners in Modal */
+    .modal-status-banner {
+      padding: 0.875rem 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+    }
+    .modal-status-banner.pending {
+      background-color: #FEF3C7;
+      border: 1px solid #FCD34D;
+      color: #78350F;
+    }
+    .modal-status-banner.approved {
+      background-color: #D1FAE5;
+      border: 1px solid #6EE7B7;
+      color: #065F46;
+    }
+    .modal-status-banner.declined {
+      background-color: #FEE2E2;
+      border: 1px solid #FCA5A5;
+      color: #991B1B;
+    }
+
+    /* M-Pesa Locked Card (shown when pending admin verification) */
+    .mpesa-locked-card {
+      background: linear-gradient(135deg, rgba(254, 243, 199, 0.45), rgba(254, 215, 170, 0.3));
+      border: 1.5px dashed #F59E0B;
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .mpesa-locked-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      background-color: #FEF3C7;
+      color: #D97706;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .mpesa-locked-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 0.35rem;
+    }
+    .mpesa-locked-desc {
+      font-size: 0.8125rem;
+      color: #78350F;
+      max-width: 420px;
+      margin: 0 auto 1rem;
+      line-height: 1.45;
+    }
+    .mpesa-locked-email-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #FFFFFF;
+      border: 1px solid #FCD34D;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      color: #92400E;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Digital Order Receipt Modal */
+    .receipt-modal-box {
       background-color: var(--bg-surface);
       border-radius: var(--radius-lg);
       max-width: 620px;
       width: 100%;
-      padding: 2rem;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    .receipt-paper {
+      background-color: #FAFBF9;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    [data-theme="dark"] .receipt-paper {
+      background-color: #141B1F;
+      border-color: #2D3748;
+    }
+    .receipt-brand-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px dashed #CBD5E1;
+      padding-bottom: 0.875rem;
+      margin-bottom: 0.875rem;
+    }
+    .receipt-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      font-size: 0.8125rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 480px) {
+      .receipt-meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .receipt-items-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      margin-bottom: 1rem;
+    }
+    .receipt-items-table th {
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      background-color: rgba(14, 90, 46, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      border-radius: 4px;
+    }
+    .receipt-items-table td {
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+    .receipt-total-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background-color: rgba(14, 90, 46, 0.1);
+      border-radius: var(--radius-sm);
+      font-weight: 800;
+      font-size: 1.0625rem;
+      color: var(--primary);
+      margin-bottom: 0.875rem;
+    }
+    .receipt-raw-box {
+      background-color: #0F172A;
+      color: #E2E8F0;
+      padding: 0.875rem;
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 0.75rem;
+      white-space: pre-wrap;
+      max-height: 160px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    /* Admin Modal & Multi-Tab Dashboard */
+    .admin-modal-box {
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      max-width: 860px;
+      width: 100%;
+      padding: 1.75rem;
       box-shadow: var(--shadow-lg);
       border: 1px solid var(--border-subtle);
       position: relative;
@@ -1819,7 +1980,7 @@
 
     .admin-auth-panel {
       text-align: center;
-      padding: 1.5rem 0;
+      padding: 2rem 0;
     }
 
     .admin-auth-input {
@@ -1829,6 +1990,135 @@
       font-size: 1.5rem;
       font-weight: 700;
       margin: 1rem auto;
+    }
+
+    .admin-tabs-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border-subtle);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      padding: 0.625rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .admin-tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .admin-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 700;
+    }
+
+    .admin-tab-badge {
+      font-size: 0.6875rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-full);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .admin-kpi-card {
+      background-color: var(--bg-body);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.125rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      position: relative;
+    }
+
+    .admin-kpi-card.highlight {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .admin-kpi-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .admin-kpi-val {
+      font-size: 1.625rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.15;
+    }
+
+    .admin-kpi-sub {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    .admin-inventory-form-box {
+      background-color: var(--bg-body);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .admin-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface);
+    }
+
+    .admin-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      text-align: left;
+    }
+
+    .admin-data-table th {
+      background-color: var(--bg-body);
+      padding: 0.625rem 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .admin-data-table td {
+      padding: 0.625rem 0.875rem;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    .admin-data-table tr:hover {
+      background-color: rgba(14, 90, 46, 0.02);
     }
 
     .admin-upload-area {
@@ -1874,6 +2164,43 @@
       height: 48px;
       border-radius: var(--radius-sm);
       object-fit: cover;
+    }
+
+    /* Live Customer Stock Indicator Pill */
+    .live-stock-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.875rem;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stock-pulse {
+      animation: pulseDot 2s infinite ease-in-out;
+      background-color: var(--primary);
+    }
+
+    .drawer-stock-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.875rem;
+      background-color: rgba(14, 90, 46, 0.08);
+      border: 1px solid rgba(14, 90, 46, 0.2);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     /* Lightbox Modal */
@@ -2396,13 +2723,13 @@
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <!-- Admin Photo Portal Button -->
-        <button class="admin-nav-btn" id="openAdminBtn" title="System Admin Daily Photos (PIN Required)">
+        <!-- Admin Operations & Inventory Portal Button -->
+        <button class="admin-nav-btn" id="openAdminBtn" title="System Admin & Inventory Dashboard (PIN Required)">
           <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          <span>Admin</span>
+          <span>Admin & Inventory</span>
         </button>
 
         <!-- Theme Toggle -->
@@ -2463,7 +2790,7 @@
         <li>
           <button class="btn btn-outline btn-sm" onclick="closeMobileNav(); openAdminPortal();" style="width: 100%; margin-top: 0.5rem;">
             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <span>Admin: Add Daily Photos</span>
+            <span>Admin: Inventory & Operations</span>
           </button>
         </li>
       </ul>
@@ -2476,12 +2803,21 @@
   <section class="hero-section" id="hero">
     <div class="container hero-grid">
       <div class="hero-content">
-        <!-- Live Price Pill -->
-        <div class="live-price-pill">
-          <span class="live-dot"></span>
-          <span>Live Price: <strong id="heroPriceTag" class="tabular-nums">KES 500</strong> / tray (30 eggs)</span>
-          <span style="opacity: 0.4;">|</span>
-          <span id="heroPriceUpdateText" style="font-size: 0.75rem; color: var(--text-muted);">Updated Oct 17, 2026</span>
+        <!-- Live Badges Row (Price & Available Stock) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 0.625rem; align-items: center; margin-bottom: 1.25rem;">
+          <div class="live-price-pill" style="margin-bottom: 0;">
+            <span class="live-dot"></span>
+            <span>Live Price: <strong id="heroPriceTag" class="tabular-nums">KES 500</strong> / tray (30 eggs)</span>
+            <span style="opacity: 0.4;">|</span>
+            <span id="heroPriceUpdateText" style="font-size: 0.75rem; color: var(--text-muted);">Updated Oct 17, 2026</span>
+          </div>
+
+          <div class="live-stock-pill" id="heroStockPill">
+            <span class="live-dot stock-pulse"></span>
+            <span>Available Stock: <strong id="heroStockTraysCount" class="tabular-nums">500</strong> Trays</span>
+            <span style="opacity: 0.4;">|</span>
+            <span id="heroStockEggsCount" style="font-size: 0.75rem; color: var(--primary); font-weight: 600;">15,000 Eggs Ready</span>
+          </div>
         </div>
 
         <h1 class="hero-title">
@@ -2602,7 +2938,10 @@
       <div class="products-grid">
         <!-- Main Product Card: Eggs (Tray of 30) -->
         <article class="product-card" id="eggProductCard">
-          <span class="product-badge-flag">In Stock · Fast Dispatch</span>
+          <span class="product-badge-flag" id="productCardStockBadge" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+            <span class="live-dot stock-pulse" style="width: 7px; height: 7px;"></span>
+            <span id="productCardStockText">In Stock: 500 Trays Available</span>
+          </span>
 
           <div class="product-card-icon-wrap">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F5B700" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2821,6 +3160,12 @@
     <div class="drawer-body">
       <!-- PANE 1: Current Basket & Checkout Form -->
       <div id="drawerBasketView" class="drawer-view-pane">
+        <!-- Live Available Stock Banner in Basket -->
+        <div class="drawer-stock-banner" id="drawerStockBanner">
+          <span class="live-dot stock-pulse" style="width: 7px; height: 7px;"></span>
+          <span>Mombasa Store Available: <strong id="drawerAvailableStockCount">500</strong> Trays Ready</span>
+        </div>
+
         <!-- Items Container -->
         <div id="cartItemsList" class="cart-items-container">
           <!-- Injected via JavaScript -->
@@ -2842,6 +3187,14 @@
             <label for="custPhone" class="form-label">Kenyan Phone Number (M-Pesa) *</label>
             <input type="tel" id="custPhone" class="form-input" placeholder="e.g. 0704967655 or 0712 345 678" required />
             <span class="input-error-msg" id="custPhoneError">Please enter a valid Kenyan phone (e.g. 07XXXXXXXX or 01XXXXXXXX).</span>
+          </div>
+
+          <!-- Customer Email Address (For Digital Order Receipt) -->
+          <div class="form-group">
+            <label for="custEmail" class="form-label">Email Address (For Digital Order Receipt) *</label>
+            <input type="email" id="custEmail" class="form-input" placeholder="e.g. customer@gmail.com" required autocomplete="email" />
+            <span class="input-error-msg" id="custEmailError">Please enter a valid email address to receive your digital order receipt.</span>
+            <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">An official itemized order receipt & verification receipt will be emailed here upon admin approval.</span>
           </div>
 
           <!-- Delivery Area Dropdown with Detect My Location Button -->
@@ -2996,11 +3349,57 @@
         Your order details are confirmed. WhatsApp is opening now with your summary sent to <strong>0704967655</strong>.
       </p>
 
+      <!-- Dynamic Order Verification & Approval Status Banner -->
+      <div id="modalStatusBanner" class="modal-status-banner pending">
+        <div style="display: flex; align-items: flex-start; gap: 0.6rem;">
+          <span id="modalStatusIcon" style="font-size: 1.25rem; line-height: 1;">⏱️</span>
+          <div style="flex: 1;">
+            <strong id="modalStatusTitle" style="display: block; font-size: 0.9375rem; margin-bottom: 0.2rem;">Order Submitted & Pending Admin Verification</strong>
+            <p id="modalStatusDesc" style="margin: 0; font-size: 0.78125rem;">
+              Your order is queued for admin review. Once approved, the Lipa na M-Pesa payment section will unlock and an official digital order receipt will be sent to your email.
+            </p>
+            <div id="modalStatusEmailTag" style="margin-top: 0.4rem; font-size: 0.75rem;">
+              Receipt Target: <strong id="modalReceiptEmailTarget" style="text-decoration: underline;">customer@gmail.com</strong>
+            </div>
+            <div id="modalStatusActionRow" style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline btn-sm" id="modalViewReceiptBtn" onclick="openDigitalReceiptModal(state.currentModalOrderId)" style="display: none; padding: 0.2rem 0.55rem; font-size: 0.75rem;">
+                📧 View / Print Digital Receipt
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Order Tracking ID Badge -->
       <div id="modalOrderRefBadge" style="display: none; align-items: center; justify-content: center; gap: 0.5rem; background: var(--bg-body); border: 1px dashed var(--border-subtle); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.8125rem;">
         <span style="color: var(--text-muted);">Order Tracking ID:</span>
         <strong id="modalOrderRefId" style="font-family: monospace; color: var(--primary); font-size: 0.9375rem;">#LV-000000</strong>
-        <span class="order-status-pill" style="margin-left: 0.25rem;">Saved to Browser</span>
+        <span class="order-status-pill" id="modalOrderStatusPill" style="margin-left: 0.25rem;">Saved to Browser</span>
+      </div>
+
+      <!-- M-Pesa Locked Box (shown when pending admin verification) -->
+      <div class="mpesa-locked-card" id="mpesaLockedBox" style="display: none;">
+        <div class="mpesa-locked-icon">
+          <svg class="icon icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="mpesa-locked-title">M-Pesa Payment Locked</div>
+        <div class="mpesa-locked-desc">
+          Payment is held until an administrator verifies tray stock and assigns a Mombasa dispatch rider. A digital order receipt will be automatically emailed to you upon approval.
+        </div>
+        <div>
+          <div class="mpesa-locked-email-pill">
+            <svg class="icon icon-sm" style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Receipt Destination: <strong id="mpesaLockTargetEmail">—</strong></span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="closeConfirmModal(); openAdminPortal(); switchAdminTab('orders');" style="font-size: 0.75rem; border-color: #D97706; color: #B45309;">
+            🔑 Admin Portal: Review & Approve Order
+          </button>
+        </div>
       </div>
 
       <!-- Interactive M-Pesa Payment Box with Dynamic QR Code Generator -->
@@ -3151,6 +3550,146 @@
   </div>
 
   <!-- ==========================================================================
+       DIGITAL ORDER RECEIPT & EMAIL NOTIFICATION MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="receiptModalBackdrop">
+    <div class="receipt-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.625rem;">
+          <img src="/src/assets/images/lymbo_logo.svg" alt="Lymbo Logo" style="width: 34px; height: 34px; object-fit: contain;" />
+          <div>
+            <h3 style="font-size: 1.125rem; font-weight: 700; line-height: 1.2;">Official Digital Order Receipt</h3>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Lymbo Ventures · Mombasa Operations Desk</span>
+          </div>
+        </div>
+        <button type="button" class="drawer-close-btn" onclick="closeDigitalReceiptModal()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Receipt Email Dispatch Banner -->
+      <div class="modal-status-banner approved" id="receiptEmailSentNotice" style="margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg class="icon icon-sm" style="color: #059669;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span><strong>Digital Receipt Emailed</strong> to <strong id="receiptModalRecipientEmail" style="text-decoration: underline;">customer@gmail.com</strong></span>
+          </div>
+          <span style="font-size: 0.6875rem; background: #FFFFFF; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; color: #065F46;" id="receiptModalVerifiedBadge">✓ VERIFIED & APPROVED</span>
+        </div>
+      </div>
+
+      <!-- Printable Paper Receipt Layout -->
+      <div class="receipt-paper" id="printableReceiptPaper">
+        <div class="receipt-brand-head">
+          <div>
+            <strong style="display: block; font-size: 1.25rem; color: var(--primary); letter-spacing: 0.03em;">LYMBO VENTURES</strong>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Quality General Supplies · Fresh Eggs Delivery</span>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Mombasa, Kenya · Hotline: 0704 967 655 · lymboventures0@gmail.com</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Order Receipt No.</div>
+            <strong id="receiptDisplayOrderRef" style="font-family: monospace; font-size: 1.125rem; color: var(--text-main);">#LV-000000</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;" id="receiptDisplayDate">--</div>
+          </div>
+        </div>
+
+        <div class="receipt-meta-grid">
+          <div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Customer Details</div>
+            <div style="font-weight: 700; color: var(--text-main);" id="receiptDisplayCustName">--</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);" id="receiptDisplayCustPhone">--</div>
+            <div style="font-size: 0.75rem; color: var(--primary); font-weight: 600;" id="receiptDisplayCustEmail">--</div>
+          </div>
+          <div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Delivery & Instructions</div>
+            <div style="font-weight: 700; color: var(--text-main);" id="receiptDisplayArea">--</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);" id="receiptDisplayLandmark">--</div>
+            <div style="font-size: 0.72rem; color: var(--primary); font-style: italic;" id="receiptDisplayInstructions"></div>
+          </div>
+        </div>
+
+        <table class="receipt-items-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th style="text-align: center;">Qty</th>
+              <th style="text-align: right;">Unit Rate</th>
+              <th style="text-align: right;">Amount (KES)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Farm-Fresh Eggs (Tray of 30)</strong>
+                <div style="font-size: 0.7rem; color: var(--text-muted);" id="receiptDisplayEggCount">30 fresh eggs</div>
+              </td>
+              <td style="text-align: center;" id="receiptDisplayTrays">1</td>
+              <td style="text-align: right;" id="receiptDisplayUnitPrice">KES 500</td>
+              <td style="text-align: right; font-weight: 700;" id="receiptDisplaySubtotal">KES 500</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Doorstep Delivery Fee</strong>
+                <div style="font-size: 0.7rem; color: var(--text-muted);" id="receiptDisplayDeliveryAreaNote">Mombasa delivery zone</div>
+              </td>
+              <td style="text-align: center;">1</td>
+              <td style="text-align: right;">—</td>
+              <td style="text-align: right; font-weight: 700;" id="receiptDisplayDeliveryFee">KES 100</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="receipt-total-bar">
+          <span>GRAND TOTAL AMOUNT</span>
+          <span id="receiptDisplayGrandTotal" class="tabular-nums">KES 600</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #CBD5E1; font-size: 0.75rem;">
+          <div>
+            <span style="color: var(--text-muted);">Payment Method:</span>
+            <strong id="receiptDisplayPayMethod" style="display: block; color: var(--text-main);">M-Pesa (Buy Goods Till)</strong>
+            <span style="color: var(--text-muted);">Till: <strong id="receiptDisplayTill">XXXXXX</strong></span>
+            <div id="receiptDisplayMpesaCodeRow" style="margin-top: 0.2rem;"></div>
+          </div>
+          <div>
+            <span style="color: var(--text-muted);">Audit & Verification:</span>
+            <strong style="display: block; color: #065F46;" id="receiptDisplayVerifiedBy">✓ Verified by Admin</strong>
+            <span style="color: var(--text-muted); font-size: 0.7rem;" id="receiptDisplayVerifiedAt">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raw Text Receipt Preview -->
+      <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Digital Order Receipt Summary (Auto-Sent to Customer):</span>
+        <button type="button" class="btn btn-outline btn-sm" onclick="copyReceiptText()" style="padding: 0.15rem 0.5rem; font-size: 0.6875rem;">
+          📋 Copy Summary
+        </button>
+      </div>
+      <pre class="receipt-raw-box" id="receiptRawTextPreview"></pre>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="#" id="receiptOpenMailtoBtn" class="btn btn-primary btn-sm" style="flex: 1; min-width: 160px; font-size: 0.75rem; text-decoration: none;">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Send / Open in Email App</span>
+        </a>
+        <button type="button" class="btn btn-outline btn-sm" onclick="copyReceiptText()" style="flex: 1; min-width: 120px; font-size: 0.75rem;">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Copy Receipt</span>
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" onclick="printReceiptPaper()" style="font-size: 0.75rem;">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <span>Print / Save PDF</span>
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" onclick="closeDigitalReceiptModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        ADMIN DAILY PHOTO MANAGEMENT MODAL
        ========================================================================== -->
   <div class="modal-backdrop" id="adminModalBackdrop">
@@ -3158,7 +3697,10 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
         <div style="display: flex; align-items: center; gap: 0.625rem;">
           <img src="/src/assets/images/lymbo_logo.svg" alt="Lymbo Logo" style="width: 34px; height: 34px; object-fit: contain;" />
-          <h3 style="font-size: 1.25rem; font-weight: 700;">System Admin Photo Manager</h3>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; line-height: 1.2;">Admin Operations & Inventory Portal</h3>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Lymbo Ventures · Mombasa Dispatch & Stock Control</span>
+          </div>
         </div>
         <button type="button" class="drawer-close-btn" onclick="closeAdminPortal()">
           <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -3178,7 +3720,7 @@
         <input type="password" id="adminPinInput" class="form-input admin-auth-input" maxlength="4" placeholder="••••" />
         <div>
           <button type="button" class="btn btn-primary btn-sm" id="adminLoginBtn" style="min-width: 130px;">
-            Unlock Portal
+            Unlock Operations Portal
           </button>
         </div>
         <span id="pinErrorMsg" style="display: none; color: #DC2626; font-size: 0.75rem; margin-top: 0.5rem;">Incorrect PIN. Try 1234.</span>
@@ -3186,75 +3728,251 @@
 
       <!-- Admin Upload & Management Interface -->
       <div id="adminManageScreen" style="display: none;">
-        <div style="background-color: var(--primary-light); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-size: 0.8125rem; color: var(--primary); display: flex; justify-content: space-between; align-items: center;">
-          <span>✓ Admin Verified. Photos added here are instantly visible to visitors.</span>
-          <button type="button" onclick="lockAdminPortal()" style="font-weight: 600; text-decoration: underline;">Lock</button>
+        <!-- Top Status Banner -->
+        <div style="background-color: var(--primary-light); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-size: 0.8125rem; color: var(--primary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <span>✓ <strong>Admin Verified</strong> · Operations & Inventory Active (lymboventures0@gmail.com)</span>
+          <button type="button" onclick="lockAdminPortal()" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.6rem; border-color: var(--primary); color: var(--primary);">
+            🔒 Lock Portal
+          </button>
         </div>
 
-        <form id="adminPhotoForm">
-          <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;">Add New Daily Photo</h4>
+        <!-- Admin Navigation Tabs -->
+        <div class="admin-tabs-nav" role="tablist">
+          <button type="button" class="admin-tab-btn active" id="adminTabInventoryBtn" onclick="switchAdminTab('inventory')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span>Inventory Management</span>
+          </button>
+          <button type="button" class="admin-tab-btn" id="adminTabOrdersBtn" onclick="switchAdminTab('orders')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Orders & Verification</span>
+            <span class="admin-tab-badge" id="adminOrdersTabBadge">0</span>
+          </button>
+          <button type="button" class="admin-tab-btn" id="adminTabPhotosBtn" onclick="switchAdminTab('photos')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Daily Photos (<span id="adminPhotosCountTab">3</span>)</span>
+          </button>
+        </div>
 
-          <div class="admin-upload-area" onclick="document.getElementById('adminFileInput').click()">
-            <svg class="icon icon-lg" style="margin: 0 auto 0.5rem; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-            <div style="font-weight: 600; font-size: 0.875rem;">Click to snap photo or choose from device</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Supports phone camera pictures & desktop files (JPG, PNG, WebP)</div>
-            <img id="adminImagePreview" class="admin-photo-preview" alt="Preview" />
-          </div>
-          <input type="file" id="adminFileInput" accept="image/*" style="display: none;" />
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
-            <div class="form-group">
-              <label class="form-label">Batch Tag / Label</label>
-              <select id="adminPhotoTag" class="form-select">
-                <option value="Morning Dispatch">Morning Dispatch</option>
-                <option value="Farm Fresh Arrival">Farm Fresh Arrival</option>
-                <option value="Grade A Sorting">Grade A Sorting</option>
-                <option value="Wholesale Crates">Wholesale Crates</option>
-                <option value="Customer Delivery">Customer Delivery</option>
-              </select>
+        <!-- ==========================================
+             PANE 1: INVENTORY MANAGEMENT DASHBOARD
+             ========================================== -->
+        <div id="adminTabInventoryPane">
+          <!-- KPI Metrics Row -->
+          <div class="admin-kpi-grid">
+            <div class="admin-kpi-card highlight">
+              <span class="admin-kpi-label">Available Stock (Live)</span>
+              <div class="admin-kpi-val"><span id="kpiAvailableStock">500</span> <span style="font-size: 1rem; font-weight: 600;">Trays</span></div>
+              <span class="admin-kpi-sub" style="color: var(--primary); font-weight: 700;">✓ Visible to Customers (Real-time)</span>
             </div>
-            <div class="form-group">
-              <label class="form-label">Date</label>
-              <input type="text" id="adminPhotoDate" class="form-input" placeholder="e.g. Today · Oct 19" />
+            <div class="admin-kpi-card">
+              <span class="admin-kpi-label">Total Goods Received</span>
+              <div class="admin-kpi-val"><span id="kpiTotalReceived">500</span> <span style="font-size: 1rem; font-weight: 600;">Trays</span></div>
+              <span class="admin-kpi-sub">Cumulative recorded intake</span>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="admin-kpi-label">Total Dispatched / Sold</span>
+              <div class="admin-kpi-val"><span id="kpiTotalDispatched">0</span> <span style="font-size: 1rem; font-weight: 600;">Trays</span></div>
+              <span class="admin-kpi-sub">Automated order deductions</span>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="admin-kpi-label">Stock Valuation (KES)</span>
+              <div class="admin-kpi-val"><span id="kpiStockValue">KES 250,000</span></div>
+              <span class="admin-kpi-sub">@ KES 500 / Tray retail</span>
             </div>
           </div>
 
-          <div class="form-group" style="margin-bottom: 1rem;">
-            <label class="form-label">Caption / Description</label>
-            <input type="text" id="adminPhotoCaption" class="form-input" placeholder="e.g. Fresh crate arrivals ready for Nyali & Island dispatch" required />
+          <!-- Goods Received Input Form ("only goods received is the only figure inputed by the admin") -->
+          <div class="admin-inventory-form-box">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Log Goods Received (Stock Inward)</h4>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem;">
+                  The quantity of trays received is the <strong>only figure required from admin</strong>. Available stock recalculates automatically.
+                </p>
+              </div>
+              <span style="font-size: 0.6875rem; background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px;">
+                Automated Inventory Ledger
+              </span>
+            </div>
+
+            <form id="adminGoodsReceivedForm">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div class="form-group">
+                  <label for="adminGoodsTrays" class="form-label">Quantity of Trays Received *</label>
+                  <input type="number" id="adminGoodsTrays" class="form-input" min="1" step="1" placeholder="e.g. 150" required style="font-size: 1.125rem; font-weight: 700; color: var(--primary);" />
+                </div>
+                <div class="form-group">
+                  <label for="adminGoodsRef" class="form-label">Batch / Waybill Ref</label>
+                  <input type="text" id="adminGoodsRef" class="form-input" placeholder="e.g. BATCH-MBS-02" />
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div class="form-group">
+                  <label for="adminGoodsSupplier" class="form-label">Supplier / Farm Source</label>
+                  <input type="text" id="adminGoodsSupplier" class="form-input" placeholder="e.g. Lymbo Farm Hub (Mombasa)" />
+                </div>
+                <div class="form-group">
+                  <label for="adminGoodsDate" class="form-label">Date Received</label>
+                  <input type="date" id="adminGoodsDate" class="form-input" />
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label for="adminGoodsNotes" class="form-label">Quality & Delivery Inspection Notes</label>
+                <input type="text" id="adminGoodsNotes" class="form-input" placeholder="e.g. Grade A fresh arrival, crates inspected, zero cracks, clean packaging" />
+              </div>
+
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="submit" class="btn btn-primary btn-sm" style="flex: 1;">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  <span>Record Goods Received & Update Live Stock</span>
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div style="display: flex; gap: 0.75rem;">
-            <button type="submit" class="btn btn-primary btn-sm" style="flex: 1;">
-              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Publish Photo to Website</span>
-            </button>
-            <button type="button" class="btn btn-outline btn-sm" id="resetDefaultPhotosBtn" title="Reset to original default photos">
-              Restore Defaults
-            </button>
-          </div>
-        </form>
+          <!-- Goods Received Ledger Table (Private to Admin) -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <h4 style="font-size: 0.9375rem; font-weight: 700; color: var(--text-main);">Goods Received Audit Ledger</h4>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Confidential internal records. Detailed history kept strictly private to admin.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="downloadInventoryCsv()" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download Ledger (CSV)</span>
+              </button>
+            </div>
 
-        <div style="margin-top: 2rem;">
-          <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem;">Current Gallery Photos (<span id="adminPhotosCount">3</span>)</h4>
-          <div style="max-height: 240px; overflow-y: auto;">
-            <table class="admin-photos-table">
+            <div class="admin-table-wrap" style="max-height: 250px; overflow-y: auto;">
+              <table class="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>Batch Ref</th>
+                    <th>Date</th>
+                    <th>Trays Inward</th>
+                    <th>Supplier / Farm</th>
+                    <th>Notes</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminInventoryTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             PANE 2: ORDERS & TRANSACTIONS AUDIT
+             ========================================== -->
+        <div id="adminTabOrdersPane" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <h4 style="font-size: 0.9375rem; font-weight: 700; color: var(--text-main);">Customer Orders & Transactions Audit</h4>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Review pending orders, check transactions (including >48 hrs), approve, or export receipts to email.</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="downloadOrdersCsv()" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download Orders (CSV)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-table-wrap" style="max-height: 380px; overflow-y: auto;">
+            <table class="admin-data-table">
               <thead>
                 <tr>
-                  <th>Photo</th>
-                  <th>Tag / Caption</th>
-                  <th>Date</th>
-                  <th>Action</th>
+                  <th>Order Ref</th>
+                  <th>Date & Time</th>
+                  <th>Customer</th>
+                  <th>Delivery Area & Landmark</th>
+                  <th>Trays</th>
+                  <th>Total (KES)</th>
+                  <th>Payment / Code</th>
+                  <th>Status</th>
+                  <th>Admin Actions</th>
                 </tr>
               </thead>
-              <tbody id="adminPhotosTableBody">
+              <tbody id="adminOrdersTableBody">
                 <!-- Injected via JS -->
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             PANE 3: DAILY FRESH PHOTOS
+             ========================================== -->
+        <div id="adminTabPhotosPane" style="display: none;">
+          <form id="adminPhotoForm">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;">Add New Daily Fresh Photo</h4>
+
+            <div class="admin-upload-area" onclick="document.getElementById('adminFileInput').click()">
+              <svg class="icon icon-lg" style="margin: 0 auto 0.5rem; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <div style="font-weight: 600; font-size: 0.875rem;">Click to snap photo or choose from device</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Supports phone camera pictures & desktop files (JPG, PNG, WebP)</div>
+              <img id="adminImagePreview" class="admin-photo-preview" alt="Preview" />
+            </div>
+            <input type="file" id="adminFileInput" accept="image/*" style="display: none;" />
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Batch Tag / Label</label>
+                <select id="adminPhotoTag" class="form-select">
+                  <option value="Morning Dispatch">Morning Dispatch</option>
+                  <option value="Farm Fresh Arrival">Farm Fresh Arrival</option>
+                  <option value="Grade A Sorting">Grade A Sorting</option>
+                  <option value="Wholesale Crates">Wholesale Crates</option>
+                  <option value="Customer Delivery">Customer Delivery</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="text" id="adminPhotoDate" class="form-input" placeholder="e.g. Today · Oct 19" />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">Caption / Description</label>
+              <input type="text" id="adminPhotoCaption" class="form-input" placeholder="e.g. Fresh crate arrivals ready for Nyali & Island dispatch" required />
+            </div>
+
+            <div style="display: flex; gap: 0.75rem;">
+              <button type="submit" class="btn btn-primary btn-sm" style="flex: 1;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Publish Photo to Website</span>
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" id="resetDefaultPhotosBtn" title="Reset to original default photos">
+                Restore Defaults
+              </button>
+            </div>
+          </form>
+
+          <div style="margin-top: 2rem;">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem;">Current Gallery Photos (<span id="adminPhotosCount">3</span>)</h4>
+            <div style="max-height: 240px; overflow-y: auto;">
+              <table class="admin-photos-table">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Tag / Caption</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminPhotosTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -3571,7 +4289,7 @@
             <li><a href="#bulk">Bulk Orders (10+ Trays)</a></li>
             <li><a href="#how-to-order">Order Process</a></li>
             <li><a href="#faq">Delivery FAQ</a></li>
-            <li><a href="javascript:void(0)" onclick="openAdminPortal()" style="color: var(--primary); font-weight: 600;">Admin: Manage Photos</a></li>
+            <li><a href="javascript:void(0)" onclick="openAdminPortal()" style="color: var(--primary); font-weight: 600;">Admin: Inventory & Operations</a></li>
           </ul>
         </div>
 
@@ -3680,6 +4398,7 @@
     const STORAGE_KEY = "lymbo_ventures_cart_v3";
     const PHOTOS_STORAGE_KEY = "lymbo_ventures_daily_photos_v2";
     const ORDER_HISTORY_STORAGE_KEY = "lymbo_ventures_order_history_v1";
+    const INVENTORY_STORAGE_KEY = "lymbo_ventures_inventory_v1";
 
     let state = {
       cart: {
@@ -3689,12 +4408,42 @@
       theme: "light",
       dailyPhotos: [],
       orderHistory: [],
+      inventory: {
+        goodsReceived: []
+      },
+      adminActiveTab: "inventory",
       activeDrawerTab: "basket",
       isAdminAuthenticated: false,
       newPhotoBase64: "",
       lastOrderDetails: null,
       currentModalOrderId: null
     };
+
+    function getDefaultInventory() {
+      return {
+        goodsReceived: [
+          {
+            id: "GR-1001",
+            batchRef: "BATCH-MBS-01",
+            date: "2026-10-19",
+            time: "08:00",
+            trays: 500, // The only required figure
+            supplier: "Lymbo Farm Hub (Mombasa)",
+            notes: "Initial authenticated stock load - Grade A inspected table eggs",
+            recordedBy: "Admin",
+            timestamp: "2026-10-19T08:00:00Z"
+          }
+        ]
+      };
+    }
+
+    function saveInventory() {
+      try {
+        localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(state.inventory));
+      } catch (err) {
+        console.warn("Could not persist inventory:", err);
+      }
+    }
 
     function loadPersistedState() {
       // Load cart
@@ -3730,6 +4479,23 @@
         state.dailyPhotos = [...DEFAULT_DAILY_PHOTOS];
       }
 
+      // Load inventory
+      try {
+        const savedInv = localStorage.getItem(INVENTORY_STORAGE_KEY);
+        if (savedInv) {
+          const parsedInv = JSON.parse(savedInv);
+          if (parsedInv && Array.isArray(parsedInv.goodsReceived) && parsedInv.goodsReceived.length > 0) {
+            state.inventory = parsedInv;
+          } else {
+            state.inventory = getDefaultInventory();
+          }
+        } else {
+          state.inventory = getDefaultInventory();
+        }
+      } catch (err) {
+        state.inventory = getDefaultInventory();
+      }
+
       // Load order history from localStorage
       try {
         const savedHistory = localStorage.getItem(ORDER_HISTORY_STORAGE_KEY);
@@ -3755,6 +4521,10 @@
           }
           if (phoneInput && !phoneInput.value && lastOrder.customerPhone) {
             phoneInput.value = lastOrder.customerPhone;
+          }
+          const emailInput = document.getElementById("custEmail");
+          if (emailInput && !emailInput.value && lastOrder.customerEmail) {
+            emailInput.value = lastOrder.customerEmail;
           }
           if (addressInput && !addressInput.value && lastOrder.landmarkAddress) {
             addressInput.value = lastOrder.landmarkAddress;
@@ -3888,39 +4658,58 @@
         let statusBadge = '';
         let paymentInfoRow = '';
         const isCash = order.paymentMethod && order.paymentMethod.includes("Cash");
+        const isApproved = order.orderStatus === "approved";
+        const isDeclined = order.orderStatus === "declined" || order.orderStatus === "cancelled";
 
-        if (isCash) {
+        if (isDeclined) {
+          statusBadge = `
+            <span class="order-status-pill" style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5;">
+              <span>✕ Order Declined</span>
+            </span>
+          `;
+          paymentInfoRow = `<span style="color: #991B1B;">Order cancelled by dispatch. Stock returned.</span>`;
+        } else if (isApproved) {
+          statusBadge = `
+            <span class="order-status-pill" style="background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7;">
+              <span>✓ Approved · Receipt Emailed</span>
+            </span>
+          `;
+          if (isCash) {
+            paymentInfoRow = `<span>Cash on Delivery approved (Pay rider upon arrival)</span>`;
+          } else if (order.mpesaCode) {
+            paymentInfoRow = `
+              <span style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                <span>M-Pesa:</span>
+                <strong style="font-family: monospace; color: #065F46; background: #D1FAE5; padding: 0.1rem 0.35rem; border-radius: 4px; border: 1px solid #6EE7B7;">${escapeHtml(order.mpesaCode)}</strong>
+                <span style="font-size: 0.6875rem; color: #059669; font-weight: 700;">(Approved & Verified)</span>
+              </span>
+            `;
+          } else {
+            paymentInfoRow = `
+              <span style="display: flex; align-items: center; gap: 0.35rem; color: #059669;">
+                <span>Lipa na M-Pesa</span>
+                <span style="font-size: 0.6875rem; background: #D1FAE5; padding: 0.1rem 0.35rem; border-radius: 4px; font-weight: 700;">Unlocked</span>
+              </span>
+            `;
+          }
+        } else if (isCash) {
           statusBadge = `
             <span class="order-status-pill cod">
-              <span>💵 Pay on Delivery</span>
+              <span>💵 Pay on Delivery (Pending Review)</span>
             </span>
           `;
-          paymentInfoRow = `<span>Cash on Delivery (Pay rider upon arrival)</span>`;
-        } else if (order.mpesaCode) {
-          statusBadge = `
-            <span class="order-status-pill pending-verification">
-              <svg class="icon icon-sm" style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Pending Verification</span>
-            </span>
-          `;
-          paymentInfoRow = `
-            <span style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
-              <span>M-Pesa:</span>
-              <strong style="font-family: monospace; color: #92400E; background: #FEF3C7; padding: 0.1rem 0.35rem; border-radius: 4px; border: 1px solid #FCD34D;">${escapeHtml(order.mpesaCode)}</strong>
-              <span style="font-size: 0.6875rem; color: #D97706; font-weight: 600;">(Pending Verification)</span>
-            </span>
-          `;
+          paymentInfoRow = `<span>Cash on Delivery (Pending admin verification)</span>`;
         } else {
           statusBadge = `
-            <span class="order-status-pill awaiting-payment">
-              <svg class="icon icon-sm" style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-              <span>Pending Payment</span>
+            <span class="order-status-pill pending-verification" style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;">
+              <svg class="icon icon-sm" style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Pending Admin Verification</span>
             </span>
           `;
           paymentInfoRow = `
-            <span style="display: flex; align-items: center; gap: 0.35rem; color: #DC2626;">
-              <span>Lipa na M-Pesa</span>
-              <span style="font-size: 0.6875rem; background: #FEE2E2; padding: 0.1rem 0.35rem; border-radius: 4px; font-weight: 600;">Code Needed</span>
+            <span style="display: flex; align-items: center; gap: 0.35rem; color: #B45309;">
+              <span>M-Pesa Payment:</span>
+              <span style="font-size: 0.6875rem; background: #FEF3C7; padding: 0.1rem 0.35rem; border-radius: 4px; font-weight: 600;">Locked (Awaiting Approval)</span>
             </span>
           `;
         }
@@ -3949,6 +4738,12 @@
               <span>Customer:</span>
               <strong style="color: var(--text-main);">${escapeHtml(order.customerName)} (${escapeHtml(order.customerPhone)})</strong>
             </div>
+            ${order.customerEmail ? `
+            <div class="order-card-detail-row">
+              <span>Receipt Email:</span>
+              <span style="color: var(--primary); font-weight: 600; font-size: 0.75rem;">${escapeHtml(order.customerEmail)}</span>
+            </div>
+            ` : ''}
             <div class="order-card-detail-row">
               <span>Delivery Area:</span>
               <span>${escapeHtml(order.deliveryArea)} (${CONFIG.currency} ${(order.deliveryFee || 0).toLocaleString()})</span>
@@ -3964,7 +4759,7 @@
             </div>
             ` : ''}
             <div class="order-card-detail-row">
-              <span>Payment:</span>
+              <span>Payment Status:</span>
               ${paymentInfoRow}
             </div>
             <div class="order-card-total-row">
@@ -3977,9 +4772,12 @@
             <button type="button" class="btn btn-outline btn-sm" onclick="reorderPastOrder('${order.id}')" style="flex: 1; font-size: 0.75rem; padding: 0.375rem 0.5rem;" title="Load this quantity and delivery details into basket">
               🔄 Reorder
             </button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="openDigitalReceiptModal('${order.id}')" style="font-size: 0.75rem; padding: 0.375rem 0.5rem;" title="View official digital order receipt">
+              📧 Receipt
+            </button>
             ${!isCash ? `
-              <button type="button" class="btn ${order.mpesaCode ? 'btn-outline' : 'btn-primary'} btn-sm" onclick="promptMpesaCode('${order.id}')" style="flex: 1.2; font-size: 0.75rem; padding: 0.375rem 0.5rem;" title="Enter or view M-Pesa transaction code">
-                ${order.mpesaCode ? `✏️ Code: ${escapeHtml(order.mpesaCode)}` : `➕ Enter M-Pesa Code`}
+              <button type="button" class="btn ${isApproved ? (order.mpesaCode ? 'btn-outline' : 'btn-primary') : 'btn-outline'} btn-sm" onclick="promptMpesaCode('${order.id}')" style="flex: 1.2; font-size: 0.75rem; padding: 0.375rem 0.5rem; ${!isApproved ? 'border-color: #FCD34D; color: #92400E; background: #FEF3C7;' : ''}" title="${isApproved ? 'Enter or view M-Pesa transaction code' : 'Awaiting admin verification'}">
+                ${!isApproved ? `🔒 Awaiting Approval` : (order.mpesaCode ? `✏️ Code: ${escapeHtml(order.mpesaCode)}` : `📱 Pay with M-Pesa`)}
               </button>
             ` : `
               <button type="button" class="btn btn-primary btn-sm" onclick="viewOrderPayment('${order.id}')" style="flex: 1; font-size: 0.75rem; padding: 0.375rem 0.5rem;">
@@ -4087,6 +4885,7 @@
       // Pre-fill form fields
       const nameInput = document.getElementById("custName");
       const phoneInput = document.getElementById("custPhone");
+      const emailInput = document.getElementById("custEmail");
       const areaSelect = document.getElementById("custArea");
       const addressInput = document.getElementById("custAddress");
       const deliveryInstructionsInput = document.getElementById("custDeliveryInstructions");
@@ -4094,6 +4893,7 @@
 
       if (nameInput) nameInput.value = order.customerName || "";
       if (phoneInput) phoneInput.value = order.customerPhone || "";
+      if (emailInput) emailInput.value = order.customerEmail || "";
       if (areaSelect) areaSelect.value = order.deliveryArea || "";
       if (addressInput) addressInput.value = order.landmarkAddress || "";
       if (deliveryInstructionsInput) deliveryInstructionsInput.value = order.deliveryInstructions || "";
@@ -4457,7 +5257,18 @@
     function showAdminManageScreen() {
       document.getElementById("adminAuthScreen").style.display = "none";
       document.getElementById("adminManageScreen").style.display = "block";
-      renderAdminPhotosTable();
+      
+      // Setup default date and batch ref in Goods Received form
+      const goodsDate = document.getElementById("adminGoodsDate");
+      if (goodsDate && !goodsDate.value) {
+        goodsDate.value = new Date().toISOString().split("T")[0];
+      }
+      const goodsRef = document.getElementById("adminGoodsRef");
+      if (goodsRef && !goodsRef.value) {
+        goodsRef.value = `BATCH-MBS-${Math.floor(1000 + Math.random() * 9000)}`;
+      }
+
+      switchAdminTab(state.adminActiveTab || 'inventory');
     }
 
     function lockAdminPortal() {
@@ -4475,11 +5286,619 @@
         state.isAdminAuthenticated = true;
         if (err) err.style.display = "none";
         showAdminManageScreen();
-        showToast("Welcome Admin! You can now add daily photos.");
+        showToast("Welcome Admin! Accessing Lymbo Ventures Operations & Inventory.");
       } else {
         if (err) err.style.display = "block";
         pinInput.focus();
       }
+    }
+
+    /* ==========================================================================
+       AUTOMATED INVENTORY & ORDER VERIFICATION SYSTEM
+       ========================================================================== */
+    function getTotalGoodsReceivedTrays() {
+      const list = state.inventory?.goodsReceived || [];
+      return list.reduce((sum, item) => sum + (Number(item.trays) || 0), 0);
+    }
+
+    function getTotalDispatchedTrays() {
+      const orders = state.orderHistory || [];
+      return orders
+        .filter(o => o.orderStatus !== "declined" && o.orderStatus !== "cancelled")
+        .reduce((sum, o) => sum + (Number(o.trays) || 0), 0);
+    }
+
+    function getAvailableStockTrays() {
+      const received = getTotalGoodsReceivedTrays();
+      const dispatched = getTotalDispatchedTrays();
+      return Math.max(0, received - dispatched);
+    }
+
+    function updateCustomerStockUI() {
+      const available = getAvailableStockTrays();
+      const totalEggs = available * CONFIG.eggTrayCount;
+      const totalReceived = getTotalGoodsReceivedTrays();
+      const totalDispatched = getTotalDispatchedTrays();
+      const stockVal = available * CONFIG.eggPricePerTray;
+
+      // Customer-Facing Hero Stock Pill
+      const heroTrays = document.getElementById("heroStockTraysCount");
+      if (heroTrays) heroTrays.textContent = available.toLocaleString();
+      const heroEggs = document.getElementById("heroStockEggsCount");
+      if (heroEggs) heroEggs.textContent = `${totalEggs.toLocaleString()} Eggs Ready`;
+
+      // Customer-Facing Product Card Stock Badge
+      const prodText = document.getElementById("productCardStockText");
+      if (prodText) {
+        prodText.textContent = available > 0 
+          ? `In Stock: ${available.toLocaleString()} Trays Available`
+          : `Temporarily Low Stock (Restocking)`;
+      }
+
+      // Customer-Facing Cart Drawer Stock Banner
+      const drawerCount = document.getElementById("drawerAvailableStockCount");
+      if (drawerCount) drawerCount.textContent = `${available.toLocaleString()} Trays Ready`;
+
+      // Admin KPI Dashboard Cards (Private to Admin)
+      const kpiAvail = document.getElementById("kpiAvailableStock");
+      if (kpiAvail) kpiAvail.textContent = available.toLocaleString();
+      const kpiRec = document.getElementById("kpiTotalReceived");
+      if (kpiRec) kpiRec.textContent = totalReceived.toLocaleString();
+      const kpiDisp = document.getElementById("kpiTotalDispatched");
+      if (kpiDisp) kpiDisp.textContent = totalDispatched.toLocaleString();
+      const kpiVal = document.getElementById("kpiStockValue");
+      if (kpiVal) kpiVal.textContent = `KES ${stockVal.toLocaleString()}`;
+
+      // Admin Orders Tab Badge
+      const ordersBadge = document.getElementById("adminOrdersTabBadge");
+      if (ordersBadge) ordersBadge.textContent = state.orderHistory.length;
+    }
+
+    function switchAdminTab(tabName) {
+      state.adminActiveTab = tabName;
+      const invPane = document.getElementById("adminTabInventoryPane");
+      const ordPane = document.getElementById("adminTabOrdersPane");
+      const phoPane = document.getElementById("adminTabPhotosPane");
+
+      const invBtn = document.getElementById("adminTabInventoryBtn");
+      const ordBtn = document.getElementById("adminTabOrdersBtn");
+      const phoBtn = document.getElementById("adminTabPhotosBtn");
+
+      if (invPane) invPane.style.display = tabName === "inventory" ? "block" : "none";
+      if (ordPane) ordPane.style.display = tabName === "orders" ? "block" : "none";
+      if (phoPane) phoPane.style.display = tabName === "photos" ? "block" : "none";
+
+      if (invBtn) invBtn.classList.toggle("active", tabName === "inventory");
+      if (ordBtn) ordBtn.classList.toggle("active", tabName === "orders");
+      if (phoBtn) phoBtn.classList.toggle("active", tabName === "photos");
+
+      if (tabName === "inventory") {
+        updateCustomerStockUI();
+        renderInventoryTable();
+      } else if (tabName === "orders") {
+        renderAdminOrdersTable();
+      } else if (tabName === "photos") {
+        renderAdminPhotosTable();
+      }
+    }
+
+    function renderInventoryTable() {
+      const tbody = document.getElementById("adminInventoryTableBody");
+      if (!tbody) return;
+      const list = state.inventory?.goodsReceived || [];
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No goods received entries recorded yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = list.map((item) => `
+        <tr>
+          <td><strong style="color: var(--primary); font-family: monospace;">${escapeHtml(item.batchRef || item.id)}</strong></td>
+          <td style="white-space: nowrap;">${escapeHtml(item.date)} ${item.time ? `<span style="font-size: 0.7rem; color: var(--text-muted);">${escapeHtml(item.time)}</span>` : ''}</td>
+          <td><span style="font-weight: 800; color: var(--text-main); font-size: 0.9375rem;">+${Number(item.trays).toLocaleString()}</span> <span style="font-size: 0.75rem; color: var(--text-muted);">Trays</span></td>
+          <td>${escapeHtml(item.supplier || 'Lymbo Farm Hub')}</td>
+          <td style="font-size: 0.75rem; color: var(--text-muted); max-width: 220px;">${escapeHtml(item.notes || '—')}</td>
+          <td>
+            <button type="button" class="btn btn-outline btn-sm" onclick="deleteGoodsReceivedEntry('${item.id}')" style="color: #DC2626; border-color: rgba(220, 38, 38, 0.3); padding: 0.2rem 0.5rem; font-size: 0.6875rem;" title="Delete entry">
+              Delete
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function renderAdminOrdersTable() {
+      const tbody = document.getElementById("adminOrdersTableBody");
+      if (!tbody) return;
+      const orders = state.orderHistory || [];
+      if (orders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No customer orders placed yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = orders.map((o) => {
+        const isApproved = o.orderStatus === "approved";
+        const isDeclined = o.orderStatus === "declined" || o.orderStatus === "cancelled";
+        let statusPill = '';
+        if (isApproved) {
+          statusPill = `
+            <div>
+              <span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #D1FAE5; color: #065F46; font-weight: 700; font-size: 0.6875rem;">✓ Approved</span>
+              ${o.receiptSentAt ? `<div style="font-size: 0.65rem; color: #059669; margin-top: 0.15rem; font-weight: 600;">📧 Receipt Sent</div>` : ''}
+            </div>
+          `;
+        } else if (isDeclined) {
+          statusPill = `<span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #FEE2E2; color: #991B1B; font-weight: 700; font-size: 0.6875rem;">✕ Declined</span>`;
+        } else {
+          statusPill = `<span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #FEF3C7; color: #92400E; font-weight: 700; font-size: 0.6875rem;">⏱️ Pending</span>`;
+        }
+
+        return `
+          <tr>
+            <td><strong style="font-family: monospace;">#${escapeHtml(o.id)}</strong></td>
+            <td style="font-size: 0.75rem; white-space: nowrap;">${escapeHtml(o.formattedDate || 'Recent')}</td>
+            <td>
+              <div style="font-weight: 600;">${escapeHtml(o.customerName)}</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted);">${escapeHtml(o.customerPhone)}</div>
+              ${o.customerEmail ? `<div style="font-size: 0.6875rem;"><a href="mailto:${escapeHtml(o.customerEmail)}" style="color: var(--primary); text-decoration: underline;" title="Email customer">${escapeHtml(o.customerEmail)}</a></div>` : '<div style="font-size: 0.65rem; color: #9CA3AF;">(No email provided)</div>'}
+            </td>
+            <td style="font-size: 0.75rem;">
+              <div><strong>${escapeHtml(o.deliveryArea)}</strong></div>
+              <div style="color: var(--text-muted); font-size: 0.7rem;">${escapeHtml(o.landmarkAddress || '')}</div>
+              ${o.deliveryInstructions ? `<div style="color: var(--primary); font-size: 0.6875rem; font-style: italic;">Note: ${escapeHtml(o.deliveryInstructions)}</div>` : ''}
+            </td>
+            <td><strong>${o.trays}</strong> <span style="font-size: 0.7rem; color: var(--text-muted);">trays</span></td>
+            <td><strong>KES ${(o.grandTotal || 0).toLocaleString()}</strong></td>
+            <td style="font-size: 0.75rem;">
+              <div>${escapeHtml(o.paymentMethod || 'M-Pesa')}</div>
+              ${o.mpesaCode ? `<span style="font-family: monospace; font-weight: 700; background: #FEF3C7; padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.7rem;">${escapeHtml(o.mpesaCode)}</span>` : '<span style="color: #9CA3AF; font-size: 0.6875rem;">(No code yet)</span>'}
+            </td>
+            <td>${statusPill}</td>
+            <td style="white-space: nowrap;">
+              <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+                ${!isApproved && !isDeclined ? `
+                  <button type="button" class="btn btn-primary btn-sm" onclick="adminApproveOrder('${o.id}')" style="padding: 0.2rem 0.55rem; font-size: 0.6875rem; font-weight: 700;" title="Verify & approve order, auto-dispatching digital receipt to ${escapeHtml(o.customerEmail || 'customer')}">
+                    ✓ Approve & Email
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="adminDeclineOrder('${o.id}')" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem; color: #DC2626; border-color: rgba(220, 38, 38, 0.4);" title="Decline order and release stock">
+                    Decline
+                  </button>
+                ` : ''}
+                <button type="button" class="btn btn-outline btn-sm" onclick="openDigitalReceiptModal('${o.id}')" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem;" title="View or send official digital order receipt">
+                  📧 Receipt
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function handleRecordGoodsReceived(e) {
+      if (e) e.preventDefault();
+      const traysInput = document.getElementById("adminGoodsTrays");
+      const refInput = document.getElementById("adminGoodsRef");
+      const supplierInput = document.getElementById("adminGoodsSupplier");
+      const dateInput = document.getElementById("adminGoodsDate");
+      const notesInput = document.getElementById("adminGoodsNotes");
+
+      if (!traysInput || !traysInput.value) {
+        showToast("Please enter the number of egg trays received.");
+        return;
+      }
+
+      const trays = parseInt(traysInput.value, 10);
+      if (isNaN(trays) || trays < 1) {
+        showToast("Please enter a valid positive quantity of trays.");
+        return;
+      }
+
+      const now = new Date();
+      const todayStr = dateInput && dateInput.value ? dateInput.value : now.toISOString().split("T")[0];
+      const batchRef = refInput && refInput.value.trim() ? refInput.value.trim().toUpperCase() : `BATCH-${now.getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      const supplier = supplierInput && supplierInput.value.trim() ? supplierInput.value.trim() : "Lymbo Farm Hub (Mombasa)";
+      const notes = notesInput ? notesInput.value.trim() : "";
+
+      const newEntry = {
+        id: "GR-" + Date.now(),
+        batchRef,
+        date: todayStr,
+        time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        trays,
+        supplier,
+        notes,
+        recordedBy: "Admin",
+        timestamp: now.toISOString()
+      };
+
+      if (!state.inventory) state.inventory = { goodsReceived: [] };
+      if (!Array.isArray(state.inventory.goodsReceived)) state.inventory.goodsReceived = [];
+
+      state.inventory.goodsReceived.unshift(newEntry);
+      saveInventory();
+      updateCustomerStockUI();
+      renderInventoryTable();
+
+      // Reset form
+      traysInput.value = "";
+      if (notesInput) notesInput.value = "";
+      if (refInput) refInput.value = `BATCH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      showToast(`✓ Recorded +${trays} Trays! Available Stock is now ${getAvailableStockTrays()} Trays.`);
+    }
+
+    function deleteGoodsReceivedEntry(id) {
+      if (!confirm("Are you sure you want to remove this Goods Received record? Available stock will adjust automatically.")) return;
+      state.inventory.goodsReceived = state.inventory.goodsReceived.filter(item => item.id !== id);
+      saveInventory();
+      updateCustomerStockUI();
+      renderInventoryTable();
+      showToast("Goods Received entry deleted. Live stock updated.");
+    }
+
+    /* ==========================================================================
+       AUTOMATED DIGITAL ORDER RECEIPT & EMAIL NOTIFICATION SYSTEM
+       ========================================================================== */
+    function generateReceiptSummaryText(order) {
+      const adminEmail = CONFIG.email || "lymboventures0@gmail.com";
+      const totalEggs = order.totalEggs || (order.trays * CONFIG.eggTrayCount);
+      const nowStr = new Date().toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' });
+
+      return (
+        `===================================================\n` +
+        `LYMBO VENTURES - OFFICIAL DIGITAL ORDER RECEIPT\n` +
+        `===================================================\n` +
+        `Quality General Supplies · Fresh Eggs Delivery\n` +
+        `Dispatch Hub: Mombasa, Kenya\n` +
+        `Operations Hotline: ${CONFIG.phone} | WhatsApp: ${CONFIG.whatsappNumber}\n` +
+        `Official Business Email: ${adminEmail}\n` +
+        `===================================================\n\n` +
+        `ORDER VERIFICATION SUMMARY:\n` +
+        `---------------------------------------------------\n` +
+        `• Order Reference: #${order.id}\n` +
+        `• Order Placed: ${order.formattedDate || 'Recent'}\n` +
+        `• Order Status: ${order.orderStatus === 'approved' ? '✓ VERIFIED & APPROVED FOR DISPATCH' : (order.orderStatus ? order.orderStatus.toUpperCase() : 'PENDING')}\n` +
+        `• Verified By: ${order.verifiedBy || 'Operations Admin'}\n` +
+        `• Verified At: ${order.verifiedAt ? new Date(order.verifiedAt).toLocaleString('en-KE') : nowStr}\n\n` +
+        `CUSTOMER & DELIVERY DESTINATION:\n` +
+        `---------------------------------------------------\n` +
+        `• Customer Name: ${order.customerName}\n` +
+        `• Phone Number: ${order.customerPhone}\n` +
+        `• Digital Receipt Sent To: ${order.customerEmail || 'Customer On File'}\n` +
+        `• Delivery Area (Mombasa): ${order.deliveryArea}\n` +
+        `• Street / Landmark: ${order.landmarkAddress}\n` +
+        `${order.deliveryInstructions ? `• Delivery Instructions / Gate PIN: ${order.deliveryInstructions}\n` : ''}` +
+        `• Preferred Delivery Time: ${order.deliveryTime || 'ASAP / Next Available Rider'}\n\n` +
+        `ITEMIZED ORDER BREAKDOWN:\n` +
+        `---------------------------------------------------\n` +
+        `• Farm-Fresh Eggs (Tray of 30) × ${order.trays} tray${order.trays > 1 ? 's' : ''}\n` +
+        `  (${totalEggs} fresh eggs @ KES ${(order.eggPricePerTray || CONFIG.eggPricePerTray).toLocaleString()}/tray): KES ${(order.subtotal || 0).toLocaleString()}\n` +
+        `• Doorstep Delivery Fee (${order.deliveryArea}): KES ${(order.deliveryFee || 0).toLocaleString()}\n` +
+        `---------------------------------------------------\n` +
+        `• GRAND TOTAL AMOUNT: KES ${(order.grandTotal || 0).toLocaleString()}\n` +
+        `---------------------------------------------------\n\n` +
+        `PAYMENT DETAILS:\n` +
+        `---------------------------------------------------\n` +
+        `• Payment Method: ${order.paymentMethod || 'M-Pesa (Buy Goods Till)'}\n` +
+        `• Safaricom Buy Goods Till: ${order.tillNumber || CONFIG.mpesaTill}\n` +
+        `• Business Name: LYMBO VENTURES\n` +
+        `• M-Pesa Transaction Code: ${order.mpesaCode ? order.mpesaCode : 'Payment Unlocked / In Process'}\n\n` +
+        `NEED IMMEDIATE ASSISTANCE?\n` +
+        `Call or WhatsApp our direct Mombasa dispatch desk at ${CONFIG.phone}.\n` +
+        `Thank you for trusting Lymbo Ventures for fresh quality supplies!\n` +
+        `===================================================`
+      );
+    }
+
+    function sendEmailReceiptMailto(order, showToastNotice = false) {
+      if (!order) return;
+      const targetEmail = order.customerEmail ? order.customerEmail.trim() : CONFIG.email;
+      const adminEmail = CONFIG.email || "lymboventures0@gmail.com";
+      const subject = encodeURIComponent(`Official Order Receipt & Verification: #${order.id} - Lymbo Ventures Mombasa`);
+      const body = encodeURIComponent(generateReceiptSummaryText(order));
+
+      const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?cc=${encodeURIComponent(adminEmail)}&subject=${subject}&body=${body}`;
+
+      // Open email client safely using an anchor tag
+      try {
+        const mailLink = document.createElement("a");
+        mailLink.href = mailtoUrl;
+        mailLink.target = "_blank";
+        mailLink.rel = "noopener noreferrer";
+        document.body.appendChild(mailLink);
+        mailLink.click();
+        document.body.removeChild(mailLink);
+      } catch (err) {
+        window.open(mailtoUrl, "_blank");
+      }
+
+      if (showToastNotice) {
+        showToast(`Email client opened to send receipt to ${targetEmail}`);
+      }
+    }
+
+    function openDigitalReceiptModal(orderId) {
+      const order = state.orderHistory ? state.orderHistory.find(o => o.id === orderId) : null;
+      if (!order) {
+        showToast("Order record not found.");
+        return;
+      }
+
+      const modal = document.getElementById("receiptModalBackdrop");
+      if (!modal) return;
+
+      const targetEmail = order.customerEmail || CONFIG.email;
+      const isApproved = order.orderStatus === "approved";
+      const totalEggs = order.totalEggs || (order.trays * CONFIG.eggTrayCount);
+
+      // Populate Header Elements
+      const recipientSpan = document.getElementById("receiptModalRecipientEmail");
+      if (recipientSpan) recipientSpan.textContent = targetEmail;
+
+      const verifiedBadge = document.getElementById("receiptModalVerifiedBadge");
+      if (verifiedBadge) {
+        verifiedBadge.textContent = isApproved ? "✓ VERIFIED & APPROVED" : (order.orderStatus ? order.orderStatus.toUpperCase() : "PENDING");
+        verifiedBadge.style.color = isApproved ? "#065F46" : "#92400E";
+      }
+
+      // Populate Paper Elements
+      const refEl = document.getElementById("receiptDisplayOrderRef");
+      if (refEl) refEl.textContent = `#${order.id}`;
+
+      const dateEl = document.getElementById("receiptDisplayDate");
+      if (dateEl) dateEl.textContent = order.formattedDate || new Date().toLocaleDateString('en-KE');
+
+      const nameEl = document.getElementById("receiptDisplayCustName");
+      if (nameEl) nameEl.textContent = order.customerName || "Customer";
+
+      const phoneEl = document.getElementById("receiptDisplayCustPhone");
+      if (phoneEl) phoneEl.textContent = order.customerPhone || "";
+
+      const emailEl = document.getElementById("receiptDisplayCustEmail");
+      if (emailEl) emailEl.textContent = order.customerEmail || "No email on file";
+
+      const areaEl = document.getElementById("receiptDisplayArea");
+      if (areaEl) areaEl.textContent = `${order.deliveryArea || 'Mombasa'} Zone`;
+
+      const landmarkEl = document.getElementById("receiptDisplayLandmark");
+      if (landmarkEl) landmarkEl.textContent = order.landmarkAddress || "";
+
+      const instrEl = document.getElementById("receiptDisplayInstructions");
+      if (instrEl) instrEl.textContent = order.deliveryInstructions ? `Gate / Note: ${order.deliveryInstructions}` : "";
+
+      const eggCountEl = document.getElementById("receiptDisplayEggCount");
+      if (eggCountEl) eggCountEl.textContent = `${totalEggs} farm-fresh eggs (30/tray)`;
+
+      const traysEl = document.getElementById("receiptDisplayTrays");
+      if (traysEl) traysEl.textContent = order.trays || 1;
+
+      const unitPriceEl = document.getElementById("receiptDisplayUnitPrice");
+      if (unitPriceEl) unitPriceEl.textContent = `${CONFIG.currency} ${(order.eggPricePerTray || CONFIG.eggPricePerTray).toLocaleString()}`;
+
+      const subtotalEl = document.getElementById("receiptDisplaySubtotal");
+      if (subtotalEl) subtotalEl.textContent = `${CONFIG.currency} ${(order.subtotal || 0).toLocaleString()}`;
+
+      const deliveryAreaNote = document.getElementById("receiptDisplayDeliveryAreaNote");
+      if (deliveryAreaNote) deliveryAreaNote.textContent = `${order.deliveryArea || 'Mombasa'} doorstep delivery`;
+
+      const feeEl = document.getElementById("receiptDisplayDeliveryFee");
+      if (feeEl) feeEl.textContent = `${CONFIG.currency} ${(order.deliveryFee || 0).toLocaleString()}`;
+
+      const grandTotalEl = document.getElementById("receiptDisplayGrandTotal");
+      if (grandTotalEl) grandTotalEl.textContent = `${CONFIG.currency} ${(order.grandTotal || 0).toLocaleString()}`;
+
+      const payMethodEl = document.getElementById("receiptDisplayPayMethod");
+      if (payMethodEl) payMethodEl.textContent = order.paymentMethod || "M-Pesa (Buy Goods Till)";
+
+      const tillEl = document.getElementById("receiptDisplayTill");
+      if (tillEl) tillEl.textContent = order.tillNumber || CONFIG.mpesaTill;
+
+      const mpesaRow = document.getElementById("receiptDisplayMpesaCodeRow");
+      if (mpesaRow) {
+        if (order.mpesaCode) {
+          mpesaRow.innerHTML = `<span style="font-size: 0.72rem; color: #065F46; font-weight: 700;">Code: ${escapeHtml(order.mpesaCode)}</span>`;
+        } else {
+          mpesaRow.innerHTML = `<span style="font-size: 0.7rem; color: #9CA3AF;">M-Pesa Code: Pending entry</span>`;
+        }
+      }
+
+      const verifiedByEl = document.getElementById("receiptDisplayVerifiedBy");
+      if (verifiedByEl) {
+        verifiedByEl.textContent = isApproved ? `✓ ${order.verifiedBy || 'Verified by Admin'}` : 'Pending Admin Verification';
+        verifiedByEl.style.color = isApproved ? '#065F46' : '#92400E';
+      }
+
+      const verifiedAtEl = document.getElementById("receiptDisplayVerifiedAt");
+      if (verifiedAtEl) {
+        verifiedAtEl.textContent = order.verifiedAt ? `Approved: ${new Date(order.verifiedAt).toLocaleString('en-KE')}` : 'Awaiting review';
+      }
+
+      // Populate Raw Text Box
+      const rawText = generateReceiptSummaryText(order);
+      const rawBox = document.getElementById("receiptRawTextPreview");
+      if (rawBox) rawBox.textContent = rawText;
+
+      // Configure Mailto Button Link
+      const mailtoBtn = document.getElementById("receiptOpenMailtoBtn");
+      if (mailtoBtn) {
+        const adminEmail = CONFIG.email || "lymboventures0@gmail.com";
+        const subject = encodeURIComponent(`Official Order Receipt: #${order.id} - Lymbo Ventures Mombasa`);
+        const body = encodeURIComponent(rawText);
+        mailtoBtn.href = `mailto:${encodeURIComponent(targetEmail)}?cc=${encodeURIComponent(adminEmail)}&subject=${subject}&body=${body}`;
+        mailtoBtn.onclick = (e) => {
+          showToast(`Opening email client for ${targetEmail}...`);
+        };
+      }
+
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDigitalReceiptModal() {
+      const modal = document.getElementById("receiptModalBackdrop");
+      if (modal) modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function copyReceiptText() {
+      const rawBox = document.getElementById("receiptRawTextPreview");
+      if (!rawBox) return;
+      navigator.clipboard.writeText(rawBox.textContent).then(() => {
+        showToast("✓ Digital order receipt copied to clipboard!");
+      }).catch(() => {
+        // Fallback
+        const textarea = document.createElement("textarea");
+        textarea.value = rawBox.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        showToast("✓ Digital order receipt copied to clipboard!");
+      });
+    }
+
+    function printReceiptPaper() {
+      window.print();
+    }
+
+    function adminApproveOrder(orderId) {
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) return;
+
+      const now = new Date();
+      order.orderStatus = "approved";
+      order.verifiedBy = "Admin (jkiiru8251@gmail.com)";
+      order.verifiedAt = now.toISOString();
+      order.receiptSentAt = now.toISOString();
+
+      saveOrderHistory();
+      renderOrderHistory();
+      renderAdminOrdersTable();
+      updateCustomerStockUI();
+
+      // Trigger Automated Digital Order Receipt Email System
+      sendEmailReceiptMailto(order, false);
+
+      // Open the Digital Receipt Modal for live audit & verification
+      openDigitalReceiptModal(orderId);
+
+      // If customer modal is currently open on screen for this order, refresh it to unlock M-Pesa immediately
+      if (state.currentModalOrderId === orderId) {
+        openConfirmModal(order.waUrl, order);
+      }
+
+      showToast(`✓ Order #${orderId} verified & approved! Digital receipt sent to ${order.customerEmail || 'customer'}.`);
+    }
+
+    function adminDeclineOrder(orderId) {
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) return;
+      if (!confirm(`Are you sure you want to decline Order #${orderId}? Its ${order.trays} trays will be released back to available stock.`)) return;
+      order.orderStatus = "declined";
+      order.cancelledAt = new Date().toISOString();
+      saveOrderHistory();
+      renderOrderHistory();
+      renderAdminOrdersTable();
+      updateCustomerStockUI();
+
+      if (state.currentModalOrderId === orderId) {
+        openConfirmModal(order.waUrl, order);
+      }
+
+      showToast(`Order #${orderId} declined. Trays returned to stock.`);
+    }
+
+    function adminEmailReceipt(orderId) {
+      openDigitalReceiptModal(orderId);
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (order) {
+        sendEmailReceiptMailto(order, true);
+      }
+    }
+
+    function downloadInventoryCsv() {
+      const list = state.inventory?.goodsReceived || [];
+      if (list.length === 0) {
+        showToast("No inventory records to export.");
+        return;
+      }
+      const headers = ["Batch Ref", "Date", "Time", "Trays Received", "Supplier", "Notes", "Recorded By", "Timestamp"];
+      const rows = list.map(item => [
+        `"${item.batchRef || item.id}"`,
+        `"${item.date || ''}"`,
+        `"${item.time || ''}"`,
+        item.trays,
+        `"${(item.supplier || '').replace(/"/g, '""')}"`,
+        `"${(item.notes || '').replace(/"/g, '""')}"`,
+        `"${item.recordedBy || 'Admin'}"`,
+        `"${item.timestamp || ''}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `lymbo_inventory_ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("Inventory ledger CSV downloaded!");
+    }
+
+    function downloadOrdersCsv() {
+      const orders = state.orderHistory || [];
+      if (orders.length === 0) {
+        showToast("No customer order transactions to export.");
+        return;
+      }
+      const headers = [
+        "Order ID",
+        "Date",
+        "Customer Name",
+        "Customer Phone",
+        "Customer Email",
+        "Delivery Area",
+        "Landmark Address",
+        "Delivery Instructions",
+        "Trays",
+        "Subtotal KES",
+        "Delivery Fee KES",
+        "Grand Total KES",
+        "Payment Method",
+        "M-Pesa Code",
+        "Status",
+        "Verified By",
+        "Verified At",
+        "Receipt Sent At"
+      ];
+      const rows = orders.map(o => [
+        `"${o.id}"`,
+        `"${o.formattedDate || ''}"`,
+        `"${(o.customerName || '').replace(/"/g, '""')}"`,
+        `"${o.customerPhone || ''}"`,
+        `"${(o.customerEmail || '').replace(/"/g, '""')}"`,
+        `"${o.deliveryArea || ''}"`,
+        `"${(o.landmarkAddress || '').replace(/"/g, '""')}"`,
+        `"${(o.deliveryInstructions || '').replace(/"/g, '""')}"`,
+        o.trays || 1,
+        o.subtotal || 0,
+        o.deliveryFee || 0,
+        o.grandTotal || 0,
+        `"${o.paymentMethod || ''}"`,
+        `"${o.mpesaCode || ''}"`,
+        `"${o.orderStatus || 'pending'}"`,
+        `"${o.verifiedBy || ''}"`,
+        `"${o.verifiedAt || ''}"`,
+        `"${o.receiptSentAt || ''}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `lymbo_orders_transactions_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("Orders & Transactions CSV downloaded (including emails & receipts)!");
     }
 
     function compressAndReadImage(file, callback) {
@@ -4783,82 +6202,156 @@
       // Track current modal order ID
       state.currentModalOrderId = orderData ? orderData.id : (state.orderHistory && state.orderHistory.length > 0 ? state.orderHistory[0].id : null);
 
+      // Find full order record from history if available
+      const fullOrder = orderData || (state.currentModalOrderId ? state.orderHistory.find(o => o.id === state.currentModalOrderId) : (state.orderHistory && state.orderHistory[0]));
+
       // Calculate totals
-      const trays = orderData ? orderData.trays : (state.cart.eggTrays || 1);
+      const trays = fullOrder ? fullOrder.trays : (state.cart.eggTrays || 1);
       const subtotal = trays * CONFIG.eggPricePerTray;
-      const fee = orderData ? (orderData.deliveryFee || 0) : (state.selectedArea ? (CONFIG.deliveryFees[state.selectedArea] || 0) : 0);
-      const grandTotal = orderData ? orderData.grandTotal : (subtotal + fee);
-      const tillNumber = orderData ? (orderData.tillNumber || CONFIG.mpesaTill) : CONFIG.mpesaTill;
+      const fee = fullOrder ? (fullOrder.deliveryFee || 0) : (state.selectedArea ? (CONFIG.deliveryFees[state.selectedArea] || 0) : 0);
+      const grandTotal = fullOrder ? fullOrder.grandTotal : (subtotal + fee);
+      const tillNumber = fullOrder ? (fullOrder.tillNumber || CONFIG.mpesaTill) : CONFIG.mpesaTill;
+      const orderStatus = fullOrder ? (fullOrder.orderStatus || "pending") : "pending";
+      const isApproved = orderStatus === "approved";
+      const isDeclined = orderStatus === "declined" || orderStatus === "cancelled";
+      const customerEmail = fullOrder ? (fullOrder.customerEmail || "") : "";
 
       // Update Order Ref Badge in Modal
       const modalOrderRefBadge = document.getElementById("modalOrderRefBadge");
       const modalOrderRefId = document.getElementById("modalOrderRefId");
+      const modalOrderStatusPill = document.getElementById("modalOrderStatusPill");
       if (modalOrderRefBadge && modalOrderRefId) {
-        if (orderData && orderData.id) {
-          modalOrderRefId.textContent = `#${orderData.id}`;
+        if (fullOrder && fullOrder.id) {
+          modalOrderRefId.textContent = `#${fullOrder.id}`;
           modalOrderRefBadge.style.display = "flex";
+          if (modalOrderStatusPill) {
+            if (isApproved) {
+              modalOrderStatusPill.textContent = "✓ Approved";
+              modalOrderStatusPill.style.background = "#D1FAE5";
+              modalOrderStatusPill.style.color = "#065F46";
+            } else if (isDeclined) {
+              modalOrderStatusPill.textContent = "✕ Declined";
+              modalOrderStatusPill.style.background = "#FEE2E2";
+              modalOrderStatusPill.style.color = "#991B1B";
+            } else {
+              modalOrderStatusPill.textContent = "⏱️ Pending Verification";
+              modalOrderStatusPill.style.background = "#FEF3C7";
+              modalOrderStatusPill.style.color = "#92400E";
+            }
+          }
         } else {
           modalOrderRefBadge.style.display = "none";
         }
       }
 
-      // Configure M-Pesa Transaction Code Entry Section
+      // Configure Dynamic Order Lifecycle Status Banner
+      const statusBanner = document.getElementById("modalStatusBanner");
+      const statusIcon = document.getElementById("modalStatusIcon");
+      const statusTitle = document.getElementById("modalStatusTitle");
+      const statusDesc = document.getElementById("modalStatusDesc");
+      const statusTargetEmail = document.getElementById("modalReceiptEmailTarget");
+      const viewReceiptBtn = document.getElementById("modalViewReceiptBtn");
+      const mpesaLockedBox = document.getElementById("mpesaLockedBox");
+      const mpesaLockTargetEmail = document.getElementById("mpesaLockTargetEmail");
+
+      if (statusTargetEmail) {
+        statusTargetEmail.textContent = customerEmail || "your email address";
+      }
+      if (mpesaLockTargetEmail) {
+        mpesaLockTargetEmail.textContent = customerEmail || "your email address";
+      }
+
+      if (statusBanner) {
+        if (isDeclined) {
+          statusBanner.className = "modal-status-banner declined";
+          if (statusIcon) statusIcon.textContent = "✕";
+          if (statusTitle) statusTitle.textContent = "Order Declined / Cancelled";
+          if (statusDesc) statusDesc.textContent = "This order was declined by dispatch. Any reserved stock has been returned to inventory.";
+          if (viewReceiptBtn) viewReceiptBtn.style.display = "none";
+        } else if (isApproved) {
+          statusBanner.className = "modal-status-banner approved";
+          if (statusIcon) statusIcon.textContent = "✓";
+          if (statusTitle) statusTitle.textContent = "Order Verified & Approved by Admin!";
+          if (statusDesc) statusDesc.textContent = `Lipa na M-Pesa payment unlocked below. An official digital order receipt has been sent to ${customerEmail || 'your email'}.`;
+          if (viewReceiptBtn) viewReceiptBtn.style.display = "inline-flex";
+        } else {
+          statusBanner.className = "modal-status-banner pending";
+          if (statusIcon) statusIcon.textContent = "⏱️";
+          if (statusTitle) statusTitle.textContent = "Order Submitted & Pending Admin Verification";
+          if (statusDesc) statusDesc.textContent = "Your order has been recorded. M-Pesa payment details are locked until verified by Lymbo Ventures admin to confirm stock availability. Once approved, the payment portal will unlock and a digital receipt will be emailed.";
+          if (viewReceiptBtn) viewReceiptBtn.style.display = "none";
+        }
+      }
+
+      // Configure M-Pesa Payment Visibility & Security Gating
+      const mpesaInstructionBox = document.getElementById("mpesaInstructionBox");
       const mpesaCodeSection = document.getElementById("modalMpesaCodeSection");
-      const mpesaCodeInput = document.getElementById("modalMpesaCodeInput");
-      const mpesaCodeSuccess = document.getElementById("mpesaCodeSuccessMsg");
-      const savedCodeDisplay = document.getElementById("savedMpesaCodeDisplay");
-      const modalCodeStatusPill = document.getElementById("modalCodeStatusPill");
-      const codeError = document.getElementById("modalMpesaCodeError");
-      const tillPrompt = document.getElementById("modalTillCodePrompt");
-
-      if (codeError) codeError.style.display = "none";
-      if (tillPrompt) tillPrompt.textContent = tillNumber;
-
-      const isCod = orderData && orderData.paymentMethod && orderData.paymentMethod.includes("Cash");
+      const isCod = fullOrder && fullOrder.paymentMethod && fullOrder.paymentMethod.includes("Cash");
 
       if (isCod) {
+        if (mpesaLockedBox) mpesaLockedBox.style.display = "none";
+        if (mpesaInstructionBox) mpesaInstructionBox.style.display = "none";
+        if (mpesaCodeSection) mpesaCodeSection.style.display = "none";
+      } else if (!isApproved) {
+        // Locked state when order is pending or declined
+        if (mpesaLockedBox) mpesaLockedBox.style.display = isDeclined ? "none" : "block";
+        if (mpesaInstructionBox) mpesaInstructionBox.style.display = "none";
         if (mpesaCodeSection) mpesaCodeSection.style.display = "none";
       } else {
+        // Unlocked state when approved by admin
+        if (mpesaLockedBox) mpesaLockedBox.style.display = "none";
+        if (mpesaInstructionBox) mpesaInstructionBox.style.display = "block";
         if (mpesaCodeSection) mpesaCodeSection.style.display = "block";
-        if (orderData && orderData.mpesaCode) {
-          if (mpesaCodeInput) mpesaCodeInput.value = orderData.mpesaCode;
-          if (savedCodeDisplay) savedCodeDisplay.textContent = orderData.mpesaCode;
+
+        const mpesaCodeInput = document.getElementById("modalMpesaCodeInput");
+        const mpesaCodeSuccess = document.getElementById("mpesaCodeSuccessMsg");
+        const savedCodeDisplay = document.getElementById("savedMpesaCodeDisplay");
+        const modalCodeStatusPill = document.getElementById("modalCodeStatusPill");
+        const codeError = document.getElementById("modalMpesaCodeError");
+        const tillPrompt = document.getElementById("modalTillCodePrompt");
+
+        if (codeError) codeError.style.display = "none";
+        if (tillPrompt) tillPrompt.textContent = tillNumber;
+
+        if (fullOrder && fullOrder.mpesaCode) {
+          if (mpesaCodeInput) mpesaCodeInput.value = fullOrder.mpesaCode;
+          if (savedCodeDisplay) savedCodeDisplay.textContent = fullOrder.mpesaCode;
           if (mpesaCodeSuccess) mpesaCodeSuccess.style.display = "block";
           if (modalCodeStatusPill) {
-            modalCodeStatusPill.textContent = "Pending Verification";
+            modalCodeStatusPill.textContent = "Code Recorded";
             modalCodeStatusPill.className = "mpesa-code-hint pending";
           }
         } else {
           if (mpesaCodeInput) mpesaCodeInput.value = "";
           if (mpesaCodeSuccess) mpesaCodeSuccess.style.display = "none";
           if (modalCodeStatusPill) {
-            modalCodeStatusPill.textContent = "Awaiting Payment";
+            modalCodeStatusPill.textContent = "Payment Unlocked";
             modalCodeStatusPill.className = "mpesa-code-hint";
           }
         }
+
+        // Update QR views
+        const qrTillNumber = document.getElementById("qrTillNumber");
+        if (qrTillNumber) qrTillNumber.textContent = tillNumber;
+
+        const modalTillNumber = document.getElementById("modalTillNumber");
+        if (modalTillNumber) modalTillNumber.textContent = tillNumber;
+
+        const modalTillHighlight = document.getElementById("modalTillHighlight");
+        if (modalTillHighlight) modalTillHighlight.textContent = tillNumber;
+
+        const qrTotalBadge = document.getElementById("qrTotalBadge");
+        if (qrTotalBadge) qrTotalBadge.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
+
+        const modalTotalAmount = document.getElementById("modalTotalAmount");
+        if (modalTotalAmount) modalTotalAmount.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
+
+        // Reset to QR tab
+        switchMpesaTab('qr');
+
+        // Generate Live M-Pesa QR Code
+        generateMpesaQrCode(tillNumber, grandTotal);
       }
-
-      // Update QR views
-      const qrTillNumber = document.getElementById("qrTillNumber");
-      if (qrTillNumber) qrTillNumber.textContent = tillNumber;
-
-      const modalTillNumber = document.getElementById("modalTillNumber");
-      if (modalTillNumber) modalTillNumber.textContent = tillNumber;
-
-      const modalTillHighlight = document.getElementById("modalTillHighlight");
-      if (modalTillHighlight) modalTillHighlight.textContent = tillNumber;
-
-      const qrTotalBadge = document.getElementById("qrTotalBadge");
-      if (qrTotalBadge) qrTotalBadge.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
-
-      const modalTotalAmount = document.getElementById("modalTotalAmount");
-      if (modalTotalAmount) modalTotalAmount.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
-
-      // Reset to QR tab
-      switchMpesaTab('qr');
-
-      // Generate Live M-Pesa QR Code
-      generateMpesaQrCode(tillNumber, grandTotal);
     }
 
     function closeConfirmModal() {
@@ -4886,6 +6379,7 @@
       // Validate Fields
       const nameInput = document.getElementById("custName");
       const phoneInput = document.getElementById("custPhone");
+      const emailInput = document.getElementById("custEmail");
       const areaSelect = document.getElementById("custArea");
       const addressInput = document.getElementById("custAddress");
       const deliveryInstructionsInput = document.getElementById("custDeliveryInstructions");
@@ -4913,6 +6407,17 @@
         document.getElementById("custPhoneError").classList.remove("visible");
       }
 
+      const customerEmail = emailInput ? emailInput.value.trim() : "";
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!customerEmail || !emailRegex.test(customerEmail)) {
+        if (emailInput) emailInput.classList.add("is-invalid");
+        document.getElementById("custEmailError")?.classList.add("visible");
+        isValid = false;
+      } else {
+        if (emailInput) emailInput.classList.remove("is-invalid");
+        document.getElementById("custEmailError")?.classList.remove("visible");
+      }
+
       if (!areaSelect.value) {
         areaSelect.classList.add("is-invalid");
         document.getElementById("custAreaError").classList.add("visible");
@@ -4932,7 +6437,7 @@
       }
 
       if (!isValid) {
-        showToast("Please complete the required delivery fields.");
+        showToast("Please complete the required delivery & contact fields.");
         return;
       }
 
@@ -4956,6 +6461,7 @@
         `──────────────────────────────`,
         `👤 *Customer Name:* ${customerName}`,
         `📞 *Customer Phone:* ${customerPhone}`,
+        `📧 *Customer Email:* ${customerEmail}`,
         `📍 *Delivery Area:* ${deliveryArea}`,
         `🏠 *Street / Landmark:* ${landmarkAddress}`,
         ...(deliveryInstructions ? [`🚪 *Delivery Instructions / Gate Code:* ${deliveryInstructions}`] : []),
@@ -4997,6 +6503,7 @@
         }).format(new Date()),
         customerName,
         customerPhone,
+        customerEmail,
         deliveryArea,
         landmarkAddress,
         deliveryInstructions,
@@ -5012,21 +6519,26 @@
         tillNumber: CONFIG.mpesaTill,
         mpesaCode: "",
         paymentStatus: paymentMethod.includes("Cash") ? "Cash on Delivery" : "Pending Payment",
+        orderStatus: "pending",
+        verifiedBy: "",
+        verifiedAt: "",
+        receiptSentAt: "",
         waUrl
       };
 
       state.orderHistory.unshift(orderRecord);
-      if (state.orderHistory.length > 25) {
-        state.orderHistory = state.orderHistory.slice(0, 25);
+      if (state.orderHistory.length > 50) {
+        state.orderHistory = state.orderHistory.slice(0, 50);
       }
       saveOrderHistory();
       renderOrderHistory();
       updateOrderHistoryBadge();
+      updateCustomerStockUI();
 
       // Open WhatsApp
       window.open(waUrl, "_blank");
 
-      // Close Cart Drawer and Open Confirmation Modal with M-Pesa QR & Instructions
+      // Close Cart Drawer and Open Confirmation Modal with Pending Verification status
       closeCartDrawer();
       openConfirmModal(waUrl, orderRecord);
     }
@@ -5114,6 +6626,9 @@
       updateCartUI();
       renderOrderHistory();
       updateOrderHistoryBadge();
+      updateCustomerStockUI();
+      renderInventoryTable();
+      renderAdminOrdersTable();
 
       // Theme toggle button
       document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
@@ -5135,6 +6650,12 @@
           handleAdminLogin();
         }
       });
+
+      // Admin Goods Received Form Submit
+      const adminGoodsForm = document.getElementById("adminGoodsReceivedForm");
+      if (adminGoodsForm) {
+        adminGoodsForm.addEventListener("submit", handleRecordGoodsReceived);
+      }
 
       // Admin Image File Input
       const adminFileInput = document.getElementById("adminFileInput");
