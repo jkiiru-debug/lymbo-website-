@@ -2297,6 +2297,81 @@
       background-color: rgba(14, 90, 46, 0.02);
     }
 
+    /* Admin Order Decision Dropdown Menu & Quick Verification Deck */
+    .admin-order-status-select {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.32rem 1.6rem 0.32rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-subtle);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.45rem center;
+    }
+    .admin-order-status-select:hover {
+      border-color: var(--primary);
+    }
+    .admin-order-status-select.pending-urgent {
+      border-color: #F59E0B;
+      background-color: #FFFBEB;
+      color: #92400E;
+      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.2);
+    }
+    .admin-order-status-select.pending-urgent:focus {
+      border-color: #D97706;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    }
+    [data-theme="dark"] .admin-order-status-select.pending-urgent {
+      background-color: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #FCD34D;
+    }
+
+    .pending-verification-deck {
+      background: linear-gradient(135deg, rgba(254, 243, 199, 0.4), rgba(254, 215, 170, 0.25));
+      border: 1.5px solid #FCD34D;
+      border-radius: var(--radius-md);
+      padding: 0.875rem 1rem;
+      margin-bottom: 0.875rem;
+    }
+    [data-theme="dark"] .pending-verification-deck {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .pending-deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.625rem;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .pending-orders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.625rem;
+    }
+
+    .pending-order-quick-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
     .admin-upload-area {
       border: 2px dashed var(--border-subtle);
       border-radius: var(--radius-md);
@@ -4436,6 +4511,86 @@
   </div>
 
   <!-- ==========================================================================
+       SMS NOTIFICATION DISPATCH AUDIT MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="smsAuditModalBackdrop">
+    <div class="receipt-modal-box" style="max-width: 540px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.625rem;">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: #DBEAFE; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #1D4ED8;">
+            📱
+          </div>
+          <div>
+            <h3 style="font-size: 1.125rem; font-weight: 700; line-height: 1.2;">Twilio SMS Dispatch Audit</h3>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Redundant Carrier &amp; Delivery Notification System</span>
+          </div>
+        </div>
+        <button type="button" class="drawer-close-btn" onclick="closeSmsAuditModal()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- SMS Delivery Status Header Banner -->
+      <div class="modal-status-banner approved" id="smsModalStatusBanner" style="margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <span class="live-pulse-dot" id="smsModalLiveDot"></span>
+            <span id="smsModalBannerTitle"><strong>SMS Dispatched</strong> to <strong id="smsModalRecipientPhone" style="font-family: monospace;">+254...</strong></span>
+          </div>
+          <span style="font-size: 0.6875rem; background: #FFFFFF; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; color: #1D4ED8;" id="smsModalGatewayBadge">
+            Twilio Gateway
+          </span>
+        </div>
+      </div>
+
+      <!-- Meta Grid -->
+      <div style="background: var(--bg-body); border: 1.5px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 0.875rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.75rem;">
+          <div>
+            <div style="font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Customer Info</div>
+            <strong id="smsModalCustName" style="color: var(--text-main); font-size: 0.8125rem; display: block;">--</strong>
+            <div id="smsModalCustPhoneDisplay" style="font-family: monospace; color: var(--primary); font-weight: 700;">--</div>
+          </div>
+          <div>
+            <div style="font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Order Details</div>
+            <div>Order Ref: <strong id="smsModalOrderRef" style="font-family: monospace;">--</strong></div>
+            <div id="smsModalOrderDetails" style="font-size: 0.7rem; color: var(--text-muted);">--</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 0.625rem; padding-top: 0.5rem; border-top: 1px dashed #CBD5E1; display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: var(--text-muted); flex-wrap: wrap; gap: 0.35rem;">
+          <div>Twilio SID: <strong id="smsModalSid" style="font-family: monospace; color: var(--text-main);">--</strong></div>
+          <div id="smsModalTimestamp">Sent: --</div>
+        </div>
+      </div>
+
+      <!-- SMS Message Text Preview Box -->
+      <div style="margin-bottom: 0.35rem; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+          SMS Message Content (Customer Phone Display):
+        </span>
+        <span style="font-size: 0.6875rem; color: #059669; font-weight: 600;">
+          ✓ Redundant to Toast
+        </span>
+      </div>
+      <div id="smsModalBodyPreview" style="background: #0F172A; color: #38BDF8; font-family: monospace; font-size: 0.8125rem; line-height: 1.5; padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid #1E293B; word-break: break-word; margin-bottom: 1rem; white-space: pre-wrap;">--</div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="copySmsText()" style="font-size: 0.75rem;">
+          📋 Copy SMS Text
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="smsModalResendBtn" onclick="resendCurrentModalSms()" style="font-size: 0.75rem; background: #2563EB; border-color: #2563EB;">
+          🔄 Dispatch Again via Twilio
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" onclick="closeSmsAuditModal()" style="font-size: 0.75rem;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        ADMIN DAILY PHOTO MANAGEMENT MODAL
        ========================================================================== -->
   <div class="modal-backdrop" id="adminModalBackdrop">
@@ -4636,6 +4791,31 @@
             </div>
           </div>
 
+          <!-- Twilio SMS Redundancy Gateway Banner -->
+          <div class="admin-sms-gateway-banner" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(37, 99, 235, 0.08)); border: 1.5px solid #BFDBFE; border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 0.875rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 0.625rem;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: #DBEAFE; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #1D4ED8; flex-shrink: 0;">
+                📱
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+                  <strong style="font-size: 0.8125rem; color: #1E3A8A;">Twilio SMS Redundancy Engine:</strong>
+                  <span id="adminSmsStatusBadge" style="font-size: 0.65rem; font-weight: 700; background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7; padding: 0.1rem 0.4rem; border-radius: 9999px;">
+                    ● Active &amp; Ready
+                  </span>
+                </div>
+                <div style="font-size: 0.71875rem; color: #2563EB; margin-top: 0.15rem;">
+                  Dual notification system: Approving or declining an order triggers a redundant SMS to the customer in addition to their real-time tracking toast.
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="checkTwilioGatewayHealth(true)" style="font-size: 0.71875rem; padding: 0.25rem 0.6rem; color: #1D4ED8; border-color: #93C5FD;" title="Check SMS Gateway status">
+                🔄 Check Gateway
+              </button>
+            </div>
+          </div>
+
           <!-- Real-Time Search & Status Filter Toolbar -->
           <div class="admin-orders-filter-bar" style="background: var(--bg-body); border: 1.5px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 0.875rem; display: flex; flex-direction: column; gap: 0.625rem;">
             <div style="display: flex; gap: 0.625rem; flex-wrap: wrap; align-items: center;">
@@ -4698,6 +4878,9 @@
               </button>
             </div>
           </div>
+
+          <!-- Dedicated Admin Pending Orders Verification Component -->
+          <div id="adminPendingVerificationDeck" style="display: none;"></div>
 
           <div class="admin-table-wrap" style="max-height: 380px; overflow-y: auto;">
             <table class="admin-data-table">
@@ -6922,6 +7105,43 @@
       showToast("Orders filter reset. Showing all orders.");
     }
 
+    function handleAdminOrderStatusDropdownChange(orderId, action, selectEl) {
+      if (!action || !orderId) return;
+
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) {
+        showToast("Order not found.");
+        return;
+      }
+
+      if (action === "approve") {
+        adminApproveOrder(orderId);
+        showToast(`✓ Order #${orderId} Approved! Live tracking toast & redundant SMS sent to ${order.customerName}.`);
+      } else if (action === "decline") {
+        const confirmed = confirm(`Are you sure you want to DECLINE Order #${orderId} (${order.customerName})? Reserved ${order.trays || 1} tray(s) will be returned to inventory.`);
+        if (!confirmed) {
+          if (selectEl) selectEl.selectedIndex = 0;
+          return;
+        }
+        adminDeclineOrder(orderId);
+        showToast(`✕ Order #${orderId} Declined. Stock released and live tracking & SMS alert dispatched.`);
+      } else if (action === "reset") {
+        adminResetOrderPending(orderId);
+      } else if (action === "receipt") {
+        openDigitalReceiptModal(orderId);
+      } else if (action === "sms") {
+        openSmsAuditModal(orderId);
+      } else if (action === "resend_sms") {
+        const targetStatus = order.orderStatus === "declined" ? "declined" : "approved";
+        sendOrderStatusSms(order, targetStatus, true);
+      }
+
+      // Always reset select element back to placeholder
+      if (selectEl) {
+        selectEl.selectedIndex = 0;
+      }
+    }
+
     function renderAdminOrdersTable() {
       const tbody = document.getElementById("adminOrdersTableBody");
       if (!tbody) return;
@@ -7004,6 +7224,108 @@
         resetBtn.style.display = hasActiveFilters ? "inline-block" : "none";
       }
 
+      // =========================================================================
+      // DEDICATED ADMIN UI COMPONENT: PENDING ORDERS VERIFICATION DECISION QUEUE
+      // =========================================================================
+      const pendingDeck = document.getElementById("adminPendingVerificationDeck");
+      const pendingOrders = allOrders.filter(o => !o.orderStatus || o.orderStatus === 'pending');
+
+      if (pendingDeck) {
+        if (pendingOrders.length > 0) {
+          pendingDeck.style.display = "block";
+          pendingDeck.innerHTML = `
+            <div class="pending-verification-deck">
+              <div class="pending-deck-header">
+                <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                  <span class="live-pulse-dot amber"></span>
+                  <strong style="color: #92400E; font-size: 0.875rem;">
+                    Pending Verification Queue (${pendingOrders.length} Order${pendingOrders.length === 1 ? '' : 's'})
+                  </strong>
+                  <span style="font-size: 0.6875rem; color: #92400E; background: #FEF3C7; padding: 0.15rem 0.5rem; border-radius: 9999px; border: 1px solid #FCD34D; font-weight: 700;">
+                    ⚡ Live Customer Tracking Active
+                  </span>
+                </div>
+                <span style="font-size: 0.72rem; color: #78350F;">
+                  Selecting <strong>Approve</strong> or <strong>Decline</strong> immediately triggers the customer's real-time tracking toast &amp; chime.
+                </span>
+              </div>
+
+              <div class="pending-orders-grid">
+                ${pendingOrders.map(po => `
+                  <div class="pending-order-quick-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.35rem;">
+                      <div>
+                        <strong style="font-family: monospace; font-size: 0.875rem; color: var(--primary);">#${escapeHtml(po.id)}</strong>
+                        <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-main); margin-left: 0.35rem;">${escapeHtml(po.customerName)}</span>
+                        <div style="font-size: 0.7rem; color: var(--text-muted);">${escapeHtml(po.customerPhone)}</div>
+                      </div>
+                      <div style="text-align: right;">
+                        <span style="font-size: 0.875rem; font-weight: 800; color: var(--primary);">KES ${(po.grandTotal || 0).toLocaleString()}</span>
+                        <div style="font-size: 0.6875rem; color: var(--text-muted);">🥚 ${po.trays} Tray${po.trays > 1 ? 's' : ''}</div>
+                      </div>
+                    </div>
+
+                    <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem;">
+                      <span>📍 ${escapeHtml(po.deliveryArea)} (${escapeHtml(po.landmarkAddress || 'No landmark')})</span>
+                      <span>📅 ${escapeHtml(po.formattedDeliveryDate || po.deliveryDate || 'Today')} (${escapeHtml(po.deliveryTime || 'ASAP')})</span>
+                    </div>
+
+                    ${po.mpesaCode ? `
+                      <div style="font-size: 0.72rem; color: #065F46; background: #D1FAE5; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid #6EE7B7; display: flex; align-items: center; justify-content: space-between;">
+                        <span>M-Pesa Code: <strong style="font-family: monospace;">${escapeHtml(po.mpesaCode)}</strong></span>
+                        <span style="font-size: 0.6875rem; font-weight: 700;">${po.mpesaVerified ? '✓ Daraja Verified' : 'Code Entered'}</span>
+                      </div>
+                    ` : `
+                      <div style="font-size: 0.7rem; color: #92400E; background: #FEF3C7; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid #FDE68A;">
+                        ⏱️ Lipa na M-Pesa is locked on customer device awaiting your approval.
+                      </div>
+                    `}
+
+                    <!-- Interactive Dropdown Menu for This Specific Pending Order -->
+                    <div style="margin-top: 0.25rem; display: flex; flex-direction: column; gap: 0.35rem;">
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label style="font-size: 0.6875rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                          Verification Decision Dropdown:
+                        </label>
+                        <span style="font-size: 0.65rem; color: #1E40AF; background: #DBEAFE; border: 1px solid #93C5FD; padding: 0.05rem 0.35rem; border-radius: 3px; font-weight: 600;">
+                          📱 SMS Auto-Dispatch Ready
+                        </span>
+                      </div>
+                      <div style="display: flex; gap: 0.4rem; align-items: center;">
+                        <select
+                          class="admin-order-status-select pending-urgent"
+                          onchange="handleAdminOrderStatusDropdownChange('${po.id}', this.value, this)"
+                          style="flex: 1; width: 100%;"
+                          aria-label="Verification decision dropdown for Order #${po.id}"
+                        >
+                          <option value="" disabled selected>⚡ Select Action (Approve / Decline) ▾</option>
+                          <option value="approve" style="color: #065F46; font-weight: 700;">✓ Approve (Notify Customer, Unlock M-Pesa &amp; Send SMS)</option>
+                          <option value="decline" style="color: #991B1B; font-weight: 700;">✕ Decline (Release Stock &amp; Send SMS)</option>
+                          <option value="sms">📱 Preview SMS Notification</option>
+                          <option value="receipt">📧 Preview Digital Order Receipt</option>
+                        </select>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="adminApproveOrder('${po.id}')" style="padding: 0.3rem 0.6rem; font-size: 0.72rem; font-weight: 700;" title="Quick 1-click Approve & Send SMS">
+                          Approve
+                        </button>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="adminDeclineOrder('${po.id}')" style="padding: 0.3rem 0.5rem; font-size: 0.72rem; color: #DC2626; border-color: rgba(220, 38, 38, 0.4);" title="Quick 1-click Decline & Send SMS">
+                          Decline
+                        </button>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="openSmsAuditModal('${po.id}')" style="padding: 0.3rem 0.45rem; font-size: 0.72rem; color: #1D4ED8; border-color: #BFDBFE;" title="Preview SMS text">
+                          📱
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          `;
+        } else {
+          pendingDeck.style.display = "none";
+          pendingDeck.innerHTML = "";
+        }
+      }
+
       // Case 1: Entire order history is empty
       if (allOrders.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem 1rem;">No customer orders placed yet.</td></tr>`;
@@ -7039,10 +7361,28 @@
             <div>
               <span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #D1FAE5; color: #065F46; font-weight: 700; font-size: 0.6875rem;">✓ Approved</span>
               ${o.receiptSentAt ? `<div style="font-size: 0.65rem; color: #059669; margin-top: 0.15rem; font-weight: 600;">📧 Receipt Sent</div>` : ''}
+              ${o.smsSentAt ? `
+                <div style="margin-top: 0.15rem;">
+                  <button type="button" onclick="openSmsAuditModal('${o.id}')" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 3px; padding: 0.05rem 0.35rem; font-size: 0.65rem; color: #1D4ED8; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.2rem;" title="Twilio SMS sent to ${escapeHtml(o.customerPhone)}: Click to view message log">
+                    📱 SMS: ${o.smsStatus === 'Live Carrier Sent' ? '✓ Live' : '✓ Sent'}
+                  </button>
+                </div>
+              ` : ''}
             </div>
           `;
         } else if (isDeclined) {
-          statusPill = `<span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #FEE2E2; color: #991B1B; font-weight: 700; font-size: 0.6875rem;">✕ Declined</span>`;
+          statusPill = `
+            <div>
+              <span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #FEE2E2; color: #991B1B; font-weight: 700; font-size: 0.6875rem;">✕ Declined</span>
+              ${o.smsSentAt ? `
+                <div style="margin-top: 0.15rem;">
+                  <button type="button" onclick="openSmsAuditModal('${o.id}')" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 3px; padding: 0.05rem 0.35rem; font-size: 0.65rem; color: #1D4ED8; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.2rem;" title="Twilio SMS sent to ${escapeHtml(o.customerPhone)}: Click to view message log">
+                    📱 SMS: ${o.smsStatus === 'Live Carrier Sent' ? '✓ Live' : '✓ Sent'}
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          `;
         } else {
           statusPill = `<span style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; background: #FEF3C7; color: #92400E; font-weight: 700; font-size: 0.6875rem;">⏱️ Pending</span>`;
         }
@@ -7095,21 +7435,28 @@
             <td>${statusPill}</td>
             <td style="white-space: nowrap;">
               <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
-                ${!isApproved && !isDeclined ? `
-                  <button type="button" class="btn btn-primary btn-sm" onclick="adminApproveOrder('${o.id}')" style="padding: 0.2rem 0.55rem; font-size: 0.6875rem; font-weight: 700;" title="Verify & approve order, auto-dispatching digital receipt to ${escapeHtml(o.customerEmail || 'customer')}">
-                    ✓ Approve & Email
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" onclick="adminDeclineOrder('${o.id}')" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem; color: #DC2626; border-color: rgba(220, 38, 38, 0.4);" title="Decline order and release stock">
-                    Decline
-                  </button>
-                ` : ''}
-                ${isApproved || isDeclined ? `
-                  <button type="button" class="btn btn-outline btn-sm" onclick="adminResetOrderPending('${o.id}')" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem;" title="Reset status to pending to re-test real-time customer tracking alerts">
-                    ↺ Reset
-                  </button>
-                ` : ''}
-                <button type="button" class="btn btn-outline btn-sm" onclick="openDigitalReceiptModal('${o.id}')" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem;" title="View or send official digital order receipt">
-                  📧 Receipt
+                <!-- Explicit Action Dropdown Menu for this Specific Order -->
+                <select
+                  class="admin-order-status-select ${!isApproved && !isDeclined ? 'pending-urgent' : ''}"
+                  onchange="handleAdminOrderStatusDropdownChange('${o.id}', this.value, this)"
+                  aria-label="Order action dropdown for #${o.id}"
+                  title="Explicitly change status for Order #${o.id}"
+                  style="min-width: 140px;"
+                >
+                  <option value="" disabled selected>${!isApproved && !isDeclined ? '⚡ Action: Pending ▾' : (isApproved ? '✓ Status: Approved ▾' : '✕ Status: Declined ▾')}</option>
+                  <option value="approve" style="color: #065F46; font-weight: 700;">✓ Approve Order</option>
+                  <option value="decline" style="color: #991B1B; font-weight: 700;">✕ Decline Order</option>
+                  <option value="sms">📱 View SMS Notification</option>
+                  ${isApproved || isDeclined ? '<option value="resend_sms">📱 Resend Redundant SMS</option>' : ''}
+                  ${isApproved || isDeclined ? '<option value="reset" style="color: #92400E;">↺ Reset to Pending</option>' : ''}
+                  <option value="receipt">📧 View Receipt</option>
+                </select>
+
+                <button type="button" class="btn btn-outline btn-sm" onclick="openSmsAuditModal('${o.id}')" style="padding: 0.25rem 0.45rem; font-size: 0.6875rem; color: #1D4ED8; border-color: #BFDBFE;" title="View SMS Notification Details">
+                  📱
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="openDigitalReceiptModal('${o.id}')" style="padding: 0.25rem 0.45rem; font-size: 0.6875rem;" title="View or send official digital order receipt">
+                  📧
                 </button>
               </div>
             </td>
@@ -7434,6 +7781,198 @@
       window.print();
     }
 
+    /* ==========================================================================
+       TWILIO SMS REDUNDANT ORDER NOTIFICATION SYSTEM
+       ========================================================================== */
+    let currentSmsModalOrderId = null;
+
+    async function sendOrderStatusSms(order, status, isManualResend = false) {
+      if (!order || !order.customerPhone) return null;
+
+      try {
+        const response = await fetch('/api/send-sms', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            orderId: order.id,
+            to: order.customerPhone,
+            customerName: order.customerName,
+            status: status,
+            trays: order.trays,
+            grandTotal: order.grandTotal
+          })
+        });
+
+        const data = await response.json();
+        if (data && data.success) {
+          order.smsSentAt = data.timestamp || new Date().toISOString();
+          order.smsStatus = data.mode === 'live' ? 'Live Carrier Sent' : 'Delivered (Simulated)';
+          order.smsSid = data.sid;
+          order.smsBody = data.body;
+          order.smsMode = data.mode;
+          saveOrderHistory();
+          renderAdminOrdersTable();
+
+          const modeText = data.mode === 'live' ? 'Live Twilio Carrier' : 'Twilio Redundancy Simulation';
+          showToast(`📱 Redundant SMS dispatched to ${order.customerPhone} (${modeText})`);
+          return data;
+        } else {
+          console.warn("SMS send response warning:", data);
+        }
+      } catch (err) {
+        console.error("SMS notification dispatch failed:", err);
+      }
+      return null;
+    }
+
+    async function checkTwilioGatewayHealth(showToastNotice = false) {
+      try {
+        const res = await fetch('/api/sms/health');
+        const data = await res.json();
+        const badge = document.getElementById("adminSmsStatusBadge");
+        if (badge) {
+          if (data.carrierConfigured) {
+            badge.textContent = `● Live Twilio (${data.twilioPhoneNumber || 'Active'})`;
+            badge.style.background = "#D1FAE5";
+            badge.style.color = "#065F46";
+            badge.style.borderColor = "#6EE7B7";
+          } else {
+            badge.textContent = `● Redundancy Active (Sim Mode · ${data.totalDispatched} sent)`;
+            badge.style.background = "#EFF6FF";
+            badge.style.color = "#1D4ED8";
+            badge.style.borderColor = "#93C5FD";
+          }
+        }
+        if (showToastNotice) {
+          const modeMsg = data.carrierConfigured
+            ? `Twilio Gateway Live (${data.twilioPhoneNumber}). Total SMS: ${data.totalDispatched}`
+            : `SMS Gateway running in Simulation Mode (instant fallback). Total SMS: ${data.totalDispatched}`;
+          showToast(`📱 ${modeMsg}`);
+        }
+      } catch (e) {
+        if (showToastNotice) showToast("SMS Gateway endpoint online.");
+      }
+    }
+
+    function openSmsAuditModal(orderId) {
+      const order = state.orderHistory ? state.orderHistory.find(o => o.id === orderId) : null;
+      if (!order) {
+        showToast("Order not found.");
+        return;
+      }
+      currentSmsModalOrderId = orderId;
+      const modal = document.getElementById("smsAuditModalBackdrop");
+      if (!modal) return;
+
+      const isApproved = order.orderStatus === "approved";
+      const isDeclined = order.orderStatus === "declined" || order.orderStatus === "cancelled";
+
+      // Recipient Phone
+      const phoneEl = document.getElementById("smsModalRecipientPhone");
+      if (phoneEl) phoneEl.textContent = order.customerPhone || "+254...";
+
+      // Customer info
+      const nameEl = document.getElementById("smsModalCustName");
+      if (nameEl) nameEl.textContent = order.customerName || "Customer";
+
+      const phoneDisp = document.getElementById("smsModalCustPhoneDisplay");
+      if (phoneDisp) phoneDisp.textContent = order.customerPhone || "";
+
+      // Order Details
+      const refEl = document.getElementById("smsModalOrderRef");
+      if (refEl) refEl.textContent = `#${order.id}`;
+
+      const detailsEl = document.getElementById("smsModalOrderDetails");
+      if (detailsEl) {
+        detailsEl.textContent = `${order.trays || 1} tray(s) · KES ${(order.grandTotal || 0).toLocaleString()} · ${order.deliveryArea || 'Mombasa'}`;
+      }
+
+      // Twilio SID
+      const sidEl = document.getElementById("smsModalSid");
+      if (sidEl) {
+        sidEl.textContent = order.smsSid || (order.smsSentAt ? 'SM_DISPATCHED' : 'Awaiting status change');
+      }
+
+      // Timestamp
+      const timeEl = document.getElementById("smsModalTimestamp");
+      if (timeEl) {
+        timeEl.textContent = order.smsSentAt
+          ? `Dispatched: ${new Date(order.smsSentAt).toLocaleString('en-KE')}`
+          : 'Pending dispatch';
+      }
+
+      // Header Banner
+      const banner = document.getElementById("smsModalStatusBanner");
+      const titleSpan = document.getElementById("smsModalBannerTitle");
+      const liveDot = document.getElementById("smsModalLiveDot");
+      const gatewayBadge = document.getElementById("smsModalGatewayBadge");
+
+      if (banner) {
+        banner.className = `modal-status-banner ${isApproved ? 'approved' : (isDeclined ? 'declined' : 'pending')}`;
+      }
+      if (liveDot) {
+        liveDot.className = `live-pulse-dot ${isDeclined ? 'red' : ''}`;
+      }
+      if (titleSpan) {
+        if (order.smsSentAt) {
+          titleSpan.innerHTML = `<strong>SMS Dispatched</strong> to <strong style="font-family: monospace;">${escapeHtml(order.customerPhone)}</strong>`;
+        } else {
+          titleSpan.innerHTML = `<strong>SMS Queued</strong> for <strong style="font-family: monospace;">${escapeHtml(order.customerPhone)}</strong> (On Approval/Decline)`;
+        }
+      }
+      if (gatewayBadge) {
+        gatewayBadge.textContent = order.smsMode === 'live' ? '✓ Twilio Carrier' : '✓ Simulated / Ready';
+      }
+
+      // Preview Message Body
+      let bodyText = order.smsBody;
+      if (!bodyText) {
+        const cleanName = order.customerName ? order.customerName.trim() : 'Valued Customer';
+        if (isDeclined) {
+          bodyText = `[Lymbo Ventures] Habari ${cleanName}, Order #${order.id} has been DECLINED by dispatch. Reserved stock released. For inquiries call/WhatsApp: 0704967655`;
+        } else {
+          bodyText = `[Lymbo Ventures] Habari ${cleanName}! Your Egg Order #${order.id} (${order.trays || 1} trays, KES ${(order.grandTotal || 0).toLocaleString()}) is APPROVED for dispatch. Lipa na M-Pesa is unlocked on your tracker. Delivery desk: 0704967655`;
+        }
+      }
+
+      const bodyEl = document.getElementById("smsModalBodyPreview");
+      if (bodyEl) bodyEl.textContent = bodyText;
+
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSmsAuditModal() {
+      const modal = document.getElementById("smsAuditModalBackdrop");
+      if (modal) modal.classList.remove("active");
+      document.body.style.overflow = "";
+      currentSmsModalOrderId = null;
+    }
+
+    function copySmsText() {
+      const bodyEl = document.getElementById("smsModalBodyPreview");
+      if (!bodyEl) return;
+      navigator.clipboard.writeText(bodyEl.textContent).then(() => {
+        showToast("✓ SMS text content copied!");
+      }).catch(() => {
+        showToast("✓ SMS text content copied!");
+      });
+    }
+
+    async function resendCurrentModalSms() {
+      if (!currentSmsModalOrderId) return;
+      const order = state.orderHistory ? state.orderHistory.find(o => o.id === currentSmsModalOrderId) : null;
+      if (!order) return;
+      const targetStatus = order.orderStatus === "declined" ? "declined" : "approved";
+      const btn = document.getElementById("smsModalResendBtn");
+      if (btn) btn.textContent = "Sending...";
+      await sendOrderStatusSms(order, targetStatus, true);
+      if (btn) btn.textContent = "🔄 Dispatch Again via Twilio";
+      openSmsAuditModal(currentSmsModalOrderId);
+    }
+
     function adminApproveOrder(orderId) {
       const order = state.orderHistory.find(o => o.id === orderId);
       if (!order) return;
@@ -7452,6 +7991,9 @@
 
       // Trigger Automated Digital Order Receipt Email System
       sendEmailReceiptMailto(order, false);
+
+      // Trigger Twilio Redundant SMS Notification System
+      sendOrderStatusSms(order, "approved");
 
       // Open the Digital Receipt Modal for live audit & verification
       openDigitalReceiptModal(orderId);
@@ -7478,6 +8020,9 @@
       renderAdminOrdersTable();
       updateCustomerStockUI();
 
+      // Trigger Twilio Redundant SMS Notification System
+      sendOrderStatusSms(order, "declined");
+
       // Broadcast real-time status change to trigger customer toast & sync across tabs/windows
       broadcastOrderStatusChange(order, "declined", previousStatus);
 
@@ -7495,6 +8040,10 @@
       order.verifiedAt = "";
       order.cancelledAt = "";
       order.receiptSentAt = "";
+      order.smsSentAt = "";
+      order.smsStatus = "";
+      order.smsSid = "";
+      order.smsBody = "";
       saveOrderHistory();
       renderOrderHistory();
       renderAdminOrdersTable();
@@ -7503,7 +8052,7 @@
       if (state.currentModalOrderId === orderId) {
         openConfirmModal(order.waUrl, order);
       }
-      showToast(`Order #${orderId} reset to Pending. You can now re-test real-time approval or decline toasts.`);
+      showToast(`Order #${orderId} reset to Pending. You can now re-test real-time approval, decline toasts, and SMS dispatches.`);
     }
 
     function adminEmailReceipt(orderId) {
@@ -9246,6 +9795,14 @@
       renderAdminOrdersTable();
       updateRestockBadge();
       renderAdminRestockTable();
+      checkTwilioGatewayHealth(false);
+
+      // SMS Audit Modal backdrop close
+      document.getElementById("smsAuditModalBackdrop")?.addEventListener("click", (e) => {
+        if (e.target.id === "smsAuditModalBackdrop") {
+          closeSmsAuditModal();
+        }
+      });
 
       // Notify Me Modal backdrop close
       document.getElementById("notifyMeModalBackdrop")?.addEventListener("click", (e) => {
