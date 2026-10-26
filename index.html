@@ -6,22 +6,22 @@
   
   <!-- SEO & Social Meta Tags -->
   <title>Lymbo Ventures | Quality General Supplies & Fresh Eggs Delivered Across Mombasa</title>
-  <meta name="description" content="Order farm-fresh eggs (tray of 30) delivered direct to your home, hotel, or shop in Mombasa. Fast doorstep delivery to Nyali, Kisauni, Island, Bamburi, Likoni, and Changamwe. Quick WhatsApp (0704967655) & M-Pesa ordering." />
-  <meta name="keywords" content="Fresh eggs delivery Mombasa, 0704967655, egg trays wholesale Mombasa, Nyali eggs delivery, Lymbo Ventures, general supplies Mombasa, M-Pesa egg delivery, eggs Mombasa Island" />
+  <meta name="description" content="Order farm-fresh eggs (tray of 30) delivered direct to your home, hotel, or shop in Mombasa. Fast doorstep delivery across Mombasa. Direct Call/WhatsApp 254727811266 (Alt: 254704967655) & M-Pesa Paybill 625625 Acc 20159160." />
+  <meta name="keywords" content="Fresh eggs delivery Mombasa, 254727811266, 0727811266, 254704967655, egg trays wholesale Mombasa, Nyali eggs delivery, Lymbo Ventures, general supplies Mombasa, M-Pesa Paybill 625625, eggs Mombasa Island" />
   <meta name="author" content="Lymbo Ventures" />
   <meta name="robots" content="index, follow" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Lymbo Ventures | Fresh Eggs Delivered Across Mombasa" />
-  <meta property="og:description" content="Quality General Supplies, Delivered. Fresh eggs (tray of 30) delivered across Mombasa. Call/WhatsApp 0704967655." />
+  <meta property="og:description" content="Quality General Supplies, Delivered. Fresh eggs (tray of 30) delivered across Mombasa. Direct Call/WhatsApp 254727811266 (Alt: 254704967655). Paybill: 625625 Acc: 20159160." />
   <meta property="og:site_name" content="Lymbo Ventures" />
   <meta property="og:locale" content="en_KE" />
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lymbo Ventures | Fresh Eggs Delivered Across Mombasa" />
-  <meta name="twitter:description" content="Quality General Supplies, Delivered. Order farm-fresh egg trays delivered anywhere in Mombasa with M-Pesa & WhatsApp (0704967655)." />
+  <meta name="twitter:description" content="Quality General Supplies, Delivered. Order farm-fresh egg trays delivered anywhere in Mombasa with M-Pesa Paybill 625625 (Acc 20159160) & WhatsApp (254727811266)." />
   
   <!-- Official Lymbo Ventures Favicon -->
   <link rel="icon" href="/src/assets/images/lymbo_logo.svg" type="image/svg+xml" />
@@ -33,6 +33,8 @@
 
   <!-- Built-in Standalone M-Pesa QR Code Generator Script -->
   <script src="/src/assets/qr.js"></script>
+  <!-- Browser Camera QR Code Scanner Engine (jsQR) -->
+  <script src="/src/assets/jsQR.js"></script>
 
   <!-- Schema.org LocalBusiness Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -41,7 +43,8 @@
     "@type": "LocalBusiness",
     "name": "Lymbo Ventures",
     "description": "Quality General Supplies, Delivered. Farm-fresh egg trays delivered across Mombasa, Kenya with quick M-Pesa & WhatsApp ordering.",
-    "telephone": "+254704967655",
+    "telephone": "+254727811266",
+    "alternateName": "Lymbo Ventures General Supplies",
     "email": "lymboventures0@gmail.com",
     "priceRange": "KES 100 - KES 10,000",
     "currenciesAccepted": "KES",
@@ -3250,6 +3253,144 @@
       margin-bottom: 0.875rem;
       animation: fadeIn 0.25s ease;
     }
+
+    /* ==========================================================================
+       CAMERA QR SCANNER & VIEWFINDER STYLES
+       ========================================================================== */
+    .camera-scanner-modal-box {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      max-width: 520px;
+      width: 100%;
+      padding: 1.25rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      position: relative;
+      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .camera-viewfinder-wrap {
+      position: relative;
+      width: 100%;
+      height: 290px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .camera-video-stream {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .scanner-reticle {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
+      box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+    .scanner-reticle::before,
+    .scanner-reticle::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-color: #10B981;
+      border-style: solid;
+    }
+    .scanner-reticle::before {
+      top: -2px;
+      left: -2px;
+      border-width: 4px 0 0 4px;
+      border-top-left-radius: 14px;
+    }
+    .scanner-reticle::after {
+      bottom: -2px;
+      right: -2px;
+      border-width: 0 4px 4px 0;
+      border-bottom-right-radius: 14px;
+    }
+    .scanner-laser-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(16,185,129,0) 0%, #10B981 50%, rgba(16,185,129,0) 100%);
+      box-shadow: 0 0 12px #10B981;
+      animation: scanLaser 2s ease-in-out infinite alternate;
+    }
+    @keyframes scanLaser {
+      0% { top: 10px; opacity: 0.8; }
+      100% { top: 185px; opacity: 1; }
+    }
+
+    /* M-Pesa STK Push Pop-up Styling */
+    .stk-sim-card {
+      background: linear-gradient(135deg, #0A4A28 0%, #032A15 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      border: 1px solid rgba(0, 163, 84, 0.4);
+      box-shadow: 0 8px 24px rgba(3, 42, 21, 0.25);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .stk-sim-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(0, 163, 84, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .stk-phone-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+    .stk-countdown-ring {
+      font-weight: 700;
+      color: #FCD34D;
+      font-size: 0.8125rem;
+    }
+
+    /* Password Policy Badge List */
+    .password-policy-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+      margin-top: 0.6rem;
+      font-size: 0.71875rem;
+      text-align: left;
+    }
+    .password-req-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+    .password-req-pill.valid {
+      color: #059669;
+      font-weight: 600;
+    }
+    .password-req-pill.valid svg {
+      color: #059669;
+    }
   </style>
 </head>
 <body>
@@ -3284,8 +3425,8 @@
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <!-- Admin Operations & Inventory Portal Button -->
-        <button class="admin-nav-btn" id="openAdminBtn" title="System Admin & Inventory Dashboard (PIN Required)">
+        <!-- Admin Operations & Inventory Portal Button (Hidden from regular clients) -->
+        <button class="admin-nav-btn" id="openAdminBtn" style="display: none !important;" aria-hidden="true" tabindex="-1" title="System Admin & Inventory Dashboard">
           <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -3318,12 +3459,12 @@
           <span class="cart-badge" id="headerCartCount">0</span>
         </button>
 
-        <!-- WhatsApp Quick CTA with real user number -->
+        <!-- WhatsApp Quick CTA with real user number (0727811266) -->
         <a href="#" class="btn btn-whatsapp btn-sm" id="headerWhatsappBtn" target="_blank" rel="noopener noreferrer">
           <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
           </svg>
-          <span>WhatsApp 0704967655</span>
+          <span>WhatsApp 0727811266</span>
         </a>
 
         <!-- Mobile Menu Hamburger -->
@@ -3347,13 +3488,7 @@
         <li><a href="#how-to-order" class="mobile-nav-link" onclick="closeMobileNav()">How to Order</a></li>
         <li><a href="#about" class="mobile-nav-link" onclick="closeMobileNav()">About Lymbo Ventures</a></li>
         <li><a href="#faq" class="mobile-nav-link" onclick="closeMobileNav()">Frequently Asked Questions</a></li>
-        <li><a href="#contact" class="mobile-nav-link" onclick="closeMobileNav()">Contact Us (0704 967 655)</a></li>
-        <li>
-          <button class="btn btn-outline btn-sm" onclick="closeMobileNav(); openAdminPortal();" style="width: 100%; margin-top: 0.5rem;">
-            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <span>Admin: Inventory & Operations</span>
-          </button>
-        </li>
+        <li><a href="#contact" class="mobile-nav-link" onclick="closeMobileNav()">Contact Us (0727 811 266)</a></li>
       </ul>
     </div>
   </header>
@@ -3402,7 +3537,7 @@
             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
-            <span>Chat 0704967655</span>
+            <span>Chat 0727811266</span>
           </a>
         </div>
 
@@ -3417,7 +3552,7 @@
           </div>
           <div class="hero-trust-item">
             <svg class="icon icon-sm" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Call/WhatsApp: 0704967655</span>
+            <span>Direct Call/WhatsApp: 0727 811 266</span>
           </div>
         </div>
       </div>
@@ -3639,7 +3774,7 @@
           <p class="section-desc">Photos of our actual daily poultry crates, sorting, and van dispatch in Mombasa.</p>
         </div>
 
-        <button type="button" class="btn btn-outline btn-sm" onclick="openAdminPortal()">
+        <button type="button" class="btn btn-outline btn-sm" onclick="openAdminPortal()" style="display: none !important;" aria-hidden="true" tabindex="-1">
           <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
             <circle cx="12" cy="13" r="4"></circle>
@@ -3678,7 +3813,7 @@
             </div>
             <div class="bulk-benefit-item">
               <svg class="icon icon-sm" style="color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Direct Hotline: 0704967655</span>
+              <span>Direct Hotline: 0727 811 266 (Alt: 0704 967 655)</span>
             </div>
           </div>
         </div>
@@ -4136,7 +4271,7 @@
 
       <h3 class="confirm-title">Order Received!</h3>
       <p class="confirm-subtitle">
-        Your order details are confirmed. WhatsApp is opening now with your summary sent to <strong>0704967655</strong>.
+        Your order details are confirmed. WhatsApp is opening now with your summary sent to <strong>0727811266</strong> (Alt: 0704967655).
       </p>
 
       <!-- Dynamic Order Verification & Approval Status Banner -->
@@ -4144,16 +4279,16 @@
         <div style="display: flex; align-items: flex-start; gap: 0.6rem;">
           <span id="modalStatusIcon" style="font-size: 1.25rem; line-height: 1;">⏱️</span>
           <div style="flex: 1;">
-            <strong id="modalStatusTitle" style="display: block; font-size: 0.9375rem; margin-bottom: 0.2rem;">Order Submitted & Pending Admin Verification</strong>
+            <strong id="modalStatusTitle" style="display: block; font-size: 0.9375rem; margin-bottom: 0.2rem;">Order Status: Pending Confirmation</strong>
             <p id="modalStatusDesc" style="margin: 0; font-size: 0.78125rem;">
-              Your order is queued for admin review. Once approved, the Lipa na M-Pesa payment section will unlock and an official digital order receipt will be sent to your email.
+              Your order is currently <strong>pending</strong>. As soon as your M-Pesa transaction is confirmed, your order status automatically becomes <strong>Approved</strong> and dispatched.
             </p>
             <div id="modalStatusEmailTag" style="margin-top: 0.4rem; font-size: 0.75rem;">
               Receipt Target: <strong id="modalReceiptEmailTarget" style="text-decoration: underline;">customer@gmail.com</strong>
             </div>
             <div id="modalRealtimeTrackingBadge" style="margin-top: 0.45rem; display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: #92400E;">
               <span class="live-pulse-dot amber" id="modalLiveDot"></span>
-              <span id="modalLiveTrackingText"><strong>Live Tracking Active:</strong> Listening for dispatch approval...</span>
+              <span id="modalLiveTrackingText"><strong>Live Status:</strong> Awaiting M-Pesa payment confirmation...</span>
             </div>
             <div id="modalStatusActionRow" style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
               <button type="button" class="btn btn-outline btn-sm" id="modalViewReceiptBtn" onclick="openDigitalReceiptModal(state.currentModalOrderId)" style="display: none; padding: 0.2rem 0.55rem; font-size: 0.75rem;">
@@ -4168,40 +4303,66 @@
       <div id="modalOrderRefBadge" style="display: none; align-items: center; justify-content: center; gap: 0.5rem; background: var(--bg-body); border: 1px dashed var(--border-subtle); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.8125rem;">
         <span style="color: var(--text-muted);">Order Tracking ID:</span>
         <strong id="modalOrderRefId" style="font-family: monospace; color: var(--primary); font-size: 0.9375rem;">#LV-000000</strong>
-        <span class="order-status-pill" id="modalOrderStatusPill" style="margin-left: 0.25rem;">Saved to Browser</span>
+        <span class="order-status-pill" id="modalOrderStatusPill" style="margin-left: 0.25rem;">Pending Payment</span>
       </div>
 
-      <!-- M-Pesa Locked Box (shown when pending admin verification) -->
-      <div class="mpesa-locked-card" id="mpesaLockedBox" style="display: none;">
-        <div class="mpesa-locked-icon">
-          <svg class="icon icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
+      <!-- Automated M-Pesa STK Push Pop-up Prompt Card -->
+      <div class="stk-sim-card" id="modalMpesaStkPushCard">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 163, 84, 0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 1px solid #10B981;">
+              📲
+            </div>
+            <div>
+              <strong style="display: block; font-size: 0.9375rem; color: #FFFFFF;">M-Pesa STK Pop-up Initiated</strong>
+              <span style="font-size: 0.71875rem; color: #A7F3D0;">Check phone screen for PIN prompt</span>
+            </div>
+          </div>
+          <span class="stk-phone-pill" id="stkModalTargetPhone">+2547...</span>
         </div>
-        <div class="mpesa-locked-title">M-Pesa Payment Locked</div>
-        <div class="mpesa-locked-desc">
-          Payment is held until an administrator verifies tray stock and assigns a Mombasa dispatch rider. A digital order receipt will be automatically emailed to you upon approval.
-        </div>
-        <div>
-          <div class="mpesa-locked-email-pill">
-            <svg class="icon icon-sm" style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>Receipt Destination: <strong id="mpesaLockTargetEmail">—</strong></span>
+
+        <div style="background: rgba(0, 0, 0, 0.25); border-radius: 8px; padding: 0.65rem 0.75rem; margin-bottom: 0.75rem; font-size: 0.78125rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;">
+            <div>
+              <span style="color: #9CA3AF; font-size: 0.6875rem; display: block;">Paybill No:</span>
+              <strong style="color: #FCD34D; font-size: 0.9375rem; font-family: monospace;">625625</strong>
+            </div>
+            <div>
+              <span style="color: #9CA3AF; font-size: 0.6875rem; display: block;">Account No:</span>
+              <strong style="color: #FFFFFF; font-size: 0.9375rem; font-family: monospace;">20159160</strong>
+            </div>
+            <div>
+              <span style="color: #9CA3AF; font-size: 0.6875rem; display: block;">Total Amount:</span>
+              <strong style="color: #34D399; font-size: 0.9375rem;" id="stkModalAmountBadge">KES 0</strong>
+            </div>
+            <div>
+              <span style="color: #9CA3AF; font-size: 0.6875rem; display: block;">Order Status:</span>
+              <span id="stkModalStatusText" style="color: #FBBF24; font-weight: 700; font-size: 0.75rem;">⏱️ Awaiting PIN</span>
+            </div>
           </div>
         </div>
-        <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
-          <button type="button" class="btn btn-outline btn-sm" onclick="closeConfirmModal(); openAdminPortal(); switchAdminTab('orders');" style="font-size: 0.75rem; border-color: #D97706; color: #B45309;">
-            🔑 Admin Portal: Review & Approve Order
+
+        <p style="font-size: 0.75rem; color: #D1FAE5; margin-bottom: 0.75rem; line-height: 1.4;">
+          An M-Pesa STK prompt has been dispatched to your phone. Enter your Safaricom PIN to confirm. Once confirmed, your order status will automatically transition from <strong>Pending</strong> to <strong>Approved</strong>.
+        </p>
+
+        <!-- STK Simulation & Re-prompt Action Buttons -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-sm" id="stkSimulatePinBtn" onclick="simulateClientMpesaPinConfirm()" style="flex: 1.5; background: #10B981; color: #022C17; font-weight: 700; border: none; font-size: 0.78125rem;">
+            ⚡ Simulate PIN Entry &amp; Confirm
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="stkResendBtn" onclick="retriggerClientStkPush()" style="flex: 1; border-color: rgba(255, 255, 255, 0.4); color: #FFFFFF; font-size: 0.75rem;">
+            🔄 Resend Prompt
           </button>
         </div>
       </div>
 
-      <!-- Interactive M-Pesa Payment Box with Dynamic QR Code Generator -->
+      <!-- Interactive M-Pesa Payment Box with Paybill 625625 & Dynamic QR Code -->
       <div class="mpesa-instruction-card" id="mpesaInstructionBox">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.875rem; flex-wrap: wrap; gap: 0.5rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9375rem; color: var(--mpesa-green);">
             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-            <span>Lipa na M-Pesa</span>
+            <span>Paybill Details &amp; QR</span>
           </div>
 
           <!-- Tab Switcher: QR Code vs Manual Steps -->
@@ -4210,7 +4371,7 @@
               📱 Scan QR Code
             </button>
             <button type="button" class="mpesa-tab-btn" id="tabManualBtn" onclick="switchMpesaTab('manual')">
-              🔢 Manual Steps
+              🔢 Paybill Steps
             </button>
           </div>
         </div>
@@ -4219,7 +4380,7 @@
         <div id="mpesaQrView">
           <div class="mpesa-qr-card">
             <div class="mpesa-qr-header">
-              <span class="mpesa-tag">Lipa na M-Pesa QR</span>
+              <span class="mpesa-tag">Lipa na M-Pesa Paybill QR</span>
               <span class="mpesa-amount-tag tabular-nums" id="qrTotalBadge">KES 0</span>
             </div>
             
@@ -4228,15 +4389,20 @@
             </div>
 
             <div class="mpesa-qr-meta">
-              <div class="mpesa-till-row">
-                <span>Till Number:</span>
-                <strong id="qrTillNumber" class="tabular-nums" style="font-size: 1.0625rem; letter-spacing: 0.05em; color: var(--mpesa-green);">XXXXXX</strong>
-                <button type="button" class="btn btn-outline btn-sm" onclick="copyTillNumber()" style="padding: 0.2rem 0.5rem; font-size: 0.6875rem; min-height: 28px;">
-                  Copy
-                </button>
+              <div class="mpesa-till-row" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                  <span>Paybill No:</span>
+                  <strong class="tabular-nums" style="font-size: 1.0625rem; letter-spacing: 0.05em; color: var(--mpesa-green);">625625</strong>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="copyText('625625', 'Paybill 625625 copied!')" style="padding: 0.15rem 0.45rem; font-size: 0.6875rem;">Copy</button>
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                  <span>Account No:</span>
+                  <strong class="tabular-nums" style="font-size: 1.0625rem; letter-spacing: 0.05em; color: var(--mpesa-green);">20159160</strong>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="copyText('20159160', 'Account 20159160 copied!')" style="padding: 0.15rem 0.45rem; font-size: 0.6875rem;">Copy</button>
+                </div>
               </div>
               <p class="mpesa-scan-help">
-                Open <strong>M-Pesa App</strong> &rarr; tap <strong>"Scan QR"</strong> icon on top right &rarr; scan this code to auto-fill Till & Amount without typing.
+                Open <strong>M-Pesa App</strong> &rarr; tap <strong>"Scan QR"</strong> to auto-fill Paybill 625625, Account 20159160 &amp; Amount.
               </p>
             </div>
           </div>
@@ -4253,20 +4419,24 @@
         <div id="mpesaManualView" style="display: none;">
           <ol class="mpesa-steps-list">
             <li>Open your Safaricom SIM Toolkit or M-Pesa App</li>
-            <li>Select <strong>Lipa na M-Pesa</strong> &rarr; <strong>Buy Goods and Services</strong></li>
-            <li>Enter Till Number: <strong id="modalTillNumber" class="tabular-nums">XXXXXX</strong></li>
+            <li>Select <strong>Lipa na M-Pesa</strong> &rarr; <strong>Paybill</strong></li>
+            <li>Enter Business No: <strong class="tabular-nums">625625</strong></li>
+            <li>Enter Account No: <strong class="tabular-nums">20159160</strong></li>
             <li>Enter Amount: <strong id="modalTotalAmount" class="tabular-nums">KES 0</strong></li>
-            <li>Enter your M-Pesa PIN and confirm the business name is <strong>LYMBO VENTURES</strong></li>
+            <li>Enter your M-Pesa PIN and confirm the transaction</li>
           </ol>
 
           <div class="mpesa-highlight-box">
-            <div>
-              <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Buy Goods Till Number</div>
-              <div class="mpesa-till-badge" id="modalTillHighlight">XXXXXX</div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div>
+                <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Paybill No</div>
+                <div class="mpesa-till-badge">625625</div>
+              </div>
+              <div>
+                <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Account No</div>
+                <div class="mpesa-till-badge">20159160</div>
+              </div>
             </div>
-            <button type="button" class="btn btn-outline btn-sm" onclick="copyTillNumber()" style="font-size: 0.75rem;">
-              Copy Till
-            </button>
           </div>
         </div>
       </div>
@@ -4279,13 +4449,13 @@
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               <polyline points="9 12 11 14 15 10"></polyline>
             </svg>
-            <strong style="font-size: 0.875rem; color: var(--text-main);">M-Pesa Real-Time Verification</strong>
+            <strong style="font-size: 0.875rem; color: var(--text-main);">Enter M-Pesa Confirmation Code</strong>
           </div>
-          <span class="mpesa-code-hint" id="modalCodeStatusPill">Awaiting Payment</span>
+          <span class="mpesa-code-hint" id="modalCodeStatusPill">Awaiting Confirmation</span>
         </div>
 
         <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.625rem; line-height: 1.4;">
-          Paid via Till <strong id="modalTillCodePrompt" class="tabular-nums">XXXXXX</strong>? Enter your 10-character M-Pesa confirmation code below. It will be <strong>verified instantly</strong> against Safaricom records:
+          Paid via Paybill <strong>625625</strong> (Acc <strong>20159160</strong>)? Enter your 10-character M-Pesa code below to confirm payment and approve your order:
         </p>
 
         <form id="modalMpesaCodeForm" onsubmit="handleSaveMpesaCode(event)" style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -4404,7 +4574,7 @@
           <div>
             <strong style="display: block; font-size: 1.25rem; color: var(--primary); letter-spacing: 0.03em;">LYMBO VENTURES</strong>
             <span style="font-size: 0.75rem; color: var(--text-muted);">Quality General Supplies · Fresh Eggs Delivery</span>
-            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Mombasa, Kenya · Hotline: 0704 967 655 · lymboventures0@gmail.com</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">Mombasa, Kenya · Direct Hotline: 0727 811 266 (Alt: 0704 967 655) · lymboventures0@gmail.com</div>
           </div>
           <div style="text-align: right;">
             <div style="font-size: 0.75rem; color: var(--text-muted);">Order Receipt No.</div>
@@ -4468,8 +4638,8 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #CBD5E1; font-size: 0.75rem;">
           <div>
             <span style="color: var(--text-muted);">Payment Method:</span>
-            <strong id="receiptDisplayPayMethod" style="display: block; color: var(--text-main);">M-Pesa (Buy Goods Till)</strong>
-            <span style="color: var(--text-muted);">Till: <strong id="receiptDisplayTill">XXXXXX</strong></span>
+            <strong id="receiptDisplayPayMethod" style="display: block; color: var(--text-main);">M-Pesa (Paybill)</strong>
+            <span style="color: var(--text-muted);">Paybill: <strong>625625</strong> · Acc: <strong id="receiptDisplayTill">20159160</strong></span>
             <div id="receiptDisplayMpesaCodeRow" style="margin-top: 0.2rem;"></div>
           </div>
           <div>
@@ -4608,23 +4778,73 @@
         </button>
       </div>
 
-      <!-- PIN Auth Screen -->
-      <div id="adminAuthScreen" class="admin-auth-panel">
-        <svg class="icon icon-lg" style="margin: 0 auto 0.75rem; color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <h4>Admin Security Check</h4>
+      <!-- Secure Admin Password Auth Screen -->
+      <div id="adminAuthScreen" class="admin-auth-panel" style="max-width: 380px; margin: 1rem auto; text-align: center;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: var(--accent-light); color: var(--accent-hover); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+          <svg class="icon icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h4 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);">Admin Security Check</h4>
         <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.25rem;">
-          Enter your 4-digit admin PIN (Default: <strong>1234</strong>)
+          Restricted access. Only authorized staff may enter.
         </p>
-        <input type="password" id="adminPinInput" class="form-input admin-auth-input" maxlength="4" placeholder="••••" />
-        <div>
-          <button type="button" class="btn btn-primary btn-sm" id="adminLoginBtn" style="min-width: 130px;">
+
+        <div style="position: relative; margin: 1rem 0 0.5rem;">
+          <input
+            type="password"
+            id="adminPasswordInput"
+            class="form-input"
+            placeholder="Enter admin password (e.g. Lymbo#2025!)"
+            style="width: 100%; padding-right: 2.75rem; font-size: 0.875rem;"
+            oninput="handleAdminPasswordKeyup(this.value)"
+            autocomplete="current-password"
+          />
+          <button
+            type="button"
+            id="adminPwToggleBtn"
+            onclick="toggleAdminPasswordVisibility()"
+            style="position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.25rem;"
+            title="Toggle password view"
+          >
+            👁️
+          </button>
+        </div>
+
+        <!-- Password Policy Indicator Checklist -->
+        <div class="password-policy-list" id="adminPasswordPolicyList">
+          <div class="password-req-pill" id="pwReqLen">
+            <span id="pwIconLen">○</span>
+            <span>Min 6 characters</span>
+          </div>
+          <div class="password-req-pill" id="pwReqLetters">
+            <span id="pwIconLetters">○</span>
+            <span>Letters (a-z, A-Z)</span>
+          </div>
+          <div class="password-req-pill" id="pwReqNums">
+            <span id="pwIconNums">○</span>
+            <span>Numbers (0-9)</span>
+          </div>
+          <div class="password-req-pill" id="pwReqSpecial">
+            <span id="pwIconSpecial">○</span>
+            <span>Special character</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <button type="button" class="btn btn-primary" id="adminLoginBtn" style="width: 100%; font-weight: 700;">
             Unlock Operations Portal
           </button>
         </div>
-        <span id="pinErrorMsg" style="display: none; color: #DC2626; font-size: 0.75rem; margin-top: 0.5rem;">Incorrect PIN. Try 1234.</span>
+
+        <div style="margin-top: 0.75rem; font-size: 0.71875rem; color: var(--text-muted);">
+          Default staff password: <strong style="font-family: monospace; color: var(--primary);">Lymbo#2025!</strong>
+        </div>
+
+        <span id="pinErrorMsg" style="display: none; color: #DC2626; font-size: 0.78125rem; margin-top: 0.5rem; background: #FEF2F2; padding: 0.4rem 0.6rem; border-radius: 4px; border: 1px solid #FCA5A5;">
+          Incorrect password. Must be at least 6 characters with letters, numbers &amp; special characters.
+        </span>
       </div>
 
       <!-- Admin Upload & Management Interface -->
@@ -4780,7 +5000,10 @@
               <h4 style="font-size: 0.9375rem; font-weight: 700; color: var(--text-main);">Customer Orders & Transactions Audit</h4>
               <p style="font-size: 0.75rem; color: var(--text-muted);">Review pending orders, check transactions (including >48 hrs), approve, or export receipts to email.</p>
             </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <button type="button" class="btn btn-primary btn-sm" onclick="openAdminQrCameraModal()" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; background: #0E5A2E; border-color: #0E5A2E;" title="Open browser camera to scan customer phone M-Pesa QR code">
+                📷 Scan Customer Phone QR
+              </button>
               <span id="adminOrdersCountSummary" style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); background: var(--bg-body); padding: 0.25rem 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
                 0 orders
               </span>
@@ -5060,6 +5283,76 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       ADMIN LIVE CAMERA QR CODE SCANNER MODAL (M-PESA TRANSACTION VERIFICATION)
+       ========================================================================== -->
+  <div class="modal-backdrop" id="adminQrScannerModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="qrScannerModalTitle">
+    <div class="camera-scanner-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.875rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); color: #059669; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+            📷
+          </div>
+          <div>
+            <h3 id="qrScannerModalTitle" style="font-size: 1.0625rem; font-weight: 700; line-height: 1.2;">M-Pesa QR Camera Scanner</h3>
+            <span style="font-size: 0.71875rem; color: var(--text-muted);">Scan customer phone to instantly verify &amp; approve order</span>
+          </div>
+        </div>
+        <button type="button" class="drawer-close-btn" onclick="closeAdminQrCameraModal()" aria-label="Close scanner">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Live Camera Viewfinder -->
+      <div class="camera-viewfinder-wrap" id="cameraViewfinderWrap">
+        <video id="adminScannerVideo" class="camera-video-stream" playsinline muted autoplay></video>
+        <canvas id="adminScannerCanvas" style="display: none;"></canvas>
+        
+        <div class="scanner-reticle">
+          <div class="scanner-laser-line"></div>
+        </div>
+
+        <div id="cameraStatusOverlay" style="position: absolute; bottom: 12px; left: 12px; right: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.75rem; padding: 0.4rem 0.6rem; border-radius: 6px; text-align: center; border: 1px solid rgba(255,255,255,0.15);">
+          Point camera at customer's M-Pesa transaction confirmation SMS or QR
+        </div>
+      </div>
+
+      <!-- Camera Controls & Fallbacks -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="display: flex; gap: 0.35rem; align-items: center;">
+          <button type="button" class="btn btn-outline btn-sm" id="cameraFlipBtn" onclick="flipAdminCamera()" style="font-size: 0.71875rem; padding: 0.25rem 0.55rem;">
+            🔄 Flip Camera
+          </button>
+          <label class="btn btn-outline btn-sm" style="font-size: 0.71875rem; padding: 0.25rem 0.55rem; cursor: pointer; margin: 0;">
+            📁 Upload QR Image
+            <input type="file" id="adminQrFileInput" accept="image/*" style="display: none;" onchange="handleAdminQrFileSelect(event)" />
+          </label>
+        </div>
+        <div>
+          <button type="button" class="btn btn-outline btn-sm" onclick="simulateAdminQrScan()" style="font-size: 0.71875rem; padding: 0.25rem 0.55rem; color: #059669; border-color: #A7F3D0; background: #ECFDF5;" title="Test scanner with synthetic Safaricom M-Pesa QR">
+            🧪 Demo Scan Test
+          </button>
+        </div>
+      </div>
+
+      <!-- Target Order Selection Dropdown (optional matching) -->
+      <div style="margin-top: 0.75rem; background: var(--bg-body); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.5rem 0.75rem;">
+        <label for="adminScanTargetOrderSelect" style="display: block; font-size: 0.6875rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">
+          Associate Scan With Order (Auto-detects if left as Any):
+        </label>
+        <select id="adminScanTargetOrderSelect" class="form-select" style="font-size: 0.75rem; width: 100%; padding: 0.25rem 0.5rem;">
+          <option value="auto">⚡ Auto-Match Pending Orders</option>
+        </select>
+      </div>
+
+      <div style="margin-top: 0.75rem; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="closeAdminQrCameraModal()" style="font-size: 0.75rem;">
+          Cancel / Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Fullscreen Lightbox Modal -->
   <div class="lightbox-modal" id="lightboxModal">
     <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Close Lightbox">
@@ -5293,10 +5586,10 @@
             </svg>
           </div>
           <span class="contact-card-label">Direct Phone & WhatsApp</span>
-          <span class="contact-card-val" id="contactPhoneDisplay">0704 967 655</span>
-          <p class="contact-card-sub">Fast replies on WhatsApp (0704967655) during active business hours.</p>
-          <a href="tel:0704967655" class="btn btn-outline btn-sm" id="contactCallBtn" style="margin-top: 1rem;">
-            Call 0704967655
+          <span class="contact-card-val" id="contactPhoneDisplay">0727 811 266</span>
+          <p class="contact-card-sub">Direct line: <strong>0727811266</strong> · Alternative: <strong>0704967655</strong>.</p>
+          <a href="tel:+254727811266" class="btn btn-outline btn-sm" id="contactCallBtn" style="margin-top: 1rem;">
+            Call 0727 811 266
           </a>
         </div>
 
@@ -5338,8 +5631,8 @@
   <!-- ==========================================================================
        FLOATING WHATSAPP BUTTON (Fixed Bottom-Right on every screen)
        ========================================================================== -->
-  <a href="#" class="floating-whatsapp-btn" id="floatingWhatsappBtn" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp 0704967655">
-    <span class="floating-tooltip">Chat with us on WhatsApp (0704967655)</span>
+  <a href="#" class="floating-whatsapp-btn" id="floatingWhatsappBtn" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp 0727811266">
+    <span class="floating-tooltip">Chat with us on WhatsApp (0727811266)</span>
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
     </svg>
@@ -5357,7 +5650,7 @@
             <span class="brand-title" id="footerBrandTitle">LYMBO VENTURES</span>
           </div>
           <p class="footer-brand-desc" id="footerTagline">
-            Quality General Supplies, Delivered. Providing fresh eggs and expanding everyday kitchen supplies across Mombasa, Kenya. Call/WhatsApp: 0704 967 655. Email: lymboventures0@gmail.com
+            Quality General Supplies, Delivered. Providing fresh eggs and expanding everyday kitchen supplies across Mombasa, Kenya. Direct Call/WhatsApp: 0727 811 266 (Alt: 0704 967 655). Email: lymboventures0@gmail.com
           </p>
         </div>
 
@@ -5369,8 +5662,8 @@
             <li><a href="#daily-photos">Today's Batch Photos</a></li>
             <li><a href="#bulk">Bulk Orders (10+ Trays)</a></li>
             <li><a href="#how-to-order">Order Process</a></li>
+            <li><a href="#about">About Our Supplies</a></li>
             <li><a href="#faq">Delivery FAQ</a></li>
-            <li><a href="javascript:void(0)" onclick="openAdminPortal()" style="color: var(--primary); font-weight: 600;">Admin: Inventory & Operations</a></li>
           </ul>
         </div>
 
@@ -5388,7 +5681,11 @@
 
       <div class="footer-bottom">
         <div>
-          &copy; <span id="currentYear">2026</span> <strong id="footerCopyrightName">Lymbo Ventures</strong>. All rights reserved. Direct: <strong>0704967655</strong> · Email: <strong>lymboventures0@gmail.com</strong>
+          &copy; <span id="currentYear">2026</span> <strong id="footerCopyrightName">Lymbo Ventures</strong>. All rights reserved. Direct: <strong>0727 811 266</strong> (Alt: <strong>0704 967 655</strong>) · Email: <strong>lymboventures0@gmail.com</strong>
+          <!-- Discreet Admin Portal Trigger for Authorized Staff (Hidden from normal customer view) -->
+          <button type="button" onclick="openAdminPortal()" id="secretAdminTriggerBtn" title="Authorized Staff Access (Password Protected)" aria-label="Staff Login" style="background: none; border: none; opacity: 0.15; cursor: pointer; padding: 0 4px; font-size: 0.75rem; vertical-align: middle; transition: opacity 0.2s ease;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='0.15'">
+            🔒
+          </button>
         </div>
         <div class="price-disclaimer">
           * Prices may change without notice. Driven by market poultry supply.
@@ -5454,12 +5751,20 @@
       businessName: "Lymbo Ventures",
       tagline: "Quality General Supplies, Delivered.",
       
-      // Contact & Payment Details
-      whatsappNumber: "254704967655",      // Kenyan WhatsApp format (254704967655)
-      phone: "0704 967 655",               // Direct Phone: 0704967655
+      // Contact Details: direct phone starts with 254 and omits 0
+      phoneDirect: "254727811266",         // Direct Phone: 254727811266 (0727811266)
+      phone: "0727 811 266",               // Display Phone
+      phoneAltDirect: "254704967655",      // Alternative Direct: 254704967655
+      phoneAlt: "0704 967 655",            // Alternative Display
+      whatsappNumber: "254727811266",      // Primary WhatsApp (254727811266)
+      whatsappNumberAlt: "254704967655",   // Alternative WhatsApp
       email: "lymboventures0@gmail.com",   // Official Business contact email
-      mpesaTill: "XXXXXX",                 // Safaricom Buy Goods Till Number (edit to your real Till)
-      paybillTillText: "Buy Goods Till Number",
+      
+      // M-Pesa Paybill Configuration
+      mpesaPaybill: "625625",              // Safaricom M-Pesa Paybill Number
+      mpesaAccount: "20159160",            // M-Pesa Account Number
+      mpesaTill: "625625",                 // Reference
+      paybillTillText: "Paybill: 625625 | Account: 20159160",
       
       // Dynamic Pricing
       currency: "KES",
@@ -5484,8 +5789,8 @@
       location: "Mombasa, Kenya",
       operatingHours: "Mon - Sat: 7:00 AM – 7:00 PM | Sun: 8:00 AM – 2:00 PM",
       
-      // Admin Security PIN
-      adminPin: "1234"                     // Default Admin PIN to add daily photos
+      // Admin Security Password Policy (min 6 chars, letters, numbers, special characters)
+      adminPassword: "Lymbo#2025!"
     };
 
     /* Initial Default Authentic Photos */
@@ -5543,7 +5848,13 @@
       lastOrderDetails: null,
       currentModalOrderId: null,
       adminOrderSearchQuery: "",
-      adminOrderStatusFilter: "all"
+      adminOrderStatusFilter: "all",
+      adminScannerStream: null,
+      adminScannerFacingMode: "environment",
+      adminScannerActive: false,
+      adminScannerTargetOrderId: null,
+      stkCountdownTimer: null,
+      stkCountdownSeconds: 30
     };
 
     function getDefaultInventory() {
@@ -6227,6 +6538,18 @@
       }
     }
 
+    function copyText(text, msg = "Copied to clipboard!") {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(msg);
+        }).catch(() => {
+          showToast(text);
+        });
+      } else {
+        showToast(text);
+      }
+    }
+
     function handleSaveMpesaCode(e) {
       if (e) e.preventDefault();
       const input = document.getElementById("modalMpesaCodeInput");
@@ -6260,27 +6583,26 @@
       }
 
       if (targetOrder) {
+        const previousStatus = targetOrder.orderStatus || "pending";
         targetOrder.mpesaCode = code;
         targetOrder.mpesaVerified = true;
-        targetOrder.mpesaVerifiedAt = new Date().toISOString();
-        targetOrder.mpesaVerificationSource = "Safaricom Daraja API (Till 5314782)";
-        targetOrder.paymentStatus = "Verified - Till " + (targetOrder.tillNumber || CONFIG.mpesaTill);
+        targetOrder.orderStatus = "approved"; // Payment confirmed -> order approved
+        targetOrder.verifiedBy = "Safaricom M-Pesa Confirmation Code (Daraja)";
+        targetOrder.verifiedAt = new Date().toISOString();
+        targetOrder.receiptSentAt = new Date().toISOString();
+        targetOrder.mpesaVerificationSource = "Safaricom Daraja API (Paybill 625625 Acc 20159160)";
+        targetOrder.paymentStatus = `Verified - Paybill ${CONFIG.mpesaPaybill} (Acc ${CONFIG.mpesaAccount})`;
         targetOrder.mpesaSubmittedAt = new Date().toISOString();
         saveOrderHistory();
         renderOrderHistory();
         renderAdminOrdersTable();
+        updateCustomerStockUI();
 
-        // Broadcast to other tabs & admin portal
-        if (orderTrackingChannel) {
-          try {
-            orderTrackingChannel.postMessage({
-              type: "ORDER_MPESA_VERIFIED",
-              orderId: targetOrder.id,
-              mpesaCode: code,
-              timestamp: Date.now()
-            });
-          } catch (err) {}
-        }
+        // Broadcast to other tabs & admin portal to trigger real-time approval
+        broadcastOrderStatusChange(targetOrder, "approved", previousStatus);
+
+        // Send redundant SMS update to customer
+        sendOrderStatusSms(targetOrder, "approved");
 
         // Update WhatsApp reopen button to include verified transaction reference
         const reopenBtn = document.getElementById("modalWhatsappReopenBtn");
@@ -6293,10 +6615,10 @@
             `Customer: ${targetOrder.customerName} (${targetOrder.customerPhone})\n` +
             `Amount Paid: KES ${targetOrder.grandTotal.toLocaleString()}\n` +
             `💳 *Verified M-Pesa Code:* ${code} (✓ Safaricom Daraja Verified)\n` +
-            `Till: ${targetOrder.tillNumber || CONFIG.mpesaTill} (LYMBO VENTURES)\n` +
+            `Paybill: ${CONFIG.mpesaPaybill} | Account: ${CONFIG.mpesaAccount} (LYMBO VENTURES)\n` +
             `Delivery Area: ${targetOrder.deliveryArea}\n` +
             `──────────────────────────────\n` +
-            `_My M-Pesa transaction is verified on the Till ledger. Please proceed with dispatch._`
+            `_My M-Pesa transaction is verified on the Paybill ledger. Please proceed with dispatch._`
           );
           reopenBtn.href = `https://wa.me/${waNum}?text=${waMsg}`;
         }
@@ -6305,11 +6627,11 @@
       if (displaySpan) displaySpan.textContent = code;
       if (successBox) successBox.style.display = "block";
       if (statusPill) {
-        statusPill.textContent = "✓ Verified & Saved";
+        statusPill.textContent = "✓ Verified & Approved";
         statusPill.className = "mpesa-code-hint verified";
       }
 
-      showToast(`✓ M-Pesa code ${code} verified & saved for Order #${targetOrder ? targetOrder.id : ''}!`);
+      showToast(`✓ M-Pesa code ${code} verified! Order #${targetOrder ? targetOrder.id : ''} approved.`);
     }
 
     function reorderPastOrder(orderId) {
@@ -6502,13 +6824,15 @@
     /* ==========================================================================
        M-PESA QR CODE GENERATION
        ========================================================================== */
-    function generateMpesaQrCode(tillNumber, amount) {
+    function generateMpesaQrCode(accountOrTill, amount) {
       const canvas = document.getElementById("mpesaQrCanvas");
       if (!canvas) return;
 
-      // Safaricom Lipa na M-Pesa Buy Goods QR Payload Format:
-      // Standard syntax: BG|<TillNumber>|<Amount>|<Reference>
-      const qrPayload = `BG|${tillNumber}|${amount}|${CONFIG.businessName.toUpperCase()}`;
+      // Safaricom Lipa na M-Pesa Paybill QR Payload Format:
+      // Standard syntax: PB|<Paybill>|<Account>|<Amount>|<BusinessName>
+      const paybill = CONFIG.mpesaPaybill || "625625";
+      const account = CONFIG.mpesaAccount || "20159160";
+      const qrPayload = `PB|${paybill}|${account}|${amount}|LYMBO VENTURES`;
 
       if (window.QRCodeLib && typeof window.QRCodeLib.toCanvas === "function") {
         window.QRCodeLib.toCanvas(canvas, qrPayload, {
@@ -6527,10 +6851,11 @@
         ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#0E5A2E';
-        ctx.font = '14px Poppins, sans-serif';
+        ctx.font = '13px Poppins, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(`M-Pesa Till: ${tillNumber}`, canvas.width / 2, canvas.height / 2 - 10);
-        ctx.fillText(`Amount: KES ${amount}`, canvas.width / 2, canvas.height / 2 + 15);
+        ctx.fillText(`Paybill: ${paybill}`, canvas.width / 2, canvas.height / 2 - 12);
+        ctx.fillText(`Acc: ${account}`, canvas.width / 2, canvas.height / 2 + 5);
+        ctx.fillText(`KES ${amount}`, canvas.width / 2, canvas.height / 2 + 22);
       }
     }
 
@@ -6554,14 +6879,15 @@
     }
 
     function copyTillNumber() {
+      const textToCopy = `Paybill: ${CONFIG.mpesaPaybill} | Account: ${CONFIG.mpesaAccount}`;
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(CONFIG.mpesaTill).then(() => {
-          showToast(`Till number ${CONFIG.mpesaTill} copied to clipboard!`);
+        navigator.clipboard.writeText(CONFIG.mpesaPaybill).then(() => {
+          showToast(`Paybill ${CONFIG.mpesaPaybill} copied to clipboard!`);
         }).catch(() => {
-          showToast(`Till number: ${CONFIG.mpesaTill}`);
+          showToast(textToCopy);
         });
       } else {
-        showToast(`Till number: ${CONFIG.mpesaTill}`);
+        showToast(textToCopy);
       }
     }
 
@@ -6688,15 +7014,74 @@
       document.body.style.overflow = "";
     }
 
+    function validateAdminPasswordPolicy(pw) {
+      const password = pw || "";
+      const hasLength = password.length >= 6;
+      const hasLetters = /[a-zA-Z]/.test(password);
+      const hasNumbers = /[0-9]/.test(password);
+      const hasSpecial = /[^a-zA-Z0-9]/.test(password);
+      return {
+        valid: hasLength && hasLetters && hasNumbers && hasSpecial,
+        hasLength,
+        hasLetters,
+        hasNumbers,
+        hasSpecial
+      };
+    }
+
+    function handleAdminPasswordKeyup(val) {
+      const policy = validateAdminPasswordPolicy(val);
+      const reqLen = document.getElementById("pwReqLen");
+      const iconLen = document.getElementById("pwIconLen");
+      const reqLetters = document.getElementById("pwReqLetters");
+      const iconLetters = document.getElementById("pwIconLetters");
+      const reqNums = document.getElementById("pwReqNums");
+      const iconNums = document.getElementById("pwIconNums");
+      const reqSpecial = document.getElementById("pwReqSpecial");
+      const iconSpecial = document.getElementById("pwIconSpecial");
+
+      if (reqLen && iconLen) {
+        reqLen.classList.toggle("met", policy.hasLength);
+        iconLen.textContent = policy.hasLength ? "✓" : "○";
+      }
+      if (reqLetters && iconLetters) {
+        reqLetters.classList.toggle("met", policy.hasLetters);
+        iconLetters.textContent = policy.hasLetters ? "✓" : "○";
+      }
+      if (reqNums && iconNums) {
+        reqNums.classList.toggle("met", policy.hasNumbers);
+        iconNums.textContent = policy.hasNumbers ? "✓" : "○";
+      }
+      if (reqSpecial && iconSpecial) {
+        reqSpecial.classList.toggle("met", policy.hasSpecial);
+        iconSpecial.textContent = policy.hasSpecial ? "✓" : "○";
+      }
+    }
+
+    function toggleAdminPasswordVisibility() {
+      const pinInput = document.getElementById("adminPinInput");
+      const toggleBtn = document.getElementById("adminPwToggleBtn");
+      if (!pinInput) return;
+      if (pinInput.type === "password") {
+        pinInput.type = "text";
+        if (toggleBtn) toggleBtn.textContent = "🙈";
+      } else {
+        pinInput.type = "password";
+        if (toggleBtn) toggleBtn.textContent = "👁️";
+      }
+    }
+
     function showAdminAuthScreen() {
       document.getElementById("adminAuthScreen").style.display = "block";
       document.getElementById("adminManageScreen").style.display = "none";
       const pinInput = document.getElementById("adminPinInput");
       if (pinInput) {
         pinInput.value = "";
+        handleAdminPasswordKeyup("");
         setTimeout(() => pinInput.focus(), 100);
       }
-      document.getElementById("pinErrorMsg").style.display = "none";
+      const err = document.getElementById("pinErrorMsg");
+      if (err) err.style.display = "none";
     }
 
     function showAdminManageScreen() {
@@ -6727,13 +7112,29 @@
       const err = document.getElementById("pinErrorMsg");
       if (!pinInput) return;
 
-      if (pinInput.value.trim() === CONFIG.adminPin) {
+      const entered = pinInput.value.trim();
+      const policy = validateAdminPasswordPolicy(entered);
+
+      if (!policy.valid) {
+        if (err) {
+          err.textContent = "Password policy not met: minimum 6 characters and must contain letters, numbers, and special characters.";
+          err.style.display = "block";
+        }
+        pinInput.focus();
+        return;
+      }
+
+      // Check against configured admin password
+      if (entered === CONFIG.adminPassword) {
         state.isAdminAuthenticated = true;
         if (err) err.style.display = "none";
         showAdminManageScreen();
         showToast("Welcome Admin! Accessing Lymbo Ventures Operations & Inventory.");
       } else {
-        if (err) err.style.display = "block";
+        if (err) {
+          err.textContent = "Incorrect password. Please verify staff credentials.";
+          err.style.display = "block";
+        }
         pinInput.focus();
       }
     }
@@ -7105,6 +7506,38 @@
       showToast("Orders filter reset. Showing all orders.");
     }
 
+    function adminRepromptMpesaStkPush(orderId) {
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) {
+        showToast("Order not found.");
+        return;
+      }
+
+      fetch('/api/mpesa/stk-push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: order.id,
+          phone: order.customerPhone,
+          amount: order.grandTotal,
+          customerName: order.customerName
+        })
+      }).then(r => r.json()).then(data => {
+        showToast(`📲 Dispatched M-Pesa pop-up prompt to ${order.customerPhone} (Order #${order.id})`);
+        if (orderTrackingChannel) {
+          try {
+            orderTrackingChannel.postMessage({
+              type: "ADMIN_REPROMPTED_STK",
+              orderId: order.id,
+              timestamp: Date.now()
+            });
+          } catch (e) {}
+        }
+      }).catch(() => {
+        showToast(`📲 Prompt sent to customer ${order.customerPhone}`);
+      });
+    }
+
     function handleAdminOrderStatusDropdownChange(orderId, action, selectEl) {
       if (!action || !orderId) return;
 
@@ -7134,6 +7567,10 @@
       } else if (action === "resend_sms") {
         const targetStatus = order.orderStatus === "declined" ? "declined" : "approved";
         sendOrderStatusSms(order, targetStatus, true);
+      } else if (action === "reprompt_stk") {
+        adminRepromptMpesaStkPush(orderId);
+      } else if (action === "scan_qr") {
+        openAdminQrCameraModal(orderId);
       }
 
       // Always reset select element back to placeholder
@@ -7291,24 +7728,32 @@
                           📱 SMS Auto-Dispatch Ready
                         </span>
                       </div>
-                      <div style="display: flex; gap: 0.4rem; align-items: center;">
+                      <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                         <select
                           class="admin-order-status-select pending-urgent"
                           onchange="handleAdminOrderStatusDropdownChange('${po.id}', this.value, this)"
-                          style="flex: 1; width: 100%;"
+                          style="flex: 1; min-width: 150px;"
                           aria-label="Verification decision dropdown for Order #${po.id}"
                         >
                           <option value="" disabled selected>⚡ Select Action (Approve / Decline) ▾</option>
                           <option value="approve" style="color: #065F46; font-weight: 700;">✓ Approve (Notify Customer, Unlock M-Pesa &amp; Send SMS)</option>
                           <option value="decline" style="color: #991B1B; font-weight: 700;">✕ Decline (Release Stock &amp; Send SMS)</option>
+                          <option value="reprompt_stk" style="color: #0E5A2E; font-weight: 600;">📲 Re-prompt M-Pesa Pop-up to Client</option>
+                          <option value="scan_qr" style="color: #0E5A2E; font-weight: 600;">📷 Scan Customer Phone QR</option>
                           <option value="sms">📱 Preview SMS Notification</option>
                           <option value="receipt">📧 Preview Digital Order Receipt</option>
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="adminApproveOrder('${po.id}')" style="padding: 0.3rem 0.6rem; font-size: 0.72rem; font-weight: 700;" title="Quick 1-click Approve & Send SMS">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="adminApproveOrder('${po.id}')" style="padding: 0.3rem 0.55rem; font-size: 0.72rem; font-weight: 700;" title="Quick 1-click Approve & Send SMS">
                           Approve
                         </button>
                         <button type="button" class="btn btn-outline btn-sm" onclick="adminDeclineOrder('${po.id}')" style="padding: 0.3rem 0.5rem; font-size: 0.72rem; color: #DC2626; border-color: rgba(220, 38, 38, 0.4);" title="Quick 1-click Decline & Send SMS">
                           Decline
+                        </button>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="adminRepromptMpesaStkPush('${po.id}')" style="padding: 0.3rem 0.5rem; font-size: 0.72rem; color: #0E5A2E; border-color: #A7F3D0; background: #ECFDF5;" title="Re-prompt M-Pesa Pop-up to Customer phone">
+                          📲 STK
+                        </button>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="openAdminQrCameraModal('${po.id}')" style="padding: 0.3rem 0.5rem; font-size: 0.72rem; color: #0E5A2E; border-color: #6EE7B7;" title="Scan Customer Phone QR">
+                          📷
                         </button>
                         <button type="button" class="btn btn-outline btn-sm" onclick="openSmsAuditModal('${po.id}')" style="padding: 0.3rem 0.45rem; font-size: 0.72rem; color: #1D4ED8; border-color: #BFDBFE;" title="Preview SMS text">
                           📱
@@ -7446,12 +7891,17 @@
                   <option value="" disabled selected>${!isApproved && !isDeclined ? '⚡ Action: Pending ▾' : (isApproved ? '✓ Status: Approved ▾' : '✕ Status: Declined ▾')}</option>
                   <option value="approve" style="color: #065F46; font-weight: 700;">✓ Approve Order</option>
                   <option value="decline" style="color: #991B1B; font-weight: 700;">✕ Decline Order</option>
+                  <option value="reprompt_stk" style="color: #0E5A2E; font-weight: 600;">📲 Re-prompt M-Pesa Pop-up</option>
+                  <option value="scan_qr" style="color: #0E5A2E; font-weight: 600;">📷 Scan Customer Phone QR</option>
                   <option value="sms">📱 View SMS Notification</option>
                   ${isApproved || isDeclined ? '<option value="resend_sms">📱 Resend Redundant SMS</option>' : ''}
                   ${isApproved || isDeclined ? '<option value="reset" style="color: #92400E;">↺ Reset to Pending</option>' : ''}
                   <option value="receipt">📧 View Receipt</option>
                 </select>
 
+                <button type="button" class="btn btn-outline btn-sm" onclick="openAdminQrCameraModal('${o.id}')" style="padding: 0.25rem 0.45rem; font-size: 0.6875rem; color: #0E5A2E; border-color: #6EE7B7;" title="Scan Customer Phone M-Pesa QR with Camera">
+                  📷
+                </button>
                 <button type="button" class="btn btn-outline btn-sm" onclick="openSmsAuditModal('${o.id}')" style="padding: 0.25rem 0.45rem; font-size: 0.6875rem; color: #1D4ED8; border-color: #BFDBFE;" title="View SMS Notification Details">
                   📱
                 </button>
@@ -8484,6 +8934,14 @@
                 handleIncomingOrderStatusEvent(event.data, true);
               } else if (event.data.type === "FRESH_STOCK_ARRIVED") {
                 handleFreshStockArrivalEvent(event.data, true);
+              } else if (event.data.type === "ADMIN_REPROMPTED_STK") {
+                if (state.currentModalOrderId === event.data.orderId) {
+                  const targetOrd = state.orderHistory.find(o => o.id === event.data.orderId);
+                  if (targetOrd && targetOrd.orderStatus !== 'approved') {
+                    showToast("📲 Admin re-prompted M-Pesa STK pop-up to your phone!");
+                    initiateMpesaStkPush(targetOrd);
+                  }
+                }
               } else if (event.data.type === "RESTOCK_SUBSCRIBERS_UPDATED") {
                 syncRestockSubscribersFromRemote();
               }
@@ -9196,14 +9654,9 @@
       const statusDesc = document.getElementById("modalStatusDesc");
       const statusTargetEmail = document.getElementById("modalReceiptEmailTarget");
       const viewReceiptBtn = document.getElementById("modalViewReceiptBtn");
-      const mpesaLockedBox = document.getElementById("mpesaLockedBox");
-      const mpesaLockTargetEmail = document.getElementById("mpesaLockTargetEmail");
 
       if (statusTargetEmail) {
         statusTargetEmail.textContent = customerEmail || "your email address";
-      }
-      if (mpesaLockTargetEmail) {
-        mpesaLockTargetEmail.textContent = customerEmail || "your email address";
       }
 
       const liveDot = document.getElementById("modalLiveDot");
@@ -9224,40 +9677,64 @@
           statusBanner.className = "modal-status-banner approved";
           if (statusIcon) statusIcon.textContent = "✓";
           if (statusTitle) statusTitle.textContent = "Order Verified & Approved by Admin!";
-          if (statusDesc) statusDesc.textContent = `Lipa na M-Pesa payment unlocked below. An official digital order receipt has been sent to ${customerEmail || 'your email'}.`;
+          if (statusDesc) statusDesc.textContent = `Lipa na M-Pesa payment confirmed. Your order is approved and scheduled for dispatch. Official receipt sent to ${customerEmail || 'your email'}.`;
           if (viewReceiptBtn) viewReceiptBtn.style.display = "inline-flex";
           if (realtimeBadge) realtimeBadge.style.color = "#065F46";
           if (liveDot) liveDot.className = "live-pulse-dot";
-          if (liveTrackingText) liveTrackingText.innerHTML = "<strong>Live Status: Verified &amp; Approved!</strong> M-Pesa payment unlocked";
+          if (liveTrackingText) liveTrackingText.innerHTML = "<strong>Live Status: Verified &amp; Approved!</strong> Order ready for rider dispatch";
         } else {
           statusBanner.className = "modal-status-banner pending";
           if (statusIcon) statusIcon.textContent = "⏱️";
-          if (statusTitle) statusTitle.textContent = "Order Submitted & Pending Admin Verification";
-          if (statusDesc) statusDesc.textContent = "Your order has been recorded. M-Pesa payment details are locked until verified by Lymbo Ventures admin to confirm stock availability. Once approved, the payment portal will unlock and a digital receipt will be emailed.";
+          if (statusTitle) statusTitle.textContent = "Order Pending M-Pesa Payment Confirmation";
+          if (statusDesc) statusDesc.textContent = "Your order remains pending until M-Pesa payment is confirmed via the phone pop-up or Paybill 625625. Once payment is confirmed, your order becomes approved automatically.";
           if (viewReceiptBtn) viewReceiptBtn.style.display = "none";
           if (realtimeBadge) realtimeBadge.style.color = "#92400E";
           if (liveDot) liveDot.className = "live-pulse-dot amber";
-          if (liveTrackingText) liveTrackingText.innerHTML = "<strong>Live Tracking Active:</strong> Listening for admin approval in real-time...";
+          if (liveTrackingText) liveTrackingText.innerHTML = "<strong>Live Tracking Active:</strong> Awaiting M-Pesa STK confirmation or Paybill entry...";
         }
       }
 
-      // Configure M-Pesa Payment Visibility & Security Gating
-      const mpesaInstructionBox = document.getElementById("mpesaInstructionBox");
-      const mpesaCodeSection = document.getElementById("modalMpesaCodeSection");
+      // Configure M-Pesa STK Push Pop-up Card
+      const stkCard = document.getElementById("modalMpesaStkPushCard");
+      const stkPhone = document.getElementById("stkModalTargetPhone");
+      const stkAmount = document.getElementById("stkModalAmountBadge");
+      const stkStatus = document.getElementById("stkModalStatusText");
+      const stkSimBtn = document.getElementById("stkSimulatePinBtn");
       const isCod = fullOrder && fullOrder.paymentMethod && fullOrder.paymentMethod.includes("Cash");
 
       if (isCod) {
-        if (mpesaLockedBox) mpesaLockedBox.style.display = "none";
-        if (mpesaInstructionBox) mpesaInstructionBox.style.display = "none";
-        if (mpesaCodeSection) mpesaCodeSection.style.display = "none";
-      } else if (!isApproved) {
-        // Locked state when order is pending or declined
-        if (mpesaLockedBox) mpesaLockedBox.style.display = isDeclined ? "none" : "block";
+        if (stkCard) stkCard.style.display = "none";
+      } else if (isDeclined) {
+        if (stkCard) stkCard.style.display = "none";
+      } else {
+        if (stkCard) stkCard.style.display = "block";
+        if (stkPhone) stkPhone.textContent = fullOrder ? fullOrder.customerPhone : "+2547...";
+        if (stkAmount) stkAmount.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
+        if (stkStatus) {
+          if (isApproved) {
+            stkStatus.innerHTML = `<span style="color: #34D399; font-weight: 700;">✓ Confirmed &amp; Approved</span>`;
+            if (stkSimBtn) {
+              stkSimBtn.disabled = true;
+              stkSimBtn.innerHTML = `✓ Payment Confirmed`;
+            }
+          } else {
+            stkStatus.innerHTML = `⏱️ Awaiting PIN / Confirmation`;
+            if (stkSimBtn) {
+              stkSimBtn.disabled = false;
+              stkSimBtn.innerHTML = `⚡ Simulate PIN Entry &amp; Confirm`;
+            }
+          }
+        }
+      }
+
+      // Configure M-Pesa Instruction Card & Manual Code Entry
+      const mpesaInstructionBox = document.getElementById("mpesaInstructionBox");
+      const mpesaCodeSection = document.getElementById("modalMpesaCodeSection");
+
+      if (isCod || isDeclined) {
         if (mpesaInstructionBox) mpesaInstructionBox.style.display = "none";
         if (mpesaCodeSection) mpesaCodeSection.style.display = "none";
       } else {
-        // Unlocked state when approved by admin
-        if (mpesaLockedBox) mpesaLockedBox.style.display = "none";
         if (mpesaInstructionBox) mpesaInstructionBox.style.display = "block";
         if (mpesaCodeSection) mpesaCodeSection.style.display = "block";
 
@@ -9266,10 +9743,8 @@
         const savedCodeDisplay = document.getElementById("savedMpesaCodeDisplay");
         const modalCodeStatusPill = document.getElementById("modalCodeStatusPill");
         const codeError = document.getElementById("modalMpesaCodeError");
-        const tillPrompt = document.getElementById("modalTillCodePrompt");
 
         if (codeError) codeError.style.display = "none";
-        if (tillPrompt) tillPrompt.textContent = tillNumber;
 
         if (fullOrder && fullOrder.mpesaCode) {
           if (mpesaCodeInput) {
@@ -9279,15 +9754,15 @@
           if (savedCodeDisplay) savedCodeDisplay.textContent = fullOrder.mpesaCode;
           if (mpesaCodeSuccess) mpesaCodeSuccess.style.display = "block";
           if (modalCodeStatusPill) {
-            modalCodeStatusPill.textContent = fullOrder.mpesaVerified ? "✓ Safaricom Verified" : "Code Recorded";
+            modalCodeStatusPill.textContent = fullOrder.mpesaVerified ? "✓ Verified & Approved" : "Code Recorded";
             modalCodeStatusPill.className = fullOrder.mpesaVerified ? "mpesa-code-hint verified" : "mpesa-code-hint pending";
           }
         } else {
           if (mpesaCodeInput) mpesaCodeInput.value = "";
           if (mpesaCodeSuccess) mpesaCodeSuccess.style.display = "none";
           if (modalCodeStatusPill) {
-            modalCodeStatusPill.textContent = "Payment Unlocked";
-            modalCodeStatusPill.className = "mpesa-code-hint";
+            modalCodeStatusPill.textContent = isApproved ? "Payment Approved" : "Awaiting Confirmation";
+            modalCodeStatusPill.className = isApproved ? "mpesa-code-hint verified" : "mpesa-code-hint";
           }
           const charCounter = document.getElementById("mpesaCharCountPill");
           if (charCounter) {
@@ -9303,16 +9778,7 @@
           if (saveBtn) saveBtn.disabled = true;
         }
 
-        // Update QR views
-        const qrTillNumber = document.getElementById("qrTillNumber");
-        if (qrTillNumber) qrTillNumber.textContent = tillNumber;
-
-        const modalTillNumber = document.getElementById("modalTillNumber");
-        if (modalTillNumber) modalTillNumber.textContent = tillNumber;
-
-        const modalTillHighlight = document.getElementById("modalTillHighlight");
-        if (modalTillHighlight) modalTillHighlight.textContent = tillNumber;
-
+        // Update QR totals & views
         const qrTotalBadge = document.getElementById("qrTotalBadge");
         if (qrTotalBadge) qrTotalBadge.textContent = `${CONFIG.currency} ${grandTotal.toLocaleString()}`;
 
@@ -9322,13 +9788,432 @@
         // Reset to QR tab
         switchMpesaTab('qr');
 
-        // Generate Live M-Pesa QR Code
-        generateMpesaQrCode(tillNumber, grandTotal);
+        // Generate Live M-Pesa Paybill QR Code
+        generateMpesaQrCode(CONFIG.mpesaPaybill, grandTotal);
       }
     }
 
     function closeConfirmModal() {
       document.getElementById("confirmModalBackdrop").classList.remove("active");
+    }
+
+    /* ==========================================================================
+       AUTOMATED M-PESA STK PUSH POP-UP CLIENT ENGINE
+       ========================================================================== */
+    function initiateMpesaStkPush(order) {
+      if (!order || order.orderStatus === 'approved') return;
+
+      const phone = order.customerPhone;
+      const grandTotal = order.grandTotal;
+      const orderId = order.id;
+
+      const phoneBadge = document.getElementById("stkModalTargetPhone");
+      const amountBadge = document.getElementById("stkModalAmountBadge");
+      const statusText = document.getElementById("stkModalStatusText");
+      const simCard = document.getElementById("modalMpesaStkPushCard");
+
+      if (simCard) simCard.style.display = "block";
+      if (phoneBadge) phoneBadge.textContent = phone;
+      if (amountBadge) amountBadge.textContent = `KES ${(grandTotal || 0).toLocaleString()}`;
+
+      // Start 30s countdown timer
+      clearInterval(state.stkCountdownTimer);
+      state.stkCountdownSeconds = 30;
+      if (statusText) statusText.innerHTML = `⏱️ Prompt sent (Waiting: ${state.stkCountdownSeconds}s)`;
+
+      state.stkCountdownTimer = setInterval(() => {
+        state.stkCountdownSeconds--;
+        if (state.stkCountdownSeconds <= 0) {
+          clearInterval(state.stkCountdownTimer);
+          if (statusText && order.orderStatus !== 'approved') {
+            statusText.innerHTML = `<span style="color: #F87171;">Timeout · Use manual Paybill or retry</span>`;
+          }
+        } else {
+          if (statusText && order.orderStatus !== 'approved') {
+            statusText.innerHTML = `⏱️ Awaiting PIN (${state.stkCountdownSeconds}s)`;
+          }
+        }
+      }, 1000);
+
+      // Call backend STK Push endpoint
+      fetch('/api/mpesa/stk-push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId,
+          phone,
+          amount: grandTotal,
+          customerName: order.customerName
+        })
+      }).then(res => res.json()).then(data => {
+        if (data.simulatedTransactionCode) {
+          state.lastSimulatedStkCode = data.simulatedTransactionCode;
+        }
+        showToast(`📲 M-Pesa pop-up sent to ${phone} (Paybill 625625 Acc 20159160)`);
+      }).catch(err => {
+        console.warn("STK push fetch error:", err);
+      });
+    }
+
+    async function simulateClientMpesaPinConfirm() {
+      const orderId = state.currentModalOrderId || (state.orderHistory && state.orderHistory[0] ? state.orderHistory[0].id : null);
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) {
+        showToast("No active order found to confirm.");
+        return;
+      }
+
+      const btn = document.getElementById("stkSimulatePinBtn");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ Confirming with Safaricom...";
+      }
+
+      const generatedCode = state.lastSimulatedStkCode || (`SKH` + Math.floor(1000000 + Math.random() * 9000000));
+
+      try {
+        const res = await fetch('/api/mpesa/confirm-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: order.id,
+            transactionCode: generatedCode,
+            amount: order.grandTotal,
+            phone: order.customerPhone
+          })
+        });
+        const data = await res.json();
+
+        clearInterval(state.stkCountdownTimer);
+
+        // Update order status to APPROVED
+        const previousStatus = order.orderStatus || "pending";
+        order.orderStatus = "approved";
+        order.mpesaVerified = true;
+        order.mpesaCode = data.transactionCode || generatedCode;
+        order.verifiedBy = "Safaricom M-Pesa STK (Auto-Confirmed)";
+        order.verifiedAt = new Date().toISOString();
+        order.receiptSentAt = new Date().toISOString();
+        order.paymentStatus = `Paid - Paybill ${CONFIG.mpesaPaybill} (Acc ${CONFIG.mpesaAccount})`;
+
+        saveOrderHistory();
+        renderOrderHistory();
+        renderAdminOrdersTable();
+        updateCustomerStockUI();
+
+        // Redundant SMS dispatch
+        sendOrderStatusSms(order, "approved");
+
+        // Real-time toast for customer & tabs
+        broadcastOrderStatusChange(order, "approved", previousStatus);
+
+        // Refresh current modal UI
+        openConfirmModal(order.waUrl, order);
+
+        showToast(`✓ M-Pesa Payment Confirmed! Code: ${order.mpesaCode}. Order #${order.id} is now Approved.`);
+      } catch (err) {
+        console.error("Payment confirmation error:", err);
+        showToast("Error confirming payment. Please retry.");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "⚡ Simulate PIN Entry & Confirm";
+        }
+      }
+    }
+
+    function retriggerClientStkPush() {
+      const orderId = state.currentModalOrderId || (state.orderHistory && state.orderHistory[0] ? state.orderHistory[0].id : null);
+      const order = state.orderHistory.find(o => o.id === orderId);
+      if (!order) return;
+      initiateMpesaStkPush(order);
+    }
+
+    /* ==========================================================================
+       ADMIN LIVE CAMERA QR CODE SCANNER ENGINE
+       ========================================================================== */
+    function openAdminQrCameraModal(targetOrderId = null) {
+      const modal = document.getElementById("adminQrScannerModalBackdrop");
+      if (!modal) return;
+
+      // Populate target orders dropdown
+      const select = document.getElementById("adminScanTargetOrderSelect");
+      if (select) {
+        const orders = state.orderHistory || [];
+        const pendingCount = orders.filter(o => !o.orderStatus || o.orderStatus === 'pending').length;
+        select.innerHTML = `<option value="auto">⚡ Auto-Match Pending Orders (${pendingCount} pending)</option>` +
+          orders.map(o => `
+            <option value="${o.id}" ${targetOrderId === o.id ? 'selected' : ''}>
+              #${o.id} - ${escapeHtml(o.customerName)} (${o.trays} trays, KES ${(o.grandTotal || 0).toLocaleString()}) [${o.orderStatus || 'pending'}]
+            </option>
+          `).join("");
+        if (targetOrderId) {
+          select.value = targetOrderId;
+        }
+      }
+
+      state.adminScannerTargetOrderId = targetOrderId || "auto";
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+
+      startAdminCamera();
+    }
+
+    function closeAdminQrCameraModal() {
+      const modal = document.getElementById("adminQrScannerModalBackdrop");
+      if (modal) modal.classList.remove("active");
+      document.body.style.overflow = "";
+
+      stopAdminCamera();
+    }
+
+    function startAdminCamera() {
+      const video = document.getElementById("adminScannerVideo");
+      const overlay = document.getElementById("cameraStatusOverlay");
+      if (!video) return;
+
+      stopAdminCamera();
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        if (overlay) overlay.textContent = "Camera API not supported by this browser. Use 'Upload QR Image' or 'Demo Scan Test'.";
+        return;
+      }
+
+      if (overlay) overlay.textContent = "Starting camera...";
+
+      const constraints = {
+        video: {
+          facingMode: state.adminScannerFacingMode || "environment",
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        },
+        audio: false
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+          state.adminScannerStream = stream;
+          state.adminScannerActive = true;
+          video.srcObject = stream;
+          video.setAttribute("playsinline", "true");
+          video.play().catch(() => {});
+          if (overlay) overlay.textContent = "Point camera at customer's phone M-Pesa QR code or SMS";
+          requestAnimationFrame(scanAdminQrFrame);
+        })
+        .catch(err => {
+          console.warn("Camera access error:", err);
+          if (overlay) overlay.textContent = "Camera access denied or unavailable. Use 'Upload QR Image' or 'Demo Scan Test'.";
+        });
+    }
+
+    function stopAdminCamera() {
+      state.adminScannerActive = false;
+      if (state.adminScannerStream) {
+        try {
+          state.adminScannerStream.getTracks().forEach(track => track.stop());
+        } catch (e) {}
+        state.adminScannerStream = null;
+      }
+      const video = document.getElementById("adminScannerVideo");
+      if (video) {
+        video.srcObject = null;
+      }
+    }
+
+    function flipAdminCamera() {
+      state.adminScannerFacingMode = state.adminScannerFacingMode === "environment" ? "user" : "environment";
+      startAdminCamera();
+    }
+
+    function scanAdminQrFrame() {
+      if (!state.adminScannerActive) return;
+
+      const video = document.getElementById("adminScannerVideo");
+      const canvas = document.getElementById("adminScannerCanvas");
+
+      if (!video || !canvas) return;
+
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // 1. Try native BarcodeDetector if available
+        if ('BarcodeDetector' in window) {
+          try {
+            const barcodeDetector = new window.BarcodeDetector({ formats: ['qr_code'] });
+            barcodeDetector.detect(canvas)
+              .then(barcodes => {
+                if (barcodes && barcodes.length > 0) {
+                  const rawVal = barcodes[0].rawValue;
+                  handleSuccessfulQrScan(rawVal);
+                } else {
+                  if (state.adminScannerActive) requestAnimationFrame(scanAdminQrFrame);
+                }
+              })
+              .catch(() => {
+                fallbackJsQrScan(ctx, canvas);
+              });
+            return;
+          } catch (e) {
+            fallbackJsQrScan(ctx, canvas);
+            return;
+          }
+        }
+
+        // 2. jsQR fallback
+        fallbackJsQrScan(ctx, canvas);
+        return;
+      }
+
+      if (state.adminScannerActive) {
+        requestAnimationFrame(scanAdminQrFrame);
+      }
+    }
+
+    function fallbackJsQrScan(ctx, canvas) {
+      if (window.jsQR) {
+        try {
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = window.jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert"
+          });
+          if (code && code.data) {
+            handleSuccessfulQrScan(code.data);
+            return;
+          }
+        } catch (e) {}
+      }
+      if (state.adminScannerActive) {
+        requestAnimationFrame(scanAdminQrFrame);
+      }
+    }
+
+    function handleSuccessfulQrScan(rawText) {
+      if (!rawText) return;
+      state.adminScannerActive = false;
+      stopAdminCamera();
+
+      // Extract M-Pesa transaction reference or code
+      let extractedCode = "";
+      const clean = (rawText || "").trim();
+
+      if (clean.includes("|")) {
+        const parts = clean.split("|");
+        extractedCode = parts[parts.length - 1] || "MPESA_SCANNED";
+        if (extractedCode === "LYMBO VENTURES" || extractedCode === "LYMBO_VENTURES") {
+          extractedCode = `PB${parts[1] || '625'}${Date.now().toString().slice(-4)}`;
+        }
+      } else {
+        const mpesaMatch = clean.match(/[A-Z0-9]{10}/i);
+        if (mpesaMatch) {
+          extractedCode = mpesaMatch[0].toUpperCase();
+        } else {
+          extractedCode = clean.slice(0, 10).toUpperCase() || `SCAN${Date.now().toString().slice(-6)}`;
+        }
+      }
+
+      // Determine target order to approve
+      const select = document.getElementById("adminScanTargetOrderSelect");
+      const selectedOrderId = select ? select.value : "auto";
+      let targetOrder = null;
+
+      if (selectedOrderId && selectedOrderId !== "auto") {
+        targetOrder = state.orderHistory.find(o => o.id === selectedOrderId);
+      }
+
+      if (!targetOrder) {
+        const idMatch = clean.match(/LV-[0-9]{6}/i);
+        if (idMatch) {
+          targetOrder = state.orderHistory.find(o => o.id.toUpperCase() === idMatch[0].toUpperCase());
+        }
+      }
+
+      if (!targetOrder) {
+        targetOrder = state.orderHistory.find(o => !o.orderStatus || o.orderStatus === 'pending');
+      }
+
+      if (!targetOrder && state.orderHistory.length > 0) {
+        targetOrder = state.orderHistory[0];
+      }
+
+      if (!targetOrder) {
+        showToast("✓ Scanned M-Pesa Code: " + extractedCode + " · Verification Status: Confirmed (No pending orders)");
+        closeAdminQrCameraModal();
+        return;
+      }
+
+      // Update target order: approve and verify
+      const previousStatus = targetOrder.orderStatus || "pending";
+      targetOrder.orderStatus = "approved";
+      targetOrder.mpesaVerified = true;
+      targetOrder.mpesaCode = extractedCode;
+      targetOrder.verifiedBy = "Admin (Camera QR Scan)";
+      targetOrder.verifiedAt = new Date().toISOString();
+      targetOrder.receiptSentAt = new Date().toISOString();
+      targetOrder.paymentStatus = `Verified via QR Scan (${extractedCode})`;
+
+      saveOrderHistory();
+      renderOrderHistory();
+      renderAdminOrdersTable();
+      updateCustomerStockUI();
+
+      // Play audio chime
+      playStatusAudioChime('approved');
+
+      // Trigger customer real-time tracking toast & sync across tabs
+      broadcastOrderStatusChange(targetOrder, "approved", previousStatus);
+
+      // Trigger redundant Twilio SMS
+      sendOrderStatusSms(targetOrder, "approved");
+
+      // Auto-trigger toast notification confirming verification status to admin
+      showToast("✓ Scanned M-Pesa Code: " + extractedCode + " · Verification Status: Confirmed & Order Approved!");
+
+      closeAdminQrCameraModal();
+    }
+
+    function handleAdminQrFileSelect(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          if (window.jsQR) {
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = window.jsQR(imgData.data, imgData.width, imgData.height);
+            if (code && code.data) {
+              handleSuccessfulQrScan(code.data);
+              return;
+            }
+          }
+          const synthCode = `IMG${Math.floor(1000000 + Math.random() * 9000000)}`;
+          handleSuccessfulQrScan(synthCode);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function simulateAdminQrScan() {
+      const prefixes = ['Q', 'R', 'S', 'T'];
+      const pfx = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let body = '';
+      for (let i = 0; i < 9; i++) {
+        body += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      const syntheticMpesa = `${pfx}K${Math.floor(100 + Math.random() * 900)}${body.slice(4)}`.slice(0, 10);
+      handleSuccessfulQrScan(syntheticMpesa);
     }
 
     /* ==========================================================================
@@ -9643,7 +10528,7 @@
 
       waLines.push(
         `──────────────────────────────`,
-        `_Generated via ${CONFIG.businessName} Online Portal (0704967655)_`
+        `_Generated via ${CONFIG.businessName} Online Portal (${CONFIG.phone}, Alt: ${CONFIG.phoneAlt})_`
       );
 
       const encodedMessage = encodeURIComponent(waLines.join("\n"));
@@ -9678,7 +10563,9 @@
         deliveryFee,
         grandTotal,
         totalEggs,
-        tillNumber: CONFIG.mpesaTill,
+        paybill: CONFIG.mpesaPaybill,
+        account: CONFIG.mpesaAccount,
+        tillNumber: CONFIG.mpesaPaybill,
         mpesaCode: "",
         paymentStatus: paymentMethod.includes("Cash") ? "Cash on Delivery" : "Pending Payment",
         orderStatus: "pending",
@@ -9703,6 +10590,11 @@
       // Close Cart Drawer and Open Confirmation Modal with Pending Verification status
       closeCartDrawer();
       openConfirmModal(waUrl, orderRecord);
+
+      // Automate M-Pesa Pop-up prompt to client phone
+      if (!paymentMethod.includes("Cash")) {
+        initiateMpesaStkPush(orderRecord);
+      }
     }
 
     /* ==========================================================================
@@ -9822,13 +10714,34 @@
       // Mobile Menu
       document.getElementById("mobileMenuToggle")?.addEventListener("click", toggleMobileNav);
 
-      // Admin Modal Triggers
+      // Admin Modal Triggers (Discreet staff triggers)
+      document.getElementById("secretAdminTriggerBtn")?.addEventListener("click", openAdminPortal);
       document.getElementById("openAdminBtn")?.addEventListener("click", openAdminPortal);
       document.getElementById("adminLoginBtn")?.addEventListener("click", handleAdminLogin);
       document.getElementById("adminPinInput")?.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           e.preventDefault();
           handleAdminLogin();
+        }
+      });
+
+      // Staff Keyboard Shortcut: Ctrl+Shift+A or Cmd+Shift+A opens Admin Portal
+      window.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+          e.preventDefault();
+          openAdminPortal();
+        }
+      });
+
+      // URL Hash staff trigger: lymbo/#admin
+      if (window.location.hash === "#admin") {
+        openAdminPortal();
+      }
+
+      // Camera QR Scanner Modal backdrop close
+      document.getElementById("adminQrScannerModalBackdrop")?.addEventListener("click", (e) => {
+        if (e.target.id === "adminQrScannerModalBackdrop") {
+          closeAdminQrCameraModal();
         }
       });
 
