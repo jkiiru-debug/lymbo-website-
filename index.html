@@ -4319,6 +4319,62 @@
           </button>
         </div>
 
+        <!-- Customer Date Range Filter Control Card -->
+        <div id="customerOrderDateFilterCard" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.625rem; margin-bottom: 0.75rem; display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main); display: inline-flex; align-items: center; gap: 0.35rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Filter by Date
+            </span>
+            <button type="button" id="custOrderFilterResetBtn" onclick="resetCustomerOrderDateFilter()" style="display: none; background: none; border: none; font-size: 0.6875rem; color: var(--primary); font-weight: 600; cursor: pointer; padding: 0;" title="Reset filter to all time">
+              ↺ Reset Filter
+            </button>
+          </div>
+
+          <!-- Filter preset chips -->
+          <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;" role="radiogroup" aria-label="Customer order date filters">
+            <button type="button" class="date-chip-btn active" id="chipCustDate_all" onclick="setCustomerOrderDateFilter('all')">
+              All Time
+            </button>
+            <button type="button" class="date-chip-btn" id="chipCustDate_today" onclick="setCustomerOrderDateFilter('today')">
+              Today
+            </button>
+            <button type="button" class="date-chip-btn" id="chipCustDate_7days" onclick="setCustomerOrderDateFilter('7days')">
+              Past 7 Days
+            </button>
+            <button type="button" class="date-chip-btn" id="chipCustDate_30days" onclick="setCustomerOrderDateFilter('30days')">
+              Past 30 Days
+            </button>
+            <button type="button" class="date-chip-btn" id="chipCustDate_custom" onclick="setCustomerOrderDateFilter('custom')">
+              📅 Custom
+            </button>
+          </div>
+
+          <!-- Custom Date Range Row (visible if custom selected) -->
+          <div id="custOrderCustomDateRow" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-subtle);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+              <div>
+                <label for="custOrderFilterStartDate" style="font-size: 0.6875rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem; font-weight: 600;">From:</label>
+                <input type="date" id="custOrderFilterStartDate" class="form-input" style="font-size: 0.75rem; padding: 0.3rem 0.4rem; width: 100%;" onchange="handleCustomerCustomDateChange()" />
+              </div>
+              <div>
+                <label for="custOrderFilterEndDate" style="font-size: 0.6875rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem; font-weight: 600;">To:</label>
+                <input type="date" id="custOrderFilterEndDate" class="form-input" style="font-size: 0.75rem; padding: 0.3rem 0.4rem; width: 100%;" onchange="handleCustomerCustomDateChange()" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic meta text e.g. "Showing 3 of 5 orders" -->
+          <div id="custOrderFilterMetaText" style="font-size: 0.6875rem; color: var(--text-muted); margin-top: 0.4rem;">
+            Showing all orders
+          </div>
+        </div>
+
         <div id="orderHistoryList" class="order-history-container">
           <!-- Injected dynamically via renderOrderHistory() -->
         </div>
@@ -6683,6 +6739,9 @@
       myRestockSubscription: null,
       adminActiveTab: "inventory",
       activeDrawerTab: "basket",
+      customerOrderDateFilter: "all",
+      customerOrderDateStart: "",
+      customerOrderDateEnd: "",
       isAdminAuthenticated: false,
       newPhotoBase64: "",
       lastOrderDetails: null,
@@ -7639,22 +7698,241 @@
       }
     }
 
+    /* ==========================================================================
+       CUSTOMER ORDER HISTORY DATE-RANGE FILTERING
+       ========================================================================== */
+    function getOrderIsoDate(order) {
+      if (!order) return "";
+      if (order.createdAt) {
+        try {
+          const d = new Date(order.createdAt);
+          if (!isNaN(d.getTime())) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+          }
+        } catch (e) {}
+      }
+      if (order.deliveryDate && /^\d{4}-\d{2}-\d{2}$/.test(order.deliveryDate)) {
+        return order.deliveryDate;
+      }
+      if (order.date || order.timestamp) {
+        try {
+          const d = new Date(order.date || order.timestamp);
+          if (!isNaN(d.getTime())) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+          }
+        } catch (e) {}
+      }
+      if (order.formattedDate) {
+        try {
+          const d = new Date(order.formattedDate);
+          if (!isNaN(d.getTime())) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+          }
+        } catch (e) {}
+      }
+      return "";
+    }
+
+    function getLocalTodayIso() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function getPastDaysIso(daysAgo) {
+      const d = new Date();
+      d.setDate(d.getDate() - daysAgo);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function getFilterDateSummaryLabel() {
+      const filter = state.customerOrderDateFilter || 'all';
+      if (filter === 'today') return 'Today';
+      if (filter === '7days') return 'Past 7 Days';
+      if (filter === '30days') return 'Past 30 Days';
+      if (filter === 'custom') {
+        const s = state.customerOrderDateStart;
+        const e = state.customerOrderDateEnd;
+        if (s && e) return `${s} to ${e}`;
+        if (s) return `from ${s}`;
+        if (e) return `up to ${e}`;
+        return 'Custom Range';
+      }
+      return 'All Time';
+    }
+
+    function getFilteredCustomerOrders() {
+      const allOrders = state.orderHistory || [];
+      const filter = state.customerOrderDateFilter || 'all';
+      if (filter === 'all') return allOrders;
+
+      const todayStr = getLocalTodayIso();
+
+      if (filter === 'today') {
+        return allOrders.filter(o => {
+          const d = getOrderIsoDate(o);
+          return d === todayStr;
+        });
+      }
+
+      if (filter === '7days') {
+        const startStr = getPastDaysIso(7);
+        return allOrders.filter(o => {
+          const d = getOrderIsoDate(o);
+          return d && d >= startStr && d <= todayStr;
+        });
+      }
+
+      if (filter === '30days') {
+        const startStr = getPastDaysIso(30);
+        return allOrders.filter(o => {
+          const d = getOrderIsoDate(o);
+          return d && d >= startStr && d <= todayStr;
+        });
+      }
+
+      if (filter === 'custom') {
+        let s = state.customerOrderDateStart || '';
+        let e = state.customerOrderDateEnd || '';
+        if (s && e && s > e) {
+          const tmp = s;
+          s = e;
+          e = tmp;
+        }
+        return allOrders.filter(o => {
+          const d = getOrderIsoDate(o);
+          if (!d) return false;
+          if (s && e) return d >= s && d <= e;
+          if (s) return d >= s;
+          if (e) return d <= e;
+          return true;
+        });
+      }
+
+      return allOrders;
+    }
+
+    function setCustomerOrderDateFilter(filterType) {
+      state.customerOrderDateFilter = filterType;
+      if (filterType === 'custom') {
+        if (!state.customerOrderDateStart && !state.customerOrderDateEnd) {
+          state.customerOrderDateStart = getPastDaysIso(7);
+          state.customerOrderDateEnd = getLocalTodayIso();
+        }
+      }
+      updateCustomerOrderFilterUI();
+      renderOrderHistory();
+    }
+
+    function handleCustomerCustomDateChange() {
+      const startInput = document.getElementById("custOrderFilterStartDate");
+      const endInput = document.getElementById("custOrderFilterEndDate");
+      if (startInput) state.customerOrderDateStart = startInput.value;
+      if (endInput) state.customerOrderDateEnd = endInput.value;
+      state.customerOrderDateFilter = 'custom';
+      updateCustomerOrderFilterUI();
+      renderOrderHistory();
+    }
+
+    function resetCustomerOrderDateFilter() {
+      state.customerOrderDateFilter = 'all';
+      state.customerOrderDateStart = '';
+      state.customerOrderDateEnd = '';
+      const startInput = document.getElementById("custOrderFilterStartDate");
+      const endInput = document.getElementById("custOrderFilterEndDate");
+      if (startInput) startInput.value = '';
+      if (endInput) endInput.value = '';
+      updateCustomerOrderFilterUI();
+      renderOrderHistory();
+    }
+
+    function updateCustomerOrderFilterUI() {
+      const filter = state.customerOrderDateFilter || 'all';
+      const chips = ['all', 'today', '7days', '30days', 'custom'];
+      chips.forEach(c => {
+        const btn = document.getElementById(`chipCustDate_${c}`);
+        if (btn) {
+          if (c === filter) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+        }
+      });
+
+      const customRow = document.getElementById("custOrderCustomDateRow");
+      if (customRow) {
+        customRow.style.display = filter === 'custom' ? 'block' : 'none';
+      }
+      const startInput = document.getElementById("custOrderFilterStartDate");
+      const endInput = document.getElementById("custOrderFilterEndDate");
+      if (startInput && state.customerOrderDateStart) {
+        startInput.value = state.customerOrderDateStart;
+      }
+      if (endInput && state.customerOrderDateEnd) {
+        endInput.value = state.customerOrderDateEnd;
+      }
+
+      const resetBtn = document.getElementById("custOrderFilterResetBtn");
+      if (resetBtn) {
+        resetBtn.style.display = filter !== 'all' ? 'inline-block' : 'none';
+      }
+
+      const metaText = document.getElementById("custOrderFilterMetaText");
+      const allOrders = state.orderHistory || [];
+      const filtered = getFilteredCustomerOrders();
+      if (metaText) {
+        if (allOrders.length === 0) {
+          metaText.textContent = "No orders placed yet.";
+        } else if (filter === 'all') {
+          metaText.textContent = `Showing all ${allOrders.length} order${allOrders.length === 1 ? '' : 's'} on this device`;
+        } else {
+          metaText.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${allOrders.length}</strong> orders (Filtered by: ${escapeHtml(getFilterDateSummaryLabel())})`;
+        }
+      }
+
+      const countDisplay = document.getElementById("orderHistoryCountDisplay");
+      if (countDisplay) {
+        if (filter === 'all') {
+          countDisplay.textContent = `${allOrders.length} order${allOrders.length === 1 ? '' : 's'}`;
+        } else {
+          countDisplay.textContent = `${filtered.length} of ${allOrders.length} orders`;
+        }
+      }
+    }
+
     /* Render Order History List */
     function renderOrderHistory() {
       const container = document.getElementById("orderHistoryList");
       const countDisplay = document.getElementById("orderHistoryCountDisplay");
       const clearBtn = document.getElementById("clearHistoryBtn");
+      const filterCard = document.getElementById("customerOrderDateFilterCard");
       if (!container) return;
 
-      const orders = state.orderHistory || [];
-      if (countDisplay) {
-        countDisplay.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'}`;
-      }
+      const allOrders = state.orderHistory || [];
       if (clearBtn) {
-        clearBtn.style.display = orders.length > 0 ? "inline-flex" : "none";
+        clearBtn.style.display = allOrders.length > 0 ? "inline-flex" : "none";
       }
 
-      if (orders.length === 0) {
+      if (allOrders.length === 0) {
+        if (filterCard) filterCard.style.display = "none";
+        if (countDisplay) countDisplay.textContent = "0 orders";
         container.innerHTML = `
           <div class="cart-empty-state" style="padding: 2.5rem 1rem;">
             <svg class="cart-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -7667,6 +7945,35 @@
             </p>
             <button type="button" class="btn btn-primary btn-sm" onclick="switchDrawerTab('basket')">
               Order Fresh Eggs Now
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // If orders exist, display filter card and sync UI
+      if (filterCard) {
+        filterCard.style.display = "block";
+      }
+      updateCustomerOrderFilterUI();
+
+      const orders = getFilteredCustomerOrders();
+
+      if (orders.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty-state" style="padding: 2rem 1rem; border: 1px dashed var(--border-subtle); border-radius: var(--radius-sm); margin-top: 0.5rem;">
+            <svg class="cart-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 36px; height: 36px; margin-bottom: 0.5rem; color: var(--text-muted);">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <h4 style="font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main); font-size: 0.9375rem;">No Orders in This Range</h4>
+            <p style="font-size: 0.8125rem; color: var(--text-muted); max-width: 290px; margin: 0 auto 1rem; line-height: 1.4;">
+              No past transactions found for <strong>${escapeHtml(getFilterDateSummaryLabel())}</strong>. You have ${allOrders.length} past order${allOrders.length === 1 ? '' : 's'} saved on this device.
+            </p>
+            <button type="button" class="btn btn-outline btn-sm" onclick="resetCustomerOrderDateFilter()" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
+              ↺ Reset Date Filter
             </button>
           </div>
         `;
@@ -8242,6 +8549,9 @@
     function clearOrderHistory() {
       if (!confirm("Are you sure you want to clear your saved order history from this browser?")) return;
       state.orderHistory = [];
+      state.customerOrderDateFilter = 'all';
+      state.customerOrderDateStart = '';
+      state.customerOrderDateEnd = '';
       saveOrderHistory();
       renderOrderHistory();
       updateOrderHistoryBadge();
